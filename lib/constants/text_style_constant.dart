@@ -73,7 +73,7 @@ class TextStyleConstant {
   static TextStyle semiboldSubtitle = TextStyle(
     color: ColorConstant.neutralColor900,
     fontWeight: FontWeight.w600,
-    fontSize:16,
+    fontSize: 16,
   );
   static TextStyle semiboldParagraph = TextStyle(
     color: ColorConstant.neutralColor900,
@@ -179,7 +179,7 @@ class TextStyleConstant {
     fontWeight: FontWeight.w400,
     fontSize: 16,
   );
-  static TextStyle regularPargraph = TextStyle(
+  static TextStyle regularParagraph = TextStyle(
     color: ColorConstant.neutralColor900,
     fontWeight: FontWeight.w400,
     fontSize: 14,
