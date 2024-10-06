@@ -1,14 +1,18 @@
 import "package:dasarata_mobile/constants/app_theme_constant.dart";
-import "package:dasarata_mobile/env/env.dart";
-import "package:dasarata_mobile/screens/home/home_screen.dart";
+import "package:dasarata_mobile/screens/main_screen.dart";
+import "package:dasarata_mobile/utilities/system_ui_overlay_utils.dart";
+import "package:device_preview_minus/device_preview_minus.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import "package:supabase_flutter/supabase_flutter.dart";
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Supabase.initialize(url: Env.supabaseUrl, anonKey: Env.supabaseKey);
-  runApp(const MyApp());
+  SystemUiOverlayUtils.setSystemUiOverlay();
+  runApp(
+    DevicePreview(
+      enabled: false,
+      builder: (context) => const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -19,7 +23,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: AppThemeConstant.appTheme,
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: const MainScreen(),
     );
   }
 }
