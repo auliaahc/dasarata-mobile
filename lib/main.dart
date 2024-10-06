@@ -1,6 +1,8 @@
 import "package:dasarata_mobile/constants/app_theme_constant.dart";
 import "package:dasarata_mobile/env/env.dart";
+import "package:dasarata_mobile/screens/home/home_screen.dart";
 import "package:flutter/material.dart";
+import "package:get/get.dart";
 import "package:supabase_flutter/supabase_flutter.dart";
 
 void main() async {
@@ -14,14 +16,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       theme: AppThemeConstant.appTheme,
       debugShowCheckedModeBanner: false,
-      home: const Scaffold(
-        body: Center(
-          child: Text("Hello World!"),
-        ),
-      ),
+      home: const HomeScreen(),
     );
   }
 }
