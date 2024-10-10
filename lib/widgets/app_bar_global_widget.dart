@@ -19,7 +19,7 @@ class AppBarGlobalWidget extends StatelessWidget implements PreferredSizeWidget 
       backgroundColor: ColorConstant.whiteColor,
       centerTitle: true,
       title: Text(title),
-      titleTextStyle: TextStyleConstant.semiboldSubtitle.copyWith(fontFamily: "Poppins"),
+      titleTextStyle: TextStyleConstant.semiboldTitle.copyWith(fontFamily: "Poppins"),
     );
   }
 
