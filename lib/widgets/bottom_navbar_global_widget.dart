@@ -1,10 +1,16 @@
-import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:dasarata_mobile/constants/color_constant.dart';
 
 class BottomNavbarGlobalWidget extends StatelessWidget {
-  const BottomNavbarGlobalWidget({super.key});
+  final int selectedIndex;
+  final Function(int) onTabChange;
+  const BottomNavbarGlobalWidget({
+    super.key,
+    required this.selectedIndex,
+    required this.onTabChange,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +30,8 @@ class BottomNavbarGlobalWidget extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: GNav(
+        selectedIndex: selectedIndex,
+        onTabChange: onTabChange,
         rippleColor: ColorConstant.secondaryColor,
         hoverColor: const Color(0XFFD6E9F9),
         haptic: true,
