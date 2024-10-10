@@ -19,6 +19,7 @@ class SpacingConstant {
   static SizedBox horizontalSpacing4px = const SizedBox(width: 4);
   static SizedBox horizontalSpacing6px = const SizedBox(width: 6);
   static SizedBox horizontalSpacing8px = const SizedBox(width: 8);
+  static SizedBox horizontalSpacing10px = const SizedBox(width: 10);
   static SizedBox horizontalSpacing12px = const SizedBox(width: 12);
   static SizedBox horizontalSpacing16px = const SizedBox(width: 16);
   static SizedBox horizontalSpacing20px = const SizedBox(width: 20);
