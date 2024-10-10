@@ -14,6 +14,7 @@ class TextFieldGlobalWidget extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
+  final double? height;
   const TextFieldGlobalWidget({
     super.key,
     required this.controller,
@@ -27,13 +28,14 @@ class TextFieldGlobalWidget extends StatelessWidget {
     this.validator,
     required this.textInputAction,
     required this.keyboardType,
+    this.height,
   });
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minHeight: 48,
+      constraints: BoxConstraints(
+        minHeight: height ?? 48,
       ),
       child: TextFormField(
         validator: validator,
