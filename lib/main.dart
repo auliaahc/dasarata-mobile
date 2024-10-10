@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       getPages: AppRoute.routes,
       initialRoute: AppRoute.splash,
-      defaultTransition: Transition.leftToRight,
     );
   }
 }
