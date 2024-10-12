@@ -1,4 +1,5 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
+import 'package:dasarata_mobile/constants/logger_constant.dart';
 import 'package:dasarata_mobile/constants/text_style_constant.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ class TabBarDashboardCustomerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TabBar(
+      onTap: (index) => LoggerConstant.info("Selected Index: $index"),
       dividerColor: ColorConstant.neutralColor600,
       dividerHeight: 0.5,
       indicatorWeight: 3,

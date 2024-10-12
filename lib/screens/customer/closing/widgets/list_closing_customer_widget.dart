@@ -21,6 +21,7 @@ class ListClosingCustomerWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 final customer = DummyData.dummyCustomerData[index];
                 return ItemCustomerGlobalWidget(
+                  onTap: () {},
                   index: index,
                   name: customer["name"],
                   address: customer["address"],
