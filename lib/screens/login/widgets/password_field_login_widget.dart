@@ -13,6 +13,7 @@ class PasswordFieldLoginWidget extends StatelessWidget {
     final LoginController loginController = Get.find();
     return Obx(() {
       return TextFieldGlobalWidget(
+        onSaved: (value) => loginController.password.value = value,
         controller: loginController.passwordController,
         icon: LineIcons.key,
         hint: "Password",
@@ -27,7 +28,10 @@ class PasswordFieldLoginWidget extends StatelessWidget {
               ? const Icon(LineIcons.eyeSlash, size: 20)
               : const Icon(LineIcons.eye, size: 20),
         ),
-        validator: (value) => ValidatorInputUtils(name: "Password", value: value).validate(),
+        validator: (value) => ValidatorInputUtils(
+          name: "Password",
+          value: value,
+        ).validate(),
         textInputAction: TextInputAction.done,
         keyboardType: TextInputType.visiblePassword,
       );
