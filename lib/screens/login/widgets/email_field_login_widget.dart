@@ -5,19 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
 
-class NipFieldLoginWidget extends StatelessWidget {
-  const NipFieldLoginWidget({super.key});
+class EmailFieldLoginWidget extends StatelessWidget {
+  const EmailFieldLoginWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     final LoginController loginController = Get.find();
     return TextFieldGlobalWidget(
-      controller: loginController.nipController,
+      onSaved: (value) => loginController.email.value = value,
+      controller: loginController.emailController,
       icon: LineIcons.user,
-      hint: "NIP",
-      validator: (value) => ValidatorInputUtils(name: "NIP", value: value).validate(), 
+      hint: "Email",
+      validator: (value) => ValidatorInputUtils(
+        name: "Email",
+        value: value,
+        validationType: ValidationType.email,
+      ).validate(),
       textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.emailAddress,
     );
   }
 }

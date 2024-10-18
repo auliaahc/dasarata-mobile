@@ -15,8 +15,10 @@ class TextFieldGlobalWidget extends StatelessWidget {
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
   final double? height;
+  final dynamic Function(String?)? onSaved;
   const TextFieldGlobalWidget({
     super.key,
+    this.onSaved,
     required this.controller,
     required this.icon,
     required this.hint,
@@ -38,6 +40,7 @@ class TextFieldGlobalWidget extends StatelessWidget {
         minHeight: height ?? 48,
       ),
       child: TextFormField(
+        onSaved: onSaved,
         validator: validator,
         onChanged: onChanged,
         obscureText: obscureText ?? false,
