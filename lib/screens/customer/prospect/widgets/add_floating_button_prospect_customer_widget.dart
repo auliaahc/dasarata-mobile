@@ -1,5 +1,7 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
+import 'package:dasarata_mobile/routes/app_route.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
 
 class AddFloatingButtonProspectCustomerWidget extends StatelessWidget {
@@ -21,7 +23,7 @@ class AddFloatingButtonProspectCustomerWidget extends StatelessWidget {
             color: ColorConstant.whiteColor,
           ),
         ),
-        onPressed: () {},
+        onPressed: () => Get.toNamed(AppRoute.addProspectCustomer),
       ),
     );
   }

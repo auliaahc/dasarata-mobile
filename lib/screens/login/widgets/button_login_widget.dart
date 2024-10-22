@@ -10,6 +10,7 @@ class ButtonLoginWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final LoginController loginController = Get.find();
     return ButtonGlobalWidget(
+      isDisabled: false,
       label: "Login",
       onTap: () => loginController.login(),
     );
