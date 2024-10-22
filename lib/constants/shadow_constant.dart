@@ -16,4 +16,19 @@ class ShadowConstant {
       spreadRadius: -2,
     ),
   ];
+  static List<BoxShadow> appbarShadow = [
+    BoxShadow(
+      color: const Color(0XFF000000).withOpacity(0.15),
+      offset: const Offset(0, 5),
+      blurRadius: 13,
+      spreadRadius: 0,
+    )
+  ];
+  static List<BoxShadow> mapTypeShadow = [
+    BoxShadow(
+      color: const Color(0XFF000000).withOpacity(0.25),
+      offset: const Offset(0, 1),
+      blurRadius: 3,
+    )
+  ];
 }

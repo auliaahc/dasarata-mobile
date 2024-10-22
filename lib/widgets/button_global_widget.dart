@@ -12,8 +12,10 @@ class ButtonGlobalWidget extends StatelessWidget {
   final Function() onTap;
   final bool? isOutlined;
   final Icon? icon;
+  final bool isDisabled;
   const ButtonGlobalWidget({
     super.key,
+    required this.isDisabled,
     this.width,
     this.height,
     this.color,
@@ -26,6 +28,24 @@ class ButtonGlobalWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (isDisabled) {
+      return Container(
+        height: height ?? 48,
+        width: width ?? double.infinity,
+        decoration: BoxDecoration(
+          color: const Color(0XFFB5B7B9),
+          borderRadius: BorderRadius.circular(32),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          label,
+          style: TextStyleConstant.semiboldButton.copyWith(
+            color: ColorConstant.whiteColor,
+          ),
+        ),
+      );
+    }
+
     switch (isOutlined) {
       case true:
         return OutlinedButton(

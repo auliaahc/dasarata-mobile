@@ -54,9 +54,12 @@ dependencies:
   lottie: ^3.1.2
   animated_text_kit: ^4.2.2
   url_launcher: ^6.3.1
-  dio: ^5.7.0
+  location: ^6.0.2
+  flutter_icon_snackbar: ^1.2.1
   animated_snack_bar: ^0.4.0
+  dio: ^5.7.0
   shared_preferences: ^2.3.2
+  toggle_switch: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -89,7 +92,9 @@ flutter:
   assets:
     - assets/icons/dashboard.svg
     - assets/icons/prospect.svg
+    - assets/icons/chevron-right.svg
     - assets/icons/closing.svg
+    - assets/icons/arrow-back.svg
     - assets/images/dasarata.png
     - assets/lotties/login.json
 
