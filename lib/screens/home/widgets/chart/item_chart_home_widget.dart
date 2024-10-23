@@ -25,7 +25,10 @@ class ItemChartHomeWidget extends StatelessWidget {
             style: TextStyleConstant.mediumParagraph,
           ),
           SpacingConstant.verticalSpacing24px,
-          ChartHomeWidget(data: data),
+          if (data != [])
+          ChartHomeWidget(data: data)
+          else
+          const Text("Tidak ada data"),
         ],
       ),
     );
