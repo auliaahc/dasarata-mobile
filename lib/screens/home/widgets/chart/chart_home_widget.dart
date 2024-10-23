@@ -77,16 +77,20 @@ class ChartHomeWidget extends StatelessWidget {
     );
   }
 
-  List<FlSpot> _getDataSpots() {
-    List<FlSpot> spots = [];
-    for (int i = 0; i < data.length; i++) {
-      spots.add(
-        FlSpot(
-          i.toDouble(),
-          data[i]["total"].toDouble(),
-        ),
-      );
-    }
-    return spots;
+List<FlSpot> _getDataSpots() {
+  List<FlSpot> spots = [];
+
+  for (int i = 0; i < data.length; i++) {
+    double total = data[i]["total"] != null ? data[i]["total"].toDouble() : 0.0;
+    spots.add(
+      FlSpot(
+        i.toDouble(),
+        total,
+      ),
+    );
   }
+
+  return spots;
+}
+
 }
