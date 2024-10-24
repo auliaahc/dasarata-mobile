@@ -1,15 +1,19 @@
-import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:dasarata_mobile/constants/color_constant.dart';
 
 class LoadingAnimationGlobalWidget extends StatelessWidget {
-  const LoadingAnimationGlobalWidget({super.key});
+  final double? size;
+  const LoadingAnimationGlobalWidget({
+    super.key,
+    this.size,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return LoadingAnimationWidget.staggeredDotsWave(
+    return LoadingAnimationWidget.threeArchedCircle(
       color: ColorConstant.primaryColor,
-      size: 40,
+      size: size ?? 45,
     );
   }
 }

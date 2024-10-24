@@ -11,7 +11,7 @@ class HeaderProfileWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(
         top: 32,
-        bottom: 48,
+        bottom: 24,
       ),
       child: Center(
         child: Column(
