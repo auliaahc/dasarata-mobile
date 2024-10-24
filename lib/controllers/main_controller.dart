@@ -25,9 +25,16 @@ class MainController extends GetxController {
         if (token != null) {
           Get.offNamed(AppRoute.home);
         } else {
-          Get.offNamed(AppRoute.login);
+          // TODO
+          // Get.offNamed(AppRoute.login);
         }
       },
     );
+  }
+
+  void logout() {
+    SharedPref.removeToken();
+    Get.deleteAll();
+    Get.offAllNamed(AppRoute.splash);
   }
 }
