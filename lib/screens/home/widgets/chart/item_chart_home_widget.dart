@@ -1,3 +1,4 @@
+import 'package:dasarata_mobile/widgets/empty_state_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:dasarata_mobile/constants/spacing_constant.dart';
 import 'package:dasarata_mobile/constants/text_style_constant.dart';
@@ -28,7 +29,7 @@ class ItemChartHomeWidget extends StatelessWidget {
           if (data != [])
           ChartHomeWidget(data: data)
           else
-          const Text("Tidak ada data"),
+          const EmptyStateGlobalWidget(),
         ],
       ),
     );

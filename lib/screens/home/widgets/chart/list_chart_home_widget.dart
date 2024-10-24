@@ -76,7 +76,7 @@ class ListChartHomeWidget extends StatelessWidget {
           Expanded(
             child: Center(
               child: Text(
-                'Data tidak tersedia.',
+                "Data tidak tersedia",
                 style: TextStyleConstant.regularCaption.copyWith(
                   color: ColorConstant.neutralColor600,
                 ),

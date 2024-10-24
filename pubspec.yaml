@@ -98,6 +98,7 @@ flutter:
     - assets/images/dasarata.png
     - assets/images/profile-placeholder.jpeg
     - assets/lotties/login.json
+    - assets/lotties/empty-state.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
