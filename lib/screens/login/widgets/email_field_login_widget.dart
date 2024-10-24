@@ -23,6 +23,7 @@ class EmailFieldLoginWidget extends StatelessWidget {
       ).validate(),
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.emailAddress,
+      maxLines: 1,
     );
   }
 }

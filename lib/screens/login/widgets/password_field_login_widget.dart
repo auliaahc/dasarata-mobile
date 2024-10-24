@@ -34,6 +34,7 @@ class PasswordFieldLoginWidget extends StatelessWidget {
         ).validate(),
         textInputAction: TextInputAction.done,
         keyboardType: TextInputType.visiblePassword,
+        maxLines: 1,
       );
     });
   }

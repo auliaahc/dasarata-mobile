@@ -27,6 +27,7 @@ class AddProspectCustomerScreen extends StatelessWidget {
                 right: 0,
                 bottom: 32,
                 child: ButtonGlobalWidget(
+                  isLoading: false,
                   isDisabled: true,
                   label: "Submit",
                   onTap: () {},

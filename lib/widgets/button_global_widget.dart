@@ -1,5 +1,6 @@
 import 'package:dasarata_mobile/constants/spacing_constant.dart';
 import 'package:dasarata_mobile/constants/text_style_constant.dart';
+import 'package:dasarata_mobile/widgets/loading_animation_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:dasarata_mobile/constants/color_constant.dart';
 
@@ -13,8 +14,10 @@ class ButtonGlobalWidget extends StatelessWidget {
   final bool? isOutlined;
   final Icon? icon;
   final bool isDisabled;
+  final bool isLoading;
   const ButtonGlobalWidget({
     super.key,
+    required this.isLoading,
     required this.isDisabled,
     this.width,
     this.height,
@@ -37,12 +40,17 @@ class ButtonGlobalWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(32),
         ),
         alignment: Alignment.center,
-        child: Text(
-          label,
-          style: TextStyleConstant.semiboldButton.copyWith(
-            color: ColorConstant.whiteColor,
-          ),
-        ),
+        child: isLoading
+            ? const LoadingAnimationGlobalWidget(
+                isLinearAnimation: true,
+                size: 30,
+              )
+            : Text(
+                label,
+                style: TextStyleConstant.semiboldButton.copyWith(
+                  color: ColorConstant.whiteColor,
+                ),
+              ),
       );
     }
 
