@@ -96,6 +96,7 @@ flutter:
     - assets/icons/closing.svg
     - assets/icons/arrow-back.svg
     - assets/images/dasarata.png
+    - assets/images/profile-placeholder.jpeg
     - assets/lotties/login.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
