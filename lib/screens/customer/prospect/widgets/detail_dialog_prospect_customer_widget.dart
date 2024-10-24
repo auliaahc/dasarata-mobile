@@ -134,6 +134,7 @@ class DetailDialogProspectCustomerWidget extends StatelessWidget {
           ),
           SpacingConstant.verticalSpacing32px,
           ButtonGlobalWidget(
+            isLoading: false,
             isDisabled: false,
             label: "Hubungi via Whatsapp",
             onTap: () => prospectCustomerController.launchWhatsapp(telephoneNumber),
@@ -145,6 +146,7 @@ class DetailDialogProspectCustomerWidget extends StatelessWidget {
           ),
           SpacingConstant.verticalSpacing8px,
           ButtonGlobalWidget(
+            isLoading: false,
             isDisabled: false,
             label: "Closing",
             onTap: () {},

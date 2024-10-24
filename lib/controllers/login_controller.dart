@@ -13,9 +13,24 @@ class LoginController extends GetxController {
   final TextEditingController passwordController = TextEditingController();
   final loginService = LoginService();
   RxBool isObscurePassword = RxBool(true);
-  RxnBool isLoadingLogin = RxnBool();
+  RxBool isLoadingLogin = RxBool(false);
   RxnString email = RxnString();
   RxnString password = RxnString();
+  Rxn<ResponseLoginModel> loginData = Rxn<ResponseLoginModel>();
+
+  void resetFormFields() {
+    isObscurePassword.value = true;
+    emailController.clear();
+    passwordController.clear();
+    email.value = null;
+    password.value = null;
+  }
+
+  void resetPasswordField() {
+    isObscurePassword.value = true;
+    passwordController.clear();
+    password.value = null;
+  }
 
   Future<void> login() async {
     isLoadingLogin.value = true;
@@ -28,24 +43,25 @@ class LoginController extends GetxController {
             password: password.value!,
           ),
         );
-        if (response.success) {
-          Get.offNamed(AppRoute.home);
-        } else {
+        loginData.value = response;
+        if (loginData.value!.success && loginData.value!.message.isNotEmpty) {
           SnackbarUtils.show(
-            messageText: response.message,
-            type: AnimatedSnackBarType.error,
+            messageText: loginData.value!.message,
+            type: AnimatedSnackBarType.success,
           );
+          Get.offNamed(AppRoute.home);
+          resetFormFields();
         }
       } catch (e) {
         if (e is ResponseLoginModel) {
+          resetPasswordField();
           SnackbarUtils.show(
             messageText: e.message,
             type: AnimatedSnackBarType.error,
           );
         }
-      } finally {
-        isLoadingLogin.value = false;
       }
     }
+    isLoadingLogin.value = false;
   }
 }

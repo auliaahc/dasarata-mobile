@@ -25,8 +25,7 @@ class MainController extends GetxController {
         if (token != null) {
           Get.offNamed(AppRoute.home);
         } else {
-          // TODO
-          // Get.offNamed(AppRoute.login);
+          Get.offNamed(AppRoute.login);
         }
       },
     );

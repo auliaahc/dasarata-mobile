@@ -9,10 +9,15 @@ class ButtonLoginWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LoginController loginController = Get.find();
-    return ButtonGlobalWidget(
-      isDisabled: false,
-      label: "Login",
-      onTap: () => loginController.login(),
+    return Obx(
+      () {
+        return ButtonGlobalWidget(
+          isLoading: loginController.isLoadingLogin.value,
+          isDisabled: loginController.isLoadingLogin.value,
+          label: "Login",
+          onTap: () => loginController.login(),
+        );
+      },
     );
   }
 }
