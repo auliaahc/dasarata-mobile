@@ -27,7 +27,6 @@ class ListCountHomeWidget extends StatelessWidget {
               "count": homeController.homeData.value?.countClosing ?? 0
             }
           ];
-
           return DynamicHeightGridView(
             crossAxisCount: 2,
             crossAxisSpacing: 20,
