@@ -14,7 +14,6 @@ class MainController extends GetxController {
 
   void onTabChange(int index) {
     selectedIndex.value = index;
-    LoggerConstant.info(index.toString());
   }
 
   void checkToken() async {

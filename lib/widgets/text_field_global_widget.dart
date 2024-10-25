@@ -22,8 +22,10 @@ class TextFieldGlobalWidget extends StatelessWidget {
   final int? minLines;
   final int? maxLines;
   final Function()? additionalAction;
+  final Function(String)? onSubmit;
 
   const TextFieldGlobalWidget({
+    this.onSubmit,
     this.obscureText,
     this.additionalAction,
     this.additionalLabel,
@@ -76,6 +78,7 @@ class TextFieldGlobalWidget extends StatelessWidget {
             minHeight: height ?? 48,
           ),
           child: TextFormField(
+            onFieldSubmitted: onSubmit,
             onSaved: onSaved,
             validator: validator,
             onChanged: onChanged,

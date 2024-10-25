@@ -14,13 +14,13 @@ class LoadingAnimationGlobalWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isLinearAnimation == null || isLinearAnimation!) {
-      return LoadingAnimationWidget.horizontalRotatingDots(
-        color: ColorConstant.whiteColor,
+      return LoadingAnimationWidget.threeArchedCircle(
+        color: ColorConstant.primaryColor,
         size: size ?? 45,
       );
     } else {
-      return LoadingAnimationWidget.threeArchedCircle(
-        color: ColorConstant.primaryColor,
+      return LoadingAnimationWidget.horizontalRotatingDots(
+        color: ColorConstant.whiteColor,
         size: size ?? 45,
       );
     }
