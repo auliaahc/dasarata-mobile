@@ -13,7 +13,7 @@ class AddProspectCustomerScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: const AppbarGlobalWidget(
         title: "Tambah Customer Prospect",
-        // implyLeading: true,
+        implyLeading: true,
       ),
       backgroundColor: ColorConstant.whiteColor,
       body: SafeArea(

@@ -61,14 +61,12 @@ class FormAddProspectCustomerWidget extends StatelessWidget {
         if (inputField["type"] == "text") {
           return TextFieldGlobalWidget(
             controller: TextEditingController(),
-            icon: Icons.abc,
             hint: inputField["hint"] as String,
             textInputAction: inputField["textInputAction"] as TextInputAction,
             keyboardType: inputField["keyboardType"] as TextInputType,
-            // labelName: inputField["labelName"] as String?,
-            // additionalLabel: inputField["additionalLabel"] as String?,
-            // controller: inputField["controller"] as TextEditingController?,
-            // additionalAction: inputField["additionalAction"] as Function()?,
+            labelName: inputField["labelName"] as String?,
+            additionalLabel: inputField["additionalLabel"] as String?,
+            additionalAction: inputField["additionalAction"] as Function()?,
           );
         } else if (inputField["type"] == "dropdown") {
           return DropdownFieldGlobalWidget(

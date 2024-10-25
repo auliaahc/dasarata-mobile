@@ -99,7 +99,7 @@ class DropdownFieldGlobalWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(32),
                   borderSide: BorderSide(
                     color: ColorConstant.neutralColor700,
-                    width: 1,
+                    width: 0.5,
                   ),
                 ),
                 errorBorder: OutlineInputBorder(
