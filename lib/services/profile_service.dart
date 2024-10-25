@@ -1,5 +1,6 @@
 import 'package:dasarata_mobile/env/env.dart';
 import 'package:dasarata_mobile/models/profile/response_profile_model.dart';
+import 'package:dasarata_mobile/utilities/shared_pref.dart';
 import 'package:dio/dio.dart';
 
 class ProfileService {
@@ -7,8 +8,7 @@ class ProfileService {
 
   Future<ResponseProfileModel> getProfileData() async {
     const url = "${Env.baseUrl}/me";
-    // final token = await SharedPref.getToken();
-    const token = "1|pMGhaZOKtQkbzVZhq1jqMyI2zaDtpvXV0UjDC6Xsc9765607";
+    final token = await SharedPref.getToken();
     try {
       final response = await _dio.get(
         url,

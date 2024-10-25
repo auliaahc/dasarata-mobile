@@ -1,4 +1,5 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
+import 'package:dasarata_mobile/controllers/dashboard_customer_controller.dart';
 import 'package:dasarata_mobile/controllers/main_controller.dart';
 import 'package:dasarata_mobile/controllers/profile_controller.dart';
 import 'package:dasarata_mobile/screens/profile/widgets/detail/list_detail_profile_widget.dart';

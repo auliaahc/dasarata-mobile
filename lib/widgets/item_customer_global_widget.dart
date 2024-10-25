@@ -8,7 +8,7 @@ import 'package:dasarata_mobile/constants/text_style_constant.dart';
 class ItemCustomerGlobalWidget extends StatelessWidget {
   final String name;
   final String address;
-  final int telephoneNumber;
+  final String telephoneNumber;
   final String status;
   final int index;
   final Function() onTap;
@@ -143,7 +143,7 @@ class ItemCustomerGlobalWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            telephoneNumber.toString(),
+                            telephoneNumber,
                             style: textStyle,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,

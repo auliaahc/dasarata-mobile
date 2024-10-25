@@ -1,4 +1,5 @@
 import 'package:dasarata_mobile/controllers/dashboard_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
 import 'package:dasarata_mobile/widgets/text_field_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,8 @@ class SearchBarDashboardCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DashboardCustomerController dashboardCustomerController = Get.put(DashboardCustomerController());
+    final DashboardCustomerController dashboardCustomerController = Get.find();
+    final ProspectCustomerController prospectCustomerController = Get.find();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: TextFieldGlobalWidget(
@@ -18,6 +20,11 @@ class SearchBarDashboardCustomerWidget extends StatelessWidget {
         hint: "Search",
         textInputAction: TextInputAction.search,
         keyboardType: TextInputType.text,
+        onSubmit: (query) => {
+          if (dashboardCustomerController.selectedCustomerTabIndex.value == 0) {
+            prospectCustomerController.setSearchProspectCustomer(query)
+          }
+        },
       ),
     );
   }
