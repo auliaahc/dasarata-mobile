@@ -13,7 +13,7 @@ class LoadingAnimationGlobalWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (isLinearAnimation == null || isLinearAnimation!) {
+    if (isLinearAnimation == null || !isLinearAnimation!) {
       return LoadingAnimationWidget.threeArchedCircle(
         color: ColorConstant.primaryColor,
         size: size ?? 45,

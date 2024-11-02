@@ -1,5 +1,6 @@
 enum ValidationType {
   email,
+  phone,
 }
 
 class ValidatorInputUtils {
@@ -25,6 +26,12 @@ class ValidatorInputUtils {
     if (validationType == ValidationType.email) {
       if (!value!.contains('@')) {
         return "Format $name tidak valid";
+      }
+    }
+
+    if (validationType == ValidationType.phone) {
+      if (value!.length < 10 || value!.length > 15) {
+        return "$name harus terdiri dari 10 hingga 15 digit";
       }
     }
 

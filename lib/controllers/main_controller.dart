@@ -1,4 +1,3 @@
-import 'package:dasarata_mobile/constants/logger_constant.dart';
 import 'package:dasarata_mobile/routes/app_route.dart';
 import 'package:dasarata_mobile/utilities/shared_pref.dart';
 import 'package:get/get.dart';

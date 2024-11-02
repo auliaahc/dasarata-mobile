@@ -21,7 +21,7 @@ class AppbarHeaderMapsProspectCustomerWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            onPressed: () => Get.back,
+            onPressed: () => Get.back(),
             icon: SvgPicture.asset(
               IconConstant.arrowBack,
               colorFilter: ColorFilter.mode(

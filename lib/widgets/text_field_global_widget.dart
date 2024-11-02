@@ -23,8 +23,10 @@ class TextFieldGlobalWidget extends StatelessWidget {
   final int? maxLines;
   final Function()? additionalAction;
   final Function(String)? onSubmit;
+  final String? initialValue;
 
   const TextFieldGlobalWidget({
+    this.initialValue,
     this.onSubmit,
     this.obscureText,
     this.additionalAction,
