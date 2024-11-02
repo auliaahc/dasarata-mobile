@@ -5,6 +5,7 @@ import 'package:dasarata_mobile/screens/login/login_screen.dart';
 import 'package:dasarata_mobile/screens/main_screen.dart';
 import 'package:dasarata_mobile/screens/profile/profile_screen.dart';
 import 'package:dasarata_mobile/screens/splash/splash_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AppRoute {
@@ -21,7 +22,13 @@ class AppRoute {
     GetPage(name: splash, page: () => const SplashScreen()),
     GetPage(name: login, page: () => const LoginScreen()),
     GetPage(name: customer, page: () => const DashboardCustomerScreen()),
-    GetPage(name: addProspectCustomer, page: () => const AddProspectCustomerScreen()),
+    GetPage(
+      name: addProspectCustomer,
+      page: () => const AddProspectCustomerScreen(),
+      transition: Transition.downToUp,
+      transitionDuration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    ),
     GetPage(name: prospectMaps, page: () => const MapsProspectCustomerScreen()),
     GetPage(name: profile, page: () => const ProfileScreen()),
   ];
