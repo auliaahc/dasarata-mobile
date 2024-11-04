@@ -6,6 +6,14 @@ class DashboardCustomerController extends GetxController {
   RxInt selectedCustomerTabIndex = RxInt(0);
 
   void setCustomerTabIndex(int index) {
+    if (selectedCustomerTabIndex.value != index) {
+      Future.delayed(
+        const Duration(milliseconds: 100),
+        () {
+          searchController.clear();
+        },
+      );
+    }
     selectedCustomerTabIndex.value = index;
   }
 

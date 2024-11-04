@@ -168,8 +168,7 @@ class ProspectCustomerController extends GetxController {
   }
 
   void updateSpliterMarker() {
-    markers.removeWhere(
-        (marker) => marker.markerId.value != "currentLocationMarker");
+    markers.removeWhere((marker) => marker.markerId.value != "currentLocationMarker");
     for (spliter_maps_model.Datum spliter in spliterData.value ?? []) {
       final Marker marker = Marker(
         markerId: MarkerId(spliter.id.toString()),
@@ -451,9 +450,7 @@ class ProspectCustomerController extends GetxController {
 
   Future<bool> _requestAccurateLocation() async {
     try {
-      Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high, // High accuracy level
-      );
+      await Geolocator.getCurrentPosition();
       return true;
     } catch (e) {
       SnackbarUtils.show(
