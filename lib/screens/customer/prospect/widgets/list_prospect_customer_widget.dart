@@ -27,7 +27,7 @@ class ListProspectCustomerWidget extends StatelessWidget {
               if (prospectCustomerController.isLoadingListProspectCustomer.value) {
                 return const Expanded(
                   child: Center(
-                    child: LoadingAnimationGlobalWidget()
+                    child: LoadingAnimationGlobalWidget(),
                   ),
                 );
               } else if (!prospectCustomerController.isLoadingListProspectCustomer.value && prospectCustomerController.listProspectCustomer.value == null) {

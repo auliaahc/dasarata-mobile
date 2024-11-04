@@ -1,8 +1,8 @@
+import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
 import 'package:dasarata_mobile/screens/customer/prospect/maps/widgets/footer/footer_maps_prospect_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/prospect/maps/widgets/header/header_maps_prospect_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/prospect/maps/widgets/maps_prospect_customer_widget.dart';
-import 'package:dasarata_mobile/utilities/system_ui_overlay_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -17,11 +17,11 @@ class MapsProspectCustomerScreen extends StatelessWidget {
       prospectCustomerController.getSpliterData();
       prospectCustomerController.checkAddressForSearchController();
     });
-    return const AnnotatedRegion<SystemUiOverlayStyle>(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
+        statusBarColor: ColorConstant.whiteColor,
       ),
-      child: Scaffold(
+      child: const Scaffold(
         body: SafeArea(
           child: Stack(
             children: [

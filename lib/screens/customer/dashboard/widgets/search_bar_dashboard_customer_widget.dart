@@ -1,3 +1,4 @@
+import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
 import 'package:dasarata_mobile/controllers/dashboard_customer_controller.dart';
 import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
 import 'package:dasarata_mobile/widgets/text_field_global_widget.dart';
@@ -12,6 +13,7 @@ class SearchBarDashboardCustomerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final DashboardCustomerController dashboardCustomerController = Get.find();
     final ProspectCustomerController prospectCustomerController = Get.find();
+    final ClosingCustomerController closingCustomerController = Get.find();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: TextFieldGlobalWidget(
@@ -23,6 +25,8 @@ class SearchBarDashboardCustomerWidget extends StatelessWidget {
         onSubmit: (query) => {
           if (dashboardCustomerController.selectedCustomerTabIndex.value == 0) {
             prospectCustomerController.setSearchProspectCustomer(query)
+          } else if (dashboardCustomerController.selectedCustomerTabIndex.value == 1){
+            closingCustomerController.doSearchClosingCustomer(query)
           }
         },
       ),
