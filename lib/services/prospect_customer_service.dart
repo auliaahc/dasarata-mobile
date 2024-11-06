@@ -11,8 +11,7 @@ class ProspectCustomerService {
   final Dio _dio = Dio();
   final url = "${Env.baseUrl}/sales";
 
-  Future<ResponseProspectCustomerModel> getAllProspectCustomerData(
-      {String? search}) async {
+  Future<ResponseProspectCustomerModel> getAllProspectCustomerData({String? search}) async {
     final finalUrl = "$url/prospect";
     final token = await SharedPref.getToken();
     try {

@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
-import 'package:dasarata_mobile/models/customer/prospect/category_prospect_customer_model.dart'
-    as category_prospect_customer_model;
-import 'package:dasarata_mobile/models/customer/prospect/meet_prospect_customer_model.dart'
-    as meet_prospect_customer_model;
+import 'package:dasarata_mobile/models/customer/prospect/category_prospect_customer_model.dart' as category_prospect_customer_model;
+import 'package:dasarata_mobile/models/customer/prospect/meet_prospect_customer_model.dart' as meet_prospect_customer_model;
 import 'package:dasarata_mobile/models/customer/prospect/request_form_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/prospect/response_form_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/prospect/response_prospect_customer_model.dart';
-import 'package:dasarata_mobile/models/maps/spliter_maps_model.dart'
-    as spliter_maps_model;
+import 'package:dasarata_mobile/models/maps/spliter_maps_model.dart' as spliter_maps_model;
 import 'package:dasarata_mobile/screens/customer/prospect/widgets/detail_dialog_prospect_customer_widget.dart';
 import 'package:dasarata_mobile/services/google_maps_service.dart';
 import 'package:dasarata_mobile/services/prospect_customer_service.dart';
@@ -294,7 +291,7 @@ class ProspectCustomerController extends GetxController {
     }
   }
 
-  void onTapMaps(LatLng latLng) async {
+  Future<void> onTapMaps(LatLng latLng) async {
     searchMapsController.clear();
     searchMaps.value = null;
     currentLatLng.value = latLng;

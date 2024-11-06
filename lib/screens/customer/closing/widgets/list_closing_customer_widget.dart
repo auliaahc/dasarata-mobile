@@ -1,6 +1,8 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/constants/spacing_constant.dart';
 import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
+import 'package:dasarata_mobile/routes/app_route.dart';
+import 'package:dasarata_mobile/screens/customer/closing/detail/detail_closing_customer_screen.dart';
 import 'package:dasarata_mobile/widgets/empty_state_global_widget.dart';
 import 'package:dasarata_mobile/widgets/item_customer_global_widget.dart';
 import 'package:dasarata_mobile/widgets/loading_animation_global_widget.dart';
@@ -56,7 +58,7 @@ class ListClosingCustomerWidget extends StatelessWidget {
                         } else {
                           final customer = closingCustomerController.listClosingCustomer.value[index];
                           return ItemCustomerGlobalWidget(
-                            onTap: () {},
+                            onTap: () => closingCustomerController.moveToDetailScreen(customer.id),
                             index: index,
                             name: customer.fullName,
                             address: customer.installedAddress,
