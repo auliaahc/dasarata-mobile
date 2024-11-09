@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
-class ListClosingCustomerWidget extends StatelessWidget {
-  const ListClosingCustomerWidget({super.key});
+class ListDashboardClosingCustomerWidget extends StatelessWidget {
+  const ListDashboardClosingCustomerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +18,7 @@ class ListClosingCustomerWidget extends StatelessWidget {
       closingCustomerController.resetDashboardClosingCustomer();
     });
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: ColorConstant.backgroundColor,
       body: Column(
         children: [
@@ -58,9 +59,9 @@ class ListClosingCustomerWidget extends StatelessWidget {
                           return ItemCustomerGlobalWidget(
                             onTap: () => closingCustomerController.moveToDetailScreen(customer.id),
                             index: index,
-                            name: customer.fullName,
+                            name: customer.name,
                             address: customer.installedAddress,
-                            telephoneNumber: "085739206149", // TODO
+                            telephoneNumber: customer.phoneNumber,
                             status: customer.phaseStatus,
                           );
                         }

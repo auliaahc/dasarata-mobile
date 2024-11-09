@@ -40,17 +40,12 @@ class ButtonGlobalWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(32),
         ),
         alignment: Alignment.center,
-        child: isLoading
-            ? const LoadingAnimationGlobalWidget(
-                isLinearAnimation: true,
-                size: 30,
-              )
-            : Text(
-                label,
-                style: TextStyleConstant.semiboldButton.copyWith(
-                  color: ColorConstant.whiteColor,
-                ),
-              ),
+        child: Text(
+          label,
+          style: TextStyleConstant.semiboldButton.copyWith(
+            color: ColorConstant.whiteColor,
+          ),
+        ),
       );
     }
 

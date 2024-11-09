@@ -11,7 +11,7 @@ class ProspectCustomerService {
   final Dio _dio = Dio();
   final url = "${Env.baseUrl}/sales";
 
-  Future<ResponseProspectCustomerModel> getAllProspectCustomerData({String? search}) async {
+  Future<ResponseProspectCustomerModel> getAllProspectCustomer({String? search, required int page}) async {
     final finalUrl = "$url/prospect";
     final token = await SharedPref.getToken();
     try {
@@ -20,26 +20,19 @@ class ProspectCustomerService {
         options: Options(
           headers: {"Authorization": "Bearer $token"},
         ),
-        queryParameters: {if (search != null) "search": search},
+        queryParameters: {"page": page, if (search != null) "search": search},
       );
       final rawResponse = response.data;
       return ResponseProspectCustomerModel.fromJson(rawResponse);
     } on DioException catch (e) {
-      if (e.response?.statusCode == 404) {
+      final errorResponse = e.response?.data;
+      if (errorResponse != null) {
+        throw ResponseProspectCustomerModel.fromJson(errorResponse);
+      } else {
         throw ResponseProspectCustomerModel(
           success: false,
-          message: "404: Data tidak ditemukan",
+          message: "Tidak terhubung ke internet",
         );
-      } else {
-        final errorResponse = e.response?.data;
-        if (errorResponse != null) {
-          throw ResponseProspectCustomerModel.fromJson(errorResponse);
-        } else {
-          throw ResponseProspectCustomerModel(
-            success: false,
-            message: "Tidak terhubung ke internet",
-          );
-        }
       }
     }
   }
@@ -108,7 +101,7 @@ class ProspectCustomerService {
     }
   }
 
-  Future<ResponseFormProspectCustomerModel> postCreateProspectCustomer(RequestFormProspectCustomerModel data) async {
+  Future<ResponseFormProspectCustomerModel> postCreateProspectCustomer(RequestFormProspectCustomerModel model) async {
     final finalUrl = "$url/prospect";
     final token = await SharedPref.getToken();
     try {
@@ -117,7 +110,7 @@ class ProspectCustomerService {
         options: Options(
           headers: {"Authorization": "Bearer $token"},
         ),
-        data: data.toJson(),
+        data: model.toJson(),
       );
       final rawResponse = response.data;
       return ResponseFormProspectCustomerModel.fromJson(rawResponse);

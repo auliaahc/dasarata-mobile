@@ -6,7 +6,7 @@ import 'package:dasarata_mobile/models/customer/prospect/request_form_prospect_c
 import 'package:dasarata_mobile/models/customer/prospect/response_form_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/prospect/response_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/maps/spliter_maps_model.dart' as spliter_maps_model;
-import 'package:dasarata_mobile/screens/customer/prospect/widgets/detail_dialog_prospect_customer_widget.dart';
+import 'package:dasarata_mobile/screens/customer/prospect/dashboard/detail_dialog_dashboard_prospect_customer_widget.dart';
 import 'package:dasarata_mobile/services/google_maps_service.dart';
 import 'package:dasarata_mobile/services/prospect_customer_service.dart';
 import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
@@ -20,20 +20,12 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ProspectCustomerController extends GetxController {
   ProspectCustomerService prospectCustomerService = ProspectCustomerService();
-  Rxn<List<category_prospect_customer_model.Datum>> prospectCategoryData = Rxn<List<category_prospect_customer_model.Datum>>();
-  Rxn<List<meet_prospect_customer_model.Datum>> prospectMeetData = Rxn<List<meet_prospect_customer_model.Datum>>();
-  Rxn<List<Datum>> listProspectCustomer = Rxn<List<Datum>>();
-  RxnString searchQuery = RxnString();
-  RxInt selectedMapTypeIndex = RxInt(0);
-  Rx<MapType> selectedMapType = Rx<MapType>(MapType.normal);
-  Completer<GoogleMapController> mapsController = Completer<GoogleMapController>();
-  Rxn<Position> currentPosition = Rxn<Position>();
-  Rxn<LatLng> currentLatLng = Rxn<LatLng>();
-  Rxn<Placemark> currentPlacemark = Rxn<Placemark>();
-  RxnString currentAddress = RxnString();
-  GoogleMapsService googleMapsService = GoogleMapsService();
-  Rxn<List<spliter_maps_model.Datum>> spliterData = Rxn<List<spliter_maps_model.Datum>>();
-  RxSet<Marker> markers = RxSet<Marker>();
+
+  // Dashboard
+  RxnString searchProspectCustomerQuery = RxnString();
+  Rx<List<Datum>> listProspectCustomer = Rx<List<Datum>>([]);
+  RxInt currentPageData = RxInt(1);
+  Rxn<Data> listDataConfiguration = Rxn<Data>();
 
   // Loading State
   RxBool isLoadingProspectCategory = RxBool(false);
@@ -43,11 +35,23 @@ class ProspectCustomerController extends GetxController {
   RxBool isLoadingGetAddress = RxBool(false);
   RxBool isLoadingAddProspectCustomer = RxBool(false);
 
-  // Search Maps
+  // Maps
+  RxInt selectedMapTypeIndex = RxInt(0);
+  Rx<MapType> selectedMapType = Rx<MapType>(MapType.normal);
+  GoogleMapsService googleMapsService = GoogleMapsService();
+  Rxn<List<spliter_maps_model.Datum>> spliterData = Rxn<List<spliter_maps_model.Datum>>();
+  RxSet<Marker> markers = RxSet<Marker>();
+  Completer<GoogleMapController> mapsController = Completer<GoogleMapController>();
+  Rxn<Position> currentPosition = Rxn<Position>();
+  Rxn<LatLng> currentLatLng = Rxn<LatLng>();
+  Rxn<Placemark> currentPlacemark = Rxn<Placemark>();
+  RxnString currentAddress = RxnString();
   TextEditingController searchMapsController = TextEditingController();
   RxnString searchMaps = RxnString();
 
   // Form Add
+  Rxn<List<category_prospect_customer_model.Datum>> prospectCategoryData = Rxn<List<category_prospect_customer_model.Datum>>();
+  Rxn<List<meet_prospect_customer_model.Datum>> prospectMeetData = Rxn<List<meet_prospect_customer_model.Datum>>();
   final GlobalKey<FormState> addProspectFormKey = GlobalKey<FormState>();
   Rxn<RequestFormProspectCustomerModel> prospectCustomerData = Rxn<RequestFormProspectCustomerModel>();
   TextEditingController nameController = TextEditingController();
@@ -73,6 +77,13 @@ class ProspectCustomerController extends GetxController {
     currentAddress.value = null;
   }
 
+  void resetDashboardProspectCustomer() {
+    searchProspectCustomerQuery.value = null;
+    currentPageData.value = 1;
+    listProspectCustomer.value.clear();
+    getAllProspectCustomerData();
+  }
+
   void clearFormAddProspectCustomerState() {
     address.value = null;
     name.value = null;
@@ -85,8 +96,17 @@ class ProspectCustomerController extends GetxController {
     clearMapsState();
   }
 
+  void onEndOfPage() {
+    if (currentPageData.value != listDataConfiguration.value!.lastPage) {
+      currentPageData.value += 1;
+      getAllProspectCustomerData();
+    }
+  }
+
   void onSubmitFormAddProspectCustomer(String nipSalesId) async {
+    print("cek");
     if (addProspectFormKey.currentState!.validate()) {
+      print("ok");
       isLoadingAddProspectCustomer.value = true;
       prospectCustomerData.value = RequestFormProspectCustomerModel(
         nipSalesId: nipSalesId,
@@ -147,15 +167,6 @@ class ProspectCustomerController extends GetxController {
     }
   }
 
-  void setSearchProspectCustomer(String query) {
-    searchQuery.value = query;
-    getAllProspectCustomerData();
-  }
-
-  void resetSearchProspectCustomer() {
-    searchQuery.value = null;
-  }
-
   void updateCurrentLocationMarker() {
     final marker = Marker(
       markerId: const MarkerId("currentLocationMarker"),
@@ -198,6 +209,13 @@ class ProspectCustomerController extends GetxController {
     }
   }
 
+  void doSearchProspectCustomer(String query) {
+    searchProspectCustomerQuery.value = query;
+    listProspectCustomer.value.clear();
+    currentPageData.value = 1;
+    getAllProspectCustomerData();
+  }
+
   Future<void> getProspectCategoryData() async {
     isLoadingProspectCategory.value = true;
     try {
@@ -234,11 +252,13 @@ class ProspectCustomerController extends GetxController {
 
   Future<void> getAllProspectCustomerData() async {
     isLoadingListProspectCustomer.value = true;
-    listProspectCustomer.value = null;
     try {
-      final response = await prospectCustomerService.getAllProspectCustomerData(
-          search: searchQuery.value);
-      listProspectCustomer.value = response.data;
+      final response = await prospectCustomerService.getAllProspectCustomer(
+        search: searchProspectCustomerQuery.value,
+        page: currentPageData.value,
+      );
+      listDataConfiguration.value = response.data;
+      listProspectCustomer.value.addAll(response.data!.data!);
     } catch (e) {
       if (e is ResponseProspectCustomerModel) {
         SnackbarUtils.show(
@@ -253,7 +273,7 @@ class ProspectCustomerController extends GetxController {
 
   void showDetailDialog(Datum data) {
     Get.dialog(
-      DetailDialogProspectCustomerWidget(
+      DetailDialogDashboardProspectCustomerWidget(
         name: data.name,
         telephoneNumber: data.phone,
         meetMethod: data.meetCategory,

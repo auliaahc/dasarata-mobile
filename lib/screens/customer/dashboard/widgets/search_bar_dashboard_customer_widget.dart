@@ -17,14 +17,14 @@ class SearchBarDashboardCustomerWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: TextFieldGlobalWidget(
-        controller: dashboardCustomerController.searchController,
+        controller: dashboardCustomerController.searchCustomerController,
         icon: LineIcons.search,
         hint: "Search",
         textInputAction: TextInputAction.search,
         keyboardType: TextInputType.text,
         onSubmit: (query) => {
           if (dashboardCustomerController.selectedCustomerTabIndex.value == 0) {
-            prospectCustomerController.setSearchProspectCustomer(query)
+            prospectCustomerController.doSearchProspectCustomer(query)
           } else if (dashboardCustomerController.selectedCustomerTabIndex.value == 1){
             closingCustomerController.doSearchClosingCustomer(query)
           }
