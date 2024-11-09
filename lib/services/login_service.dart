@@ -7,29 +7,27 @@ import 'package:dio/dio.dart';
 class LoginService {
   final Dio _dio = Dio();
 
-  Future<ResponseLoginModel> loginWithEmail(RequestLoginModel requestLoginModel) async {
+  Future<ResponseLoginModel> loginWithEmail({required RequestLoginModel model}) async {
     const url = "${Env.baseUrl}/login";
     try {
       final response = await _dio.post(
         url,
-        data: requestLoginModelToJson(requestLoginModel),
+        data: model.toJson(),
       );
       final rawResponse = response.data;
-      if (response.statusCode == 200) {
-        final String token = rawResponse["data"]["token"];
-        SharedPref.saveToken(token: token);
-        return ResponseLoginModel(
-          success: response.data["success"],
-          message: response.data["message"],
-        );
-      } else {
-        return responseLoginModelFromJson(rawResponse);
-      }
+      final String token = rawResponse["data"]["token"];
+      SharedPref.saveToken(token: token);
+      return ResponseLoginModel.fromJson(rawResponse);
     } on DioException catch (e) {
-      throw ResponseLoginModel(
-        success: e.response?.data["success"],
-        message: e.response?.data["message"],
-      );
+      final errorResponse = e.response?.data;
+      if (errorResponse != null) {
+        throw ResponseLoginModel.fromJson(errorResponse);
+      } else {
+        throw ResponseLoginModel(
+          success: false,
+          message: "Tidak terhubung ke internet",
+        );
+      }
     }
   }
 }

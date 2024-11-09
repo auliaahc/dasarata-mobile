@@ -15,7 +15,7 @@ class ButtonLoginWidget extends StatelessWidget {
           isLoading: loginController.isLoadingLogin.value,
           isDisabled: loginController.isLoadingLogin.value,
           label: "Login",
-          onTap: () => loginController.login(),
+          onTap: loginController.login,
         );
       },
     );

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  final formKey = GlobalKey<FormState>();
+  final loginFormKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final loginService = LoginService();
@@ -34,24 +34,22 @@ class LoginController extends GetxController {
 
   Future<void> login() async {
     isLoadingLogin.value = true;
-    if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
+    if (loginFormKey.currentState!.validate()) {
+      loginFormKey.currentState!.save();
       try {
         final response = await loginService.loginWithEmail(
-          RequestLoginModel(
+          model: RequestLoginModel(
             email: email.value!,
             password: password.value!,
           ),
         );
         loginData.value = response;
-        if (loginData.value!.success && loginData.value!.message.isNotEmpty) {
-          SnackbarUtils.show(
-            messageText: loginData.value!.message,
-            type: AnimatedSnackBarType.success,
-          );
-          Get.offNamed(AppRoute.home);
-          resetFormFields();
-        }
+        SnackbarUtils.show(
+          messageText: loginData.value!.message,
+          type: AnimatedSnackBarType.success,
+        );
+        await Get.offNamed(AppRoute.home);
+        resetFormFields();
       } catch (e) {
         if (e is ResponseLoginModel) {
           resetPasswordField();
