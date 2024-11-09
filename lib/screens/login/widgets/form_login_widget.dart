@@ -12,7 +12,7 @@ class FormLoginWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final LoginController loginControler = Get.find();
     return Form(
-      key: loginControler.formKey,
+      key: loginControler.loginFormKey,
       child: Column(
         children: [
           const EmailFieldLoginWidget(),

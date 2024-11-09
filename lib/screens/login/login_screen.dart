@@ -2,7 +2,7 @@ import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/constants/spacing_constant.dart';
 import 'package:dasarata_mobile/controllers/login_controller.dart';
 import 'package:dasarata_mobile/screens/login/widgets/animation_login_widget.dart';
-import 'package:dasarata_mobile/screens/login/widgets/button_login_widget.dart';
+import 'package:dasarata_mobile/screens/login/widgets/submit_button_login_widget.dart';
 import 'package:dasarata_mobile/screens/login/widgets/form_login_widget.dart';
 import 'package:dasarata_mobile/screens/login/widgets/greeting_login_widget.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class LoginScreen extends StatelessWidget {
                 SpacingConstant.verticalSpacing24px,
                 const FormLoginWidget(),
                 SpacingConstant.verticalSpacing24px,
-                const ButtonLoginWidget()
+                const SubmitButtonLoginWidget()
               ],
             ),
           ),
