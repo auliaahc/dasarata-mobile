@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DashboardCustomerController extends GetxController {
-  final TextEditingController searchController = TextEditingController();
+  final TextEditingController searchCustomerController = TextEditingController();
   RxInt selectedCustomerTabIndex = RxInt(0);
 
   void setCustomerTabIndex(int index) {
@@ -10,7 +10,7 @@ class DashboardCustomerController extends GetxController {
       Future.delayed(
         const Duration(milliseconds: 100),
         () {
-          searchController.clear();
+          searchCustomerController.clear();
         },
       );
     }
@@ -18,7 +18,7 @@ class DashboardCustomerController extends GetxController {
   }
 
   void resetCustomerTabIndex() {
-    searchController.clear();
+    searchCustomerController.clear();
     selectedCustomerTabIndex.value = 0;
   }
 }

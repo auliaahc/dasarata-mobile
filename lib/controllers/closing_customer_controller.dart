@@ -22,7 +22,6 @@ class ClosingCustomerController extends GetxController {
 
   Future<void> getAllClosingCustomerData() async {
     isLoadingFetchDashboardData.value = true;
-    if (searchQuery.value != null) listClosingCustomer.value.clear();
     try {
       final response = await closingCustomerService.getAllClosingCustomer(
         page: currentPageData.value,
@@ -73,6 +72,7 @@ class ClosingCustomerController extends GetxController {
   }
 
   void resetDashboardClosingCustomer() {
+    searchQuery.value = null;
     currentPageData.value = 1;
     listClosingCustomer.value.clear();
     getAllClosingCustomerData();
@@ -80,6 +80,10 @@ class ClosingCustomerController extends GetxController {
 
   void doSearchClosingCustomer(String query) {
     searchQuery.value = query;
-    getAllClosingCustomerData();
+    if (searchQuery.value != null) {
+      currentPageData.value = 1;
+      listClosingCustomer.value.clear();
+      getAllClosingCustomerData();
+    }
   }
 }

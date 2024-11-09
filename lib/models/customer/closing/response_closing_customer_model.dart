@@ -35,9 +35,7 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
-      data: json["data"] != null
-          ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x)))
-          : null,
+      data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))) : null,
       currentPage: json["current_page"] ?? 1,
       lastPage: json["last_page"] ?? 1,
       perPage: json["per_page"] ?? 1,
@@ -48,32 +46,25 @@ class Data {
 
 class Datum {
   final int id;
-  final int prospectCustomerId;
-  final String nik;
-  final String fullName;
+  final String name;
+  final String phoneNumber;
   final String installedAddress;
   final String phaseStatus;
-  // final String phoneNumber;
-
   Datum({
     required this.id,
-    required this.nik,
-    required this.prospectCustomerId,
-    required this.fullName,
+    required this.name,
+    required this.phoneNumber,
     required this.installedAddress,
     required this.phaseStatus,
-    // required this.phoneNumber,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) {
     return Datum(
       id: json["id"] ?? 0,
-      nik: json["nik"] ?? "",
-      prospectCustomerId: json["prospect_customer_id"] ?? 0,
-      fullName: json["full_name"] ?? "",
+      name: json["name"] ?? "",
+      phoneNumber: json["phone_number"] ?? "",
       installedAddress: json["installed_address"] ?? "",
       phaseStatus: json["phase_status"] ?? "",
-      // phoneNumber: json["phone_number"] ?? "",
     );
   }
 }

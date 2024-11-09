@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
 
-class AddFloatingButtonProspectCustomerWidget extends StatelessWidget {
-  const AddFloatingButtonProspectCustomerWidget({super.key});
+class AddFloatingButtonDashboardProspectCustomerWidget extends StatelessWidget {
+  const AddFloatingButtonDashboardProspectCustomerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

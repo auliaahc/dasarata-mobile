@@ -13,6 +13,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final MainController mainController = Get.put(MainController());
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Obx(() {
         switch (mainController.selectedIndex.value) {
           case 1: return const DashboardCustomerScreen();

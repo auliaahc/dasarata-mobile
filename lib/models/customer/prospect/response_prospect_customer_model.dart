@@ -1,8 +1,7 @@
 class ResponseProspectCustomerModel {
   final bool success;
   final String message;
-  final List<Datum>? data;
-
+  final Data? data;
   ResponseProspectCustomerModel({
     required this.success,
     required this.message,
@@ -11,11 +10,34 @@ class ResponseProspectCustomerModel {
 
   factory ResponseProspectCustomerModel.fromJson(Map<String, dynamic> json) {
     return ResponseProspectCustomerModel(
-      success: json["success"] ?? false,
+      success: json["success"],
       message: json["message"] ?? "",
-      data: json["data"] != null
-          ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x)))
-          : null,
+      data: json["data"] != null ? Data.fromJson(json["data"]) : null,
+    );
+  }
+}
+
+class Data {
+  final int currentPage;
+  final List<Datum>? data;
+  final int lastPage;
+  final int perPage;
+  final int to;
+  Data({
+    required this.currentPage,
+    required this.lastPage,
+    required this.perPage,
+    required this.to,
+    this.data,
+  });
+
+  factory Data.fromJson(Map<String, dynamic> json) {
+    return Data(
+      data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))) : null,
+      currentPage: json["current_page"] ?? 1,
+      lastPage: json["last_page"] ?? 1,
+      perPage: json["per_page"] ?? 1,
+      to: json["to"] ?? 1,
     );
   }
 }
@@ -29,7 +51,6 @@ class Datum {
   final String prospectCategory;
   final String meetCategory;
   final String status;
-
   Datum({
     required this.id,
     required this.name,

@@ -7,13 +7,13 @@ import 'package:dasarata_mobile/constants/spacing_constant.dart';
 import 'package:dasarata_mobile/constants/text_style_constant.dart';
 import 'package:dasarata_mobile/widgets/button_global_widget.dart';
 
-class DetailDialogProspectCustomerWidget extends StatelessWidget {
+class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
   final String name;
   final String telephoneNumber;
   final String meetMethod;
   final String status;
   final String address;
-  const DetailDialogProspectCustomerWidget({
+  const DetailDialogDashboardProspectCustomerWidget({
     super.key,
     required this.name,
     required this.telephoneNumber,
@@ -29,24 +29,26 @@ class DetailDialogProspectCustomerWidget extends StatelessWidget {
       insetPadding: const EdgeInsets.symmetric(horizontal: 16),
       backgroundColor: ColorConstant.whiteColor,
       content: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+       crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Detail Customer Prospek",
-                style: TextStyleConstant.semiboldSubtitle,
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.close,
-                  color: ColorConstant.neutralColor600,
+          Padding(
+            padding: const EdgeInsets.only(right: 0),
+            child: Row(
+              children: [
+                Text(
+                  "Detail Customer Prospek",
+                  style: TextStyleConstant.semiboldSubtitle,
                 ),
-                onPressed: () => Get.back(),
-              )
-            ],
+                IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    color: ColorConstant.neutralColor600,
+                  ),
+                  onPressed: () => Get.back(),
+                ),
+              ],
+            ),
           ),
           SpacingConstant.verticalSpacing20px,
           Text(
