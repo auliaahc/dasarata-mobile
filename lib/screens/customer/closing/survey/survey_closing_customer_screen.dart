@@ -1,9 +1,9 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
 import 'package:dasarata_mobile/controllers/home_point_closing_customer_controller.dart';
-import 'package:dasarata_mobile/screens/customer/closing/home_point/widgets/footer/footer_home_point_closing_customer_widget.dart';
-import 'package:dasarata_mobile/screens/customer/closing/home_point/widgets/header/header_home_point_closing_customer_widget.dart';
-import 'package:dasarata_mobile/screens/customer/closing/home_point/widgets/maps_home_point_closing_customer_widget.dart';
+import 'package:dasarata_mobile/screens/customer/closing/survey/widgets/footer/footer_survey_closing_customer_widget.dart';
+import 'package:dasarata_mobile/screens/customer/closing/survey/widgets/header/header_survey_closing_customer_widget.dart';
+import 'package:dasarata_mobile/screens/customer/closing/survey/widgets/maps_survey_closing_customer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

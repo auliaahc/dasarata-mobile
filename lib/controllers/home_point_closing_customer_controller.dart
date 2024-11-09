@@ -106,8 +106,7 @@ class HomePointClosingCustomerController extends GetxController {
 
   Future<void> getClosingCustomer(int closingId) async {
     try {
-      final response =
-          await closingCustomerService.getClosingCustomer(closingId);
+      final response = await closingCustomerService.getClosingCustomer(closingId);
       closingCustomerData.value = response.data;
       if (closingCustomerData.value!.longitude != 0 &&
           closingCustomerData.value!.latitude != 0) {

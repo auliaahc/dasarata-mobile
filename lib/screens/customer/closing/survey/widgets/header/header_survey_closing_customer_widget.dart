@@ -1,7 +1,7 @@
 import 'package:dasarata_mobile/constants/shadow_constant.dart';
-import 'package:dasarata_mobile/screens/customer/closing/home_point/widgets/header/appbar_header_home_point_closing_customer_widget.dart';
-import 'package:dasarata_mobile/screens/customer/closing/home_point/widgets/header/search_header_home_point_closing_customer_widget.dart';
-import 'package:dasarata_mobile/screens/customer/closing/home_point/widgets/header/type_toggle_header_home_point_closing_customer_widget.dart';
+import 'package:dasarata_mobile/screens/customer/closing/survey/widgets/header/appbar_header_survey_closing_customer_widget.dart';
+import 'package:dasarata_mobile/screens/customer/closing/survey/widgets/header/search_header_survey_closing_customer_widget.dart';
+import 'package:dasarata_mobile/screens/customer/closing/survey/widgets/header/type_toggle_header_survey_closing_customer_widget.dart';
 import 'package:flutter/material.dart';
 
 class HeaderHomePointClosingCustomerWidget extends StatelessWidget {

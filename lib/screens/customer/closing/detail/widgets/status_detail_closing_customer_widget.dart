@@ -15,11 +15,11 @@ class StatusDetailClosingCustomerWidget extends StatelessWidget {
       () {
         final String closingStatusPhase = closingCustomerController.detailClosingCustomer.value!.phaseStatus;
         int activeStepIndex;
-        if (closingStatusPhase == "Teknis") {
+        if (closingStatusPhase == "Teknis" || closingStatusPhase == "Personal") {
           activeStepIndex = 0;
         } else if (closingStatusPhase == "Survei") {
           activeStepIndex = 1;
-        } else if (closingStatusPhase == "Path") {
+        } else if (closingStatusPhase == "Path" || closingStatusPhase == "Spliter") {
           activeStepIndex = 2;
         } else {
           activeStepIndex = 3;

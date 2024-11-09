@@ -175,7 +175,7 @@ class ProspectCustomerController extends GetxController {
         ),
         infoWindow: InfoWindow(
           title: spliter.spliter,
-          snippet: "${spliter.customers} Customer",
+          snippet: "${spliter.customers} Customers",
         ),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
       );

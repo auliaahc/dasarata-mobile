@@ -1,5 +1,3 @@
-import 'package:dasarata_mobile/constants/color_constant.dart';
-import 'package:dasarata_mobile/constants/text_style_constant.dart';
 import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
 import 'package:dasarata_mobile/widgets/accordion_global_widget.dart';
 import 'package:flutter/material.dart';

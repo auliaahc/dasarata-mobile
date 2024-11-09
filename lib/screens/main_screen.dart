@@ -16,7 +16,7 @@ class MainScreen extends StatelessWidget {
       body: Obx(() {
         switch (mainController.selectedIndex.value) {
           case 1: return const DashboardCustomerScreen();
-          case 3: return const ProfileScreen();
+          case 2: return const ProfileScreen();
           default: return const HomeScreen();
         }
       }),
