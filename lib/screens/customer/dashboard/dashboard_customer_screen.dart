@@ -6,7 +6,6 @@ import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
 import 'package:dasarata_mobile/screens/customer/dashboard/widgets/search_bar_dashboard_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/dashboard/widgets/tab_bar_dashboard_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/dashboard/widgets/view_tab_bar_dashboard_customer_widget.dart';
-import 'package:dasarata_mobile/services/closing_customer_service.dart';
 import 'package:dasarata_mobile/widgets/appbar_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

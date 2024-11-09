@@ -1,3 +1,4 @@
+import 'package:dasarata_mobile/screens/customer/closing/detail/detail_closing_customer_screen.dart';
 import 'package:dasarata_mobile/screens/customer/dashboard/dashboard_customer_screen.dart';
 import 'package:dasarata_mobile/screens/customer/prospect/add/add_prospect_customer_screen.dart';
 import 'package:dasarata_mobile/screens/customer/prospect/maps/maps_prospect_customer_screen.dart';
@@ -16,6 +17,7 @@ class AppRoute {
   static const String addProspectCustomer = "$customer/prospect/add";
   static const String prospectMaps = "$customer/prospect/add/maps";
   static const String profile = "/profile";
+  static const String detailClosingCustomer = "$customer/closing/detail";
 
   static final routes = [
     GetPage(name: home, page: () => const MainScreen()),
@@ -31,5 +33,6 @@ class AppRoute {
     ),
     GetPage(name: prospectMaps, page: () => const MapsProspectCustomerScreen()),
     GetPage(name: profile, page: () => const ProfileScreen()),
+    GetPage(name: detailClosingCustomer, page: () => const DetailClosingCustomerScreen()),
   ];
 }

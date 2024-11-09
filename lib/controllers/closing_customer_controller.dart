@@ -1,6 +1,7 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
-import 'package:dasarata_mobile/constants/logger_constant.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_closing_customer_model.dart';
+import 'package:dasarata_mobile/models/customer/closing/response_find_closing_customer_model.dart' as response_find_closing_customer_model;
+import 'package:dasarata_mobile/routes/app_route.dart';
 import 'package:dasarata_mobile/services/closing_customer_service.dart';
 import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,10 @@ class ClosingCustomerController extends GetxController {
   RxInt currentPageData = RxInt(1);
   RxBool isLoadingFetchDashboardData = RxBool(false);
   RxnString searchQuery = RxnString();
+
+  // Detail
+  RxBool isLoadingGetClosingCustomer = RxBool(false);
+  Rxn<response_find_closing_customer_model.Data> detailClosingCustomer = Rxn<response_find_closing_customer_model.Data>();
 
   Future<void> getAllClosingCustomerData() async {
     isLoadingFetchDashboardData.value = true;
@@ -35,6 +40,29 @@ class ClosingCustomerController extends GetxController {
     } finally {
       isLoadingFetchDashboardData.value = false;
     }
+  }
+
+  Future<void> getClosingCustomerData(int closingId) async {
+    detailClosingCustomer.value = null;
+    isLoadingGetClosingCustomer.value = true;
+    try {
+      final response = await closingCustomerService.getClosingCustomer(closingId);
+      detailClosingCustomer.value = response.data;
+    } catch (e) {
+      if (e is response_find_closing_customer_model.ResponseFindClosingCustomerModel) {
+        SnackbarUtils.show(
+          messageText: e.message,
+          type: AnimatedSnackBarType.error,
+        );
+      }
+    } finally {
+      isLoadingGetClosingCustomer.value = false;
+    }
+  }
+
+  void moveToDetailScreen(int closingId) {
+    getClosingCustomerData(closingId);
+    Get.toNamed(AppRoute.detailClosingCustomer);
   }
 
   void onEndOfPage() {

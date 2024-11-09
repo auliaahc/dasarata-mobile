@@ -56,7 +56,7 @@ class ListClosingCustomerWidget extends StatelessWidget {
                         } else {
                           final customer = closingCustomerController.listClosingCustomer.value[index];
                           return ItemCustomerGlobalWidget(
-                            onTap: () {},
+                            onTap: () => closingCustomerController.moveToDetailScreen(customer.id),
                             index: index,
                             name: customer.fullName,
                             address: customer.installedAddress,
