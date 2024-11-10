@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class HeaderSpliterClosingCustomerWidget extends StatelessWidget {
   const HeaderSpliterClosingCustomerWidget({super.key});
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

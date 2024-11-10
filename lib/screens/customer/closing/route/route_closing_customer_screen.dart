@@ -1,22 +1,22 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
-import 'package:dasarata_mobile/controllers/survey_closing_customer_controller.dart';
-import 'package:dasarata_mobile/screens/customer/closing/survey/widgets/footer/footer_survey_closing_customer_widget.dart';
-import 'package:dasarata_mobile/screens/customer/closing/survey/widgets/header/header_survey_closing_customer_widget.dart';
-import 'package:dasarata_mobile/screens/customer/closing/survey/widgets/maps_survey_closing_customer_widget.dart';
+import 'package:dasarata_mobile/controllers/route_closing_customer_controller.dart';
+import 'package:dasarata_mobile/screens/customer/closing/route/widgets/footer/footer_route_closing_customer_widget.dart';
+import 'package:dasarata_mobile/screens/customer/closing/route/widgets/header/header_route_closing_customer_widget.dart';
+import 'package:dasarata_mobile/screens/customer/closing/route/widgets/maps_route_closing_customer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class SurveyClosingCustomerScreen extends StatelessWidget {
-  const SurveyClosingCustomerScreen({super.key});
+class RouteClosingCustomerScreen extends StatelessWidget {
+  const RouteClosingCustomerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final RouteClosingCustomerController routeClosingCustomerController = Get.put(RouteClosingCustomerController());
     final ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
-    final SurveyClosingCustomerController surveyClosingCustomerController =  Get.put(SurveyClosingCustomerController());
     Get.engine.addPostFrameCallback((_) {
-      surveyClosingCustomerController.checkData(closingCustomerController.detailClosingCustomer.value!.id);
+      routeClosingCustomerController.getClosingCustomerData(closingCustomerController.detailClosingCustomer.value!.id);
     });
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(statusBarColor: ColorConstant.whiteColor),
@@ -24,17 +24,17 @@ class SurveyClosingCustomerScreen extends StatelessWidget {
         body: SafeArea(
           child: Stack(
             children: [
-              MapsSurveyClosingCustomerWidget(),
+              MapsRouteClosingCustomerWidget(),
               Positioned(
                 left: 0,
                 right: 0,
-                child: HeaderSurveyClosingCustomerWidget(),
+                child: HeaderRouteClosingCustomerWidget(),
               ),
               Positioned(
                 bottom: 32,
                 left: 0,
                 right: 0,
-                child: FooterSurveyClosingCustomerWidget(),
+                child: FooterRouteClosingCustomerWidget(),
               ),
             ],
           ),

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class AppbarHeaderPathClosingCustomerWidget extends StatelessWidget {
-  const AppbarHeaderPathClosingCustomerWidget({super.key});
+class AppbarHeaderRouteClosingCustomerWidget extends StatelessWidget {
+  const AppbarHeaderRouteClosingCustomerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class AppbarHeaderPathClosingCustomerWidget extends StatelessWidget {
             ),
           ),
           Text(
-            "Jalur",
+            "Rute",
             style: TextStyleConstant.semiboldSubtitle,
           ),
           SpacingConstant.horizontalSpacing32px

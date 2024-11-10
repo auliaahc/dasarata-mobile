@@ -1,13 +1,16 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/constants/spacing_constant.dart';
+import 'package:dasarata_mobile/controllers/route_closing_customer_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
 
-class DetailButtonHeaderPathClosingCustomerWidget extends StatelessWidget {
-  const DetailButtonHeaderPathClosingCustomerWidget({super.key});
+class DistanceHeaderRouteClosingCustomerWidget extends StatelessWidget {
+  const DistanceHeaderRouteClosingCustomerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final RouteClosingCustomerController routeClosingCustomerController = Get.find();
     return Container(
       padding: const EdgeInsets.only(
         left: 16,
@@ -25,11 +28,18 @@ class DetailButtonHeaderPathClosingCustomerWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(LineIcons.route, color: ColorConstant.primaryColor),
-            SpacingConstant.horizontalSpacing6px,
-            const Text(
-              "Belum memilih spliter",
+            Icon(
+              LineIcons.rulerHorizontal,
+              color: ColorConstant.primaryColor,
             ),
+            SpacingConstant.horizontalSpacing8px,
+            Obx(
+              () {
+                return Text(
+                  "${routeClosingCustomerController.distance.toStringAsFixed(2)} m",
+                );
+              },
+            )
           ],
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/personal
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/status_detail_closing_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/subscription_detail_closing_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/technical_detail_closing_customer_widget.dart';
+import 'package:dasarata_mobile/screens/customer/closing/route/route_closing_customer_screen.dart';
 import 'package:dasarata_mobile/screens/customer/closing/spliter/spliter_closing_customer_screen.dart';
 import 'package:dasarata_mobile/widgets/appbar_global_widget.dart';
 import 'package:dasarata_mobile/widgets/loading_animation_global_widget.dart';
@@ -27,7 +28,7 @@ class DetailClosingCustomerScreen extends StatelessWidget {
         title: "Detail Customer Closing",
         implyLeading: true,
         action: const Icon(LineIcons.map),
-        onPressedAction: () => Get.to(const SpliterClosingCustomerScreen()),
+        onPressedAction: () => Get.to(const RouteClosingCustomerScreen()),
       ),
       body: Obx(
         () {

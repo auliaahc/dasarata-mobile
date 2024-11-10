@@ -1,4 +1,3 @@
-import 'package:dasarata_mobile/constants/logger_constant.dart';
 import 'package:dasarata_mobile/env/env.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_survey_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_closing_customer_model.dart';
@@ -11,8 +10,10 @@ class ClosingCustomerService {
   final Dio _dio = Dio();
   final url = "${Env.baseUrl}/sales/closings";
 
-  Future<ResponseClosingCustomerModel> getAllClosingCustomer(
-      {String? search, required int page}) async {
+  Future<ResponseClosingCustomerModel> getAllClosingCustomer({
+    String? search,
+    required int page,
+  }) async {
     final finalUrl = url;
     final token = await SharedPref.getToken();
     try {
@@ -26,10 +27,10 @@ class ClosingCustomerService {
       final rawResponse = response.data;
       return ResponseClosingCustomerModel.fromJson(rawResponse);
     } on DioException catch (e) {
-      if (e.response?.statusCode == 404) {
+      if (e.response?.statusCode == 500) {
         throw ResponseClosingCustomerModel(
           success: false,
-          message: "404: Data tidak ditemukan",
+          message: "Sesi berakhir",
         );
       } else {
         final errorResponse = e.response?.data;
@@ -55,14 +56,13 @@ class ClosingCustomerService {
           headers: {"Authorization": "Bearer $token"},
         ),
       );
-      LoggerConstant.info(response.toString());
       final rawResponse = response.data;
       return ResponseFindClosingCustomerModel.fromJson(rawResponse);
     } on DioException catch (e) {
-      if (e.response?.statusCode == 404) {
+      if (e.response?.statusCode == 500) {
         throw ResponseFindClosingCustomerModel(
           success: false,
-          message: "404: Data tidak ditemukan",
+          message: "Sesi berakhir",
         );
       } else {
         final errorResponse = e.response?.data;
@@ -78,7 +78,10 @@ class ClosingCustomerService {
     }
   }
 
-  Future<ResponseSurveyClosingCustomerModel> patchSurvey(int id, RequestSurveyClosingCustomerModel data) async {
+  Future<ResponseSurveyClosingCustomerModel> patchSurvey({
+    required int id,
+    required RequestSurveyClosingCustomerModel model,
+  }) async {
     final finalUrl = "$url/$id/update";
     final token = await SharedPref.getToken();
     try {
@@ -87,15 +90,15 @@ class ClosingCustomerService {
         options: Options(
           headers: {"Authorization": "Bearer $token"},
         ),
-        queryParameters: data.toJson(),
+        queryParameters: model.toJson(),
       );
       final rawResponse = response.data;
       return ResponseSurveyClosingCustomerModel.fromJson(rawResponse);
     } on DioException catch (e) {
-      if (e.response?.statusCode == 404) {
+      if (e.response?.statusCode == 500) {
         throw ResponseSurveyClosingCustomerModel(
           success: false,
-          message: "404: Data tidak ditemukan",
+          message: "Sesi berakhir",
         );
       } else {
         final errorResponse = e.response?.data;
@@ -110,5 +113,4 @@ class ClosingCustomerService {
       }
     }
   }
-
 }

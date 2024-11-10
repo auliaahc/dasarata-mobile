@@ -64,6 +64,7 @@ dependencies:
   custom_accordion: ^1.0.0
   photo_view: ^0.15.0
   easy_stepper: ^0.8.5+1
+  flutter_map_math: ^0.1.7
 
 dev_dependencies:
   flutter_test:

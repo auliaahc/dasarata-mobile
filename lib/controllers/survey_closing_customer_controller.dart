@@ -11,7 +11,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class HomePointClosingCustomerController extends GetxController {
+class SurveyClosingCustomerController extends GetxController {
   ClosingCustomerService closingCustomerService = ClosingCustomerService();
   Completer<GoogleMapController> mapsController = Completer<GoogleMapController>();
   Rx<MapType> selectedMapType = Rx<MapType>(MapType.normal);
@@ -135,7 +135,7 @@ class HomePointClosingCustomerController extends GetxController {
         latitude: selectedLatLng.value!.latitude,
         longitude: selectedLatLng.value!.longitude,
       );
-      final response = await closingCustomerService.patchSurvey(closingId, data);
+      final response = await closingCustomerService.patchSurvey(id: closingId, model: data);
       if (response.success == true) {
         SnackbarUtils.show(
           messageText: "Sukses memperbarui data survei!",
