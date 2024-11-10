@@ -17,6 +17,8 @@ class PhotoHeaderProfileWidget extends StatelessWidget {
           child: profileController.profileData.value!.photo.isEmpty
               ? Image.asset(
                   ImageConstant.profilePlaceholder,
+                  width: 125,
+                  height: 125,
                 )
               : CachedNetworkImage(
                   width: 125,
