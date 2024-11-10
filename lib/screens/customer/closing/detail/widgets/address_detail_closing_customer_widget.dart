@@ -22,19 +22,19 @@ class AddressDetailClosingCustomerWidget extends StatelessWidget {
           },
           {
             "field": "Provinsi",
-            "value": closingCustomerController.detailClosingCustomer.value!.provincesId.toString(),
+            "value": closingCustomerController.detailClosingCustomer.value!.provinces.name,
           },
           {
             "field": "Kota",
-            "value": closingCustomerController.detailClosingCustomer.value!.regencyId.toString(),
+            "value": closingCustomerController.detailClosingCustomer.value!.regency.name,
           },
           {
             "field": "Kecamatan",
-            "value": closingCustomerController.detailClosingCustomer.value!.districtId.toString(),
+            "value": closingCustomerController.detailClosingCustomer.value!.district.name,
           },
           {
             "field": "Dusun",
-            "value": closingCustomerController.detailClosingCustomer.value!.villageId.toString(),
+            "value": closingCustomerController.detailClosingCustomer.value!.village.name,
           },
           {
             "field": "RT",

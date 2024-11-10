@@ -31,6 +31,7 @@ class AppbarGlobalWidget extends StatelessWidget implements PreferredSizeWidget 
               )
             ]
           : null,
+      scrolledUnderElevation: 0.0,
       automaticallyImplyLeading: implyLeading ?? false,
       shadowColor: shadowColor,
       toolbarHeight: 50,

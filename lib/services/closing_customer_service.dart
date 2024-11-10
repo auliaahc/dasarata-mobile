@@ -1,3 +1,4 @@
+import 'package:dasarata_mobile/constants/logger_constant.dart';
 import 'package:dasarata_mobile/env/env.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_survey_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_closing_customer_model.dart';
@@ -54,6 +55,7 @@ class ClosingCustomerService {
           headers: {"Authorization": "Bearer $token"},
         ),
       );
+      LoggerConstant.info(response.toString());
       final rawResponse = response.data;
       return ResponseFindClosingCustomerModel.fromJson(rawResponse);
     } on DioException catch (e) {

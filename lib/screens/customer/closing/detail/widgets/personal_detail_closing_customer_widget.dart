@@ -14,7 +14,7 @@ class PersonalDetailClosingCustomerWidget extends StatelessWidget {
         final List<Map<String, dynamic>> personalInformation = [
           {
             "field": "Nama Lengkap",
-            "value": closingCustomerController.detailClosingCustomer.value!.fullName,
+            "value": closingCustomerController.detailClosingCustomer.value!.name,
           },
           {
             "field": "NIK",
@@ -26,7 +26,7 @@ class PersonalDetailClosingCustomerWidget extends StatelessWidget {
           },
           {
             "field": "Nomor Telepon",
-            "value": "085739206149" // TODO
+            "value": closingCustomerController.detailClosingCustomer.value!.phoneNumber
           },
         ];
         return AccordionGlobalWidget(

@@ -14,11 +14,11 @@ class TechnicalDetailClosingCustomerWidget extends StatelessWidget {
         final List<Map<String, dynamic>> technicalInformation = [
           {
             "field": "Area Cover",
-            "value": closingCustomerController.detailClosingCustomer.value!.coverageAreaId.toString(),
+            "value": closingCustomerController.detailClosingCustomer.value!.coverage.nameCoverage
           },
           {
             "field": "Spliter",
-            "value": closingCustomerController.detailClosingCustomer.value!.spliterId.toString(),
+            "value": closingCustomerController.detailClosingCustomer.value!.spliter.spliterName
           },
           {
             "field": "Latitude",

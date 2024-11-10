@@ -14,14 +14,15 @@ class SubscriptionDetailClosingCustomerWidget extends StatelessWidget {
         final List<Map<String, dynamic>> subscritionInformation = [
           {
             "field": "Jenis Customer",
-            "value": closingCustomerController
-                .detailClosingCustomer.value!.customerCategory,
+            "value": closingCustomerController.detailClosingCustomer.value!.customerCategory ?? "-",
           },
           {
             "field": "Paket Layanan",
-            "value": closingCustomerController
-                .detailClosingCustomer.value!.servicePackageId
-                .toString(),
+            "value": closingCustomerController.detailClosingCustomer.value!.package.namePackage
+          },
+          {
+            "field": "Program",
+            "value": closingCustomerController.detailClosingCustomer.value!.program.nameProgram
           }
         ];
         return AccordionGlobalWidget(
