@@ -2,7 +2,7 @@ import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:dasarata_mobile/models/login/request_login_model.dart';
 import 'package:dasarata_mobile/models/login/response_login_model.dart';
 import 'package:dasarata_mobile/routes/app_route.dart';
-import 'package:dasarata_mobile/services/login_service.dart';
+import 'package:dasarata_mobile/services/authentication_service.dart';
 import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +11,7 @@ class LoginController extends GetxController {
   final loginFormKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final loginService = LoginService();
+  final authenticationService = AuthenticationService();
   RxBool isObscurePassword = RxBool(true);
   RxBool isLoadingLogin = RxBool(false);
   RxnString email = RxnString();
@@ -37,7 +37,7 @@ class LoginController extends GetxController {
     if (loginFormKey.currentState!.validate()) {
       loginFormKey.currentState!.save();
       try {
-        final response = await loginService.loginWithEmail(
+        final response = await authenticationService.loginWithEmail(
           model: RequestLoginModel(
             email: email.value!,
             password: password.value!,

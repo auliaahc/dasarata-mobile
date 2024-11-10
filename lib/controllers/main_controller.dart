@@ -28,10 +28,4 @@ class MainController extends GetxController {
       },
     );
   }
-
-  void logout() {
-    SharedPref.removeToken();
-    Get.deleteAll();
-    Get.offAllNamed(AppRoute.splash);
-  }
 }

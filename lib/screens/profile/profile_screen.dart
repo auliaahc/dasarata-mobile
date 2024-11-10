@@ -13,18 +13,20 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MainController mainController = Get.find();
     final ProfileController profileController = Get.put(ProfileController());
+    Get.engine.addPostFrameCallback((_) {
+      profileController.getProfileData();
+    });
     return Scaffold(
       appBar: AppbarGlobalWidget(
         title: "Profile",
         action: const Icon(Icons.exit_to_app_rounded),
-        onPressedAction: () => mainController.logout(),
+        onPressedAction: profileController.logout,
       ),
       backgroundColor: ColorConstant.whiteColor,
       body: Obx(
         () {
-          if (profileController.isLoadingProfile.value || profileController.profileData.value == null) {
+          if (profileController.isLoadingProfile.value) {
             return const Center(
               child: LoadingAnimationGlobalWidget(),
             );

@@ -14,6 +14,9 @@ class HeaderHomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ProfileController profileController = Get.put(ProfileController());
+    Get.engine.addPostFrameCallback((_) {
+      profileController.getProfileData();
+    });
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.vertical(

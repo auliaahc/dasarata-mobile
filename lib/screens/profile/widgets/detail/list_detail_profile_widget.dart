@@ -16,27 +16,27 @@ class ListDetailProfileWidget extends StatelessWidget {
           {
             "icon": LineIcons.user,
             "label": "Nama Panggilan",
-            "data": profileController.profileData.value!.name,
+            "data": profileController.profileData.value!.name == "" ? "-" : profileController.profileData.value!.name,
           },
           {
             "icon": LineIcons.phone,
             "label": "Nomor Telepon",
-            "data": profileController.profileData.value!.phone,
+            "data": profileController.profileData.value!.phone == "" ? "-" : profileController.profileData.value!.phone,
           },
           {
             "icon": LineIcons.at,
             "label": "Email",
-            "data": profileController.profileData.value!.email,
+            "data": profileController.profileData.value!.email == "" ? "-" : profileController.profileData.value!.email,
           },
           {
             "icon": LineIcons.home,
             "label": "Alamat",
-            "data": profileController.profileData.value!.address,
+            "data": profileController.profileData.value!.address == "" ? "-" : profileController.profileData.value!.address,
           },
           {
             "icon": LineIcons.briefcase,
             "label": "Divisi",
-            "data": profileController.profileData.value!.division,
+            "data": profileController.profileData.value!.division == "" ? "-" : profileController.profileData.value!.division,
           },
         ];
         return ListView.builder(
