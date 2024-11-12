@@ -20,6 +20,16 @@ class ClosingCustomerController extends GetxController {
   RxBool isLoadingGetClosingCustomer = RxBool(false);
   Rxn<response_find_closing_customer_model.Data> detailClosingCustomer = Rxn<response_find_closing_customer_model.Data>();
 
+  void moveToUpdateStatusPhaseScreen(String phase) {
+    if (phase == "Personal" || phase == "Teknis") {
+      Get.toNamed(AppRoute.surveyClosingCustomer);
+    } else if (phase == "Survei") {
+      Get.toNamed(AppRoute.spliterClosingCustomer);
+    } else {
+      Get.toNamed(AppRoute.routeClosingCustomer);
+    }
+  }
+
   Future<void> getAllClosingCustomerData() async {
     isLoadingFetchDashboardData.value = true;
     try {

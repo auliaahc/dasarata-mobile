@@ -12,6 +12,7 @@ class MapsSurveyClosingCustomerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     SurveyClosingCustomerController surveyClosingCustomerController = Get.find();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: ColorConstant.backgroundColor,
       body: Obx(
         () {

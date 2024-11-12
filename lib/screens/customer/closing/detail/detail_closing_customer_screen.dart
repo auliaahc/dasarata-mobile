@@ -6,8 +6,6 @@ import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/personal
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/status_detail_closing_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/subscription_detail_closing_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/technical_detail_closing_customer_widget.dart';
-import 'package:dasarata_mobile/screens/customer/closing/route/route_closing_customer_screen.dart';
-import 'package:dasarata_mobile/screens/customer/closing/spliter/spliter_closing_customer_screen.dart';
 import 'package:dasarata_mobile/widgets/appbar_global_widget.dart';
 import 'package:dasarata_mobile/widgets/loading_animation_global_widget.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +17,7 @@ class DetailClosingCustomerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ClosingCustomerController closingCustomerController =
-        Get.put(ClosingCustomerController());
+    final ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
 
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
@@ -28,7 +25,7 @@ class DetailClosingCustomerScreen extends StatelessWidget {
         title: "Detail Customer Closing",
         implyLeading: true,
         action: const Icon(LineIcons.map),
-        onPressedAction: () => Get.to(const RouteClosingCustomerScreen()),
+        onPressedAction: () => closingCustomerController.moveToUpdateStatusPhaseScreen(closingCustomerController.detailClosingCustomer.value!.phaseStatus),
       ),
       body: Obx(
         () {

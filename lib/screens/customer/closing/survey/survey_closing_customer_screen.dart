@@ -20,8 +20,10 @@ class SurveyClosingCustomerScreen extends StatelessWidget {
     });
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(statusBarColor: ColorConstant.whiteColor),
-      child: const Scaffold(
-        body: SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: ColorConstant.whiteColor,
+        body: const SafeArea(
           child: Stack(
             children: [
               MapsSurveyClosingCustomerWidget(),

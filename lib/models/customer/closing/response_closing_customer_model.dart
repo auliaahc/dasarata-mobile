@@ -2,7 +2,6 @@ class ResponseClosingCustomerModel {
   final bool success;
   final String message;
   final Data? data;
-
   ResponseClosingCustomerModel({
     required this.success,
     required this.message,
@@ -24,7 +23,6 @@ class Data {
   final int lastPage;
   final int perPage;
   final int to;
-
   Data({
     required this.currentPage,
     this.data,

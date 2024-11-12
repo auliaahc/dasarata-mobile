@@ -35,15 +35,15 @@ class StatusDetailClosingCustomerWidget extends StatelessWidget {
           steps: const [
             EasyStep(
               icon: LineIcon.home(),
-              title: "Titik Rumah",
+              title: "Survei",
             ),
             EasyStep(
               icon: LineIcon.mapPin(),
-              title: "ODP",
+              title: "Spliter",
             ),
             EasyStep(
               icon: LineIcon.route(),
-              title: "Jalur",
+              title: "Rute",
             ),
           ],
         );

@@ -1,4 +1,5 @@
 import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
+import 'package:dasarata_mobile/routes/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
@@ -151,7 +152,7 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
             isLoading: false,
             isDisabled: false,
             label: "Closing",
-            onTap: () {},
+            onTap: () => Get.toNamed(AppRoute.addClosingCustomer)
           ),
         ],
       ),

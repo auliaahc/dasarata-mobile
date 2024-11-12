@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_survey_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_find_closing_customer_model.dart';
-import 'package:dasarata_mobile/models/customer/closing/response_survey_closing_customer_model.dart' as response_survey_closing_customer_model;
+import 'package:dasarata_mobile/models/response_global_model.dart';
 import 'package:dasarata_mobile/services/closing_customer_service.dart';
 import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +23,35 @@ class SurveyClosingCustomerController extends GetxController {
   RxBool isLoadingUpdateSurveyData = RxBool(false);
   RxInt selectedMapTypeIndex = RxInt(0);
   TextEditingController latLngController = TextEditingController();
+
+  Future<void> updateSurveyData() async {
+    isLoadingUpdateSurveyData.value = true;
+    try {
+      final response = await closingCustomerService.patchPhaseStatus(
+        id: closingCustomerData.value!.id,
+        model: RequestSurveyClosingCustomerModel(
+          latitude: selectedLatLng.value!.latitude,
+          longitude: selectedLatLng.value!.longitude,
+        ),
+      );
+      if (response.success) {
+        Get.back();
+        SnackbarUtils.show(
+          messageText: response.message,
+          type: AnimatedSnackBarType.success,
+        );
+      }
+    } catch (e) {
+      if (e is ResponseGlobalModel) {
+        SnackbarUtils.show(
+          messageText: e.message,
+          type: AnimatedSnackBarType.error,
+        );
+      }
+    } finally {
+      isLoadingUpdateSurveyData.value = false;
+    }
+  }
 
   Future<void> checkData(int closingId) async {
     await getClosingCustomer(closingId);
@@ -47,7 +76,7 @@ class SurveyClosingCustomerController extends GetxController {
       updateMarker(selectedLatLng.value!);
     } else {
       SnackbarUtils.show(
-        messageText: "Format yang dimasukkan salah",
+        messageText: "Format tidak valid",
         type: AnimatedSnackBarType.error,
       );
     }
@@ -87,8 +116,7 @@ class SurveyClosingCustomerController extends GetxController {
 
   Future<void> onTapMaps(LatLng latLng) async {
     selectedLatLng.value = latLng;
-    latLngController.text =
-        "${selectedLatLng.value!.latitude}, ${selectedLatLng.value!.longitude}";
+    latLngController.text = "${selectedLatLng.value!.latitude}, ${selectedLatLng.value!.longitude}";
     await updateMarker(selectedLatLng.value!);
     await moveCamera(latLng);
   }
@@ -105,6 +133,7 @@ class SurveyClosingCustomerController extends GetxController {
   }
 
   Future<void> getClosingCustomer(int closingId) async {
+    isLoadingGetClosingCustomer.value = true;
     try {
       final response = await closingCustomerService.getClosingCustomer(closingId);
       closingCustomerData.value = response.data;
@@ -125,32 +154,8 @@ class SurveyClosingCustomerController extends GetxController {
           type: AnimatedSnackBarType.error,
         );
       }
-    }
-  }
-
-  Future<void> updateSurveyData(int closingId) async {
-    isLoadingUpdateSurveyData.value = true;
-    try {
-      final data = RequestSurveyClosingCustomerModel(
-        latitude: selectedLatLng.value!.latitude,
-        longitude: selectedLatLng.value!.longitude,
-      );
-      final response = await closingCustomerService.patchSurvey(id: closingId, model: data);
-      if (response.success == true) {
-        SnackbarUtils.show(
-          messageText: "Sukses memperbarui data survei!",
-          type: AnimatedSnackBarType.success,
-        );
-      }
-    } catch (e) {
-      if (e is response_survey_closing_customer_model.ResponseSurveyClosingCustomerModel) {
-        SnackbarUtils.show(
-          messageText: e.message,
-          type: AnimatedSnackBarType.error,
-        );
-      }
     } finally {
-      isLoadingUpdateSurveyData.value = false;
+      isLoadingGetClosingCustomer.value = false;
     }
   }
 

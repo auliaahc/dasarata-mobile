@@ -1,5 +1,6 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/constants/shadow_constant.dart';
+import 'package:dasarata_mobile/constants/text_style_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
@@ -9,7 +10,7 @@ class TypeMapsToggleGlobalWidget extends StatelessWidget {
   const TypeMapsToggleGlobalWidget({
     super.key,
     required this.onToggle,
-    required this.index
+    required this.index,
   });
 
   @override
@@ -19,7 +20,7 @@ class TypeMapsToggleGlobalWidget extends StatelessWidget {
       decoration: BoxDecoration(boxShadow: ShadowConstant.mapTypeShadow),
       child: ToggleSwitch(
         labels: const [
-          "Map",
+          "Normal",
           "Satellite",
         ],
         dividerColor: ColorConstant.primaryColor,
@@ -34,6 +35,12 @@ class TypeMapsToggleGlobalWidget extends StatelessWidget {
         minHeight: 30,
         minWidth: 80,
         initialLabelIndex: index,
+        customTextStyles: const [
+          TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 12,
+          ),
+        ],
       ),
     );
   }

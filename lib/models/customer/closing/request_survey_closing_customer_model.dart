@@ -2,7 +2,6 @@ class RequestSurveyClosingCustomerModel {
   final String? type;
   final double latitude;
   final double longitude;
-
   RequestSurveyClosingCustomerModel({
     this.type = "survei",
     required this.latitude,

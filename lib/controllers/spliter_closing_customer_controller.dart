@@ -22,10 +22,6 @@ class SpliterClosingCustomerController extends GetxController {
   RxBool isLoadingGetClosingCustomerData = RxBool(false);
   RxBool isLoadingGetSplitersData = RxBool(false);
 
-  Future<void> submitSpliterData() async {
-    
-  }
-
   Future<void> getSplitersData() async {
     isLoadingGetSplitersData.value = true;
     try {
@@ -44,16 +40,15 @@ class SpliterClosingCustomerController extends GetxController {
     }
   }
 
-  Future<void> fetchData(int closingId) async {
-    await getClosingCustomerData(closingId);
-    await getSplitersData();
+  void fetchData(int closingId) {
+    getClosingCustomerData(closingId);
+    getSplitersData();
   }
 
   Future<void> getClosingCustomerData(int closingId) async {
     isLoadingGetClosingCustomerData.value = true;
     try {
-      final response =
-          await closingCustomerService.getClosingCustomer(closingId);
+      final response = await closingCustomerService.getClosingCustomer(closingId);
       closingCustomerDetail.value = response.data;
       customerLatLng.value = LatLng(
         closingCustomerDetail.value!.latitude,
@@ -83,8 +78,8 @@ class SpliterClosingCustomerController extends GetxController {
       final Marker marker = Marker(
         markerId: MarkerId(data.id.toString()),
         position: LatLng(
-          double.parse(data.lat),
-          double.parse(data.lng),
+          data.lat,
+          data.lng,
         ),
         infoWindow: InfoWindow(
           title: data.spliter,
@@ -95,8 +90,8 @@ class SpliterClosingCustomerController extends GetxController {
           selectedSpliter.value = Marker(
             markerId: MarkerId(data.id.toString()),
             position: LatLng(
-              double.parse(data.lat),
-              double.parse(data.lng),
+              data.lat,
+              data.lng,
             ),
             infoWindow: InfoWindow(
               title: data.spliter,

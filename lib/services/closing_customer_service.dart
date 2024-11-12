@@ -1,8 +1,9 @@
 import 'package:dasarata_mobile/env/env.dart';
+import 'package:dasarata_mobile/models/customer/closing/request_spliter_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_survey_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_find_closing_customer_model.dart';
-import 'package:dasarata_mobile/models/customer/closing/response_survey_closing_customer_model.dart';
+import 'package:dasarata_mobile/models/response_global_model.dart';
 import 'package:dasarata_mobile/utilities/shared_pref.dart';
 import 'package:dio/dio.dart';
 
@@ -78,9 +79,9 @@ class ClosingCustomerService {
     }
   }
 
-  Future<ResponseSurveyClosingCustomerModel> patchSurvey({
+  Future<ResponseGlobalModel> patchPhaseStatus({
     required int id,
-    required RequestSurveyClosingCustomerModel model,
+    required dynamic model,
   }) async {
     final finalUrl = "$url/$id/update";
     final token = await SharedPref.getToken();
@@ -90,22 +91,26 @@ class ClosingCustomerService {
         options: Options(
           headers: {"Authorization": "Bearer $token"},
         ),
-        queryParameters: model.toJson(),
+        data: model is RequestSurveyClosingCustomerModel
+            ? model.toJson()
+            : model is RequestSpliterClosingCustomerModel
+                ? model.toJson()
+                : null,
       );
       final rawResponse = response.data;
-      return ResponseSurveyClosingCustomerModel.fromJson(rawResponse);
+      return ResponseGlobalModel.fromJson(rawResponse);
     } on DioException catch (e) {
       if (e.response?.statusCode == 500) {
-        throw ResponseSurveyClosingCustomerModel(
+        throw ResponseGlobalModel(
           success: false,
           message: "Sesi berakhir",
         );
       } else {
         final errorResponse = e.response?.data;
         if (errorResponse != null) {
-          throw ResponseSurveyClosingCustomerModel.fromJson(errorResponse);
+          throw ResponseGlobalModel.fromJson(errorResponse);
         } else {
-          throw ResponseSurveyClosingCustomerModel(
+          throw ResponseGlobalModel(
             success: false,
             message: "Tidak terhubung ke internet",
           );

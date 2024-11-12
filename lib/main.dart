@@ -5,6 +5,8 @@ import "package:device_preview_minus/device_preview_minus.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
+import "package:flutter_localizations/flutter_localizations.dart";
+
 
 void main() async {
   SystemUiOverlayUtils.setSystemUiOverlay();
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       getPages: AppRoute.routes,
       initialRoute: AppRoute.splash,
+      localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
     );
   }
 }

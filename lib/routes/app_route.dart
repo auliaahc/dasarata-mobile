@@ -1,3 +1,4 @@
+import 'package:dasarata_mobile/screens/customer/closing/add/add_closing_customer_screen.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/detail_closing_customer_screen.dart';
 import 'package:dasarata_mobile/screens/customer/closing/route/route_closing_customer_screen.dart';
 import 'package:dasarata_mobile/screens/customer/closing/spliter/spliter_closing_customer_screen.dart';
@@ -24,6 +25,7 @@ class AppRoute {
   static const String surveyClosingCustomer = "$customer/closing/survey";
   static const String spliterClosingCustomer = "$customer/closing/spliter";
   static const String routeClosingCustomer = "$customer/closing/route";
+  static const String addClosingCustomer = "$customer/closing/add";
 
   static final routes = [
     GetPage(name: home, page: () => const MainScreen()),
@@ -40,7 +42,9 @@ class AppRoute {
     GetPage(name: prospectMaps, page: () => const MapsProspectCustomerScreen()),
     GetPage(name: profile, page: () => const ProfileScreen()),
     GetPage(name: detailClosingCustomer, page: () => const DetailClosingCustomerScreen()),
-    GetPage(name: surveyClosingCustomer, page: () => const SpliterClosingCustomerScreen()),
+    GetPage(name: surveyClosingCustomer, page: () => const SurveyClosingCustomerScreen()),
+    GetPage(name: spliterClosingCustomer, page: () => const SpliterClosingCustomerScreen()),
     GetPage(name: routeClosingCustomer, page: () => const RouteClosingCustomerScreen()),
+    GetPage(name: addClosingCustomer, page: () => const AddClosingCustomerScreen()),
   ];
 }

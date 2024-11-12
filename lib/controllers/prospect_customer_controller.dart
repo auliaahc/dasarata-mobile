@@ -104,9 +104,7 @@ class ProspectCustomerController extends GetxController {
   }
 
   void onSubmitFormAddProspectCustomer(String nipSalesId) async {
-    print("cek");
     if (addProspectFormKey.currentState!.validate()) {
-      print("ok");
       isLoadingAddProspectCustomer.value = true;
       prospectCustomerData.value = RequestFormProspectCustomerModel(
         nipSalesId: nipSalesId,
@@ -181,8 +179,8 @@ class ProspectCustomerController extends GetxController {
       final Marker marker = Marker(
         markerId: MarkerId(spliter.id.toString()),
         position: LatLng(
-          double.parse(spliter.lat),
-          double.parse(spliter.lng),
+          spliter.lat,
+          spliter.lng,
         ),
         infoWindow: InfoWindow(
           title: spliter.spliter,
