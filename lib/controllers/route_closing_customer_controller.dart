@@ -18,7 +18,7 @@ class RouteClosingCustomerController extends GetxController {
   RxBool isLoadingGetClosingCustomerData = RxBool(false);
   Rxn<Data> closingCustomerDetail = Rxn<Data>();
   Rxn<LatLng> customerLatLng = Rxn<LatLng>();
-  Rxn<LatLng> spliterLatLng = Rxn<LatLng>(const LatLng(-7.93, 112.57));
+  Rxn<LatLng> spliterLatLng = Rxn<LatLng>();
   RxInt selectedMapTypeIndex = RxInt(0);
   Rx<MapType> selectedMapType = Rx<MapType>(MapType.normal);
   RxSet<Marker> markers = RxSet<Marker>();
@@ -35,6 +35,10 @@ class RouteClosingCustomerController extends GetxController {
       customerLatLng.value = LatLng(
         closingCustomerDetail.value!.latitude,
         closingCustomerDetail.value!.longitude,
+      );
+      spliterLatLng.value = LatLng(
+        closingCustomerDetail.value!.spliter.latitude,
+        closingCustomerDetail.value!.spliter.longitude,
       );
       updateCustomerAndSpliterMarkers();
       moveCameraToBounds();

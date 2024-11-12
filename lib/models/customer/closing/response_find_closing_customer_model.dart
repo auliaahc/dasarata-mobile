@@ -166,15 +166,21 @@ class Coverage {
 class Spliter {
   final int spliterId;
   final String spliterName;
+  final double latitude;
+  final double longitude;
   Spliter({
     required this.spliterId,
     required this.spliterName,
+    required this.latitude,
+    required this.longitude,
   });
 
   factory Spliter.fromJson(Map<String, dynamic> json) {
     return Spliter(
       spliterId: json["spliter_id"] ?? 0,
       spliterName: json["spliter_name"] ?? "",
+      latitude: json["lantitude"] ?? 0,
+      longitude: json["longitude"] ?? 0,
     );
   }
 }
