@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:dasarata_mobile/models/customer/closing/request_spliter_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_find_closing_customer_model.dart';
+import 'package:dasarata_mobile/models/customer/closing/spliter_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/maps/spliter_maps_model.dart';
+import 'package:dasarata_mobile/models/response_global_model.dart';
 import 'package:dasarata_mobile/services/closing_customer_service.dart';
 import 'package:dasarata_mobile/services/google_maps_service.dart';
 import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
@@ -17,10 +20,38 @@ class SpliterClosingCustomerController extends GetxController {
   Rxn<Data> closingCustomerDetail = Rxn<Data>();
   RxSet<Marker> markers = RxSet<Marker>();
   Rxn<List<Datum>> spliters = Rxn<List<Datum>>();
-  Rxn<Marker> selectedSpliter = Rxn<Marker>();
+  Rxn<SpliterClosingCustomerModel> selectedSpliter = Rxn<SpliterClosingCustomerModel>();
   Rxn<LatLng> customerLatLng = Rxn<LatLng>();
+  RxBool isLoadingUpdateSpliterData = RxBool(false);
   RxBool isLoadingGetClosingCustomerData = RxBool(false);
   RxBool isLoadingGetSplitersData = RxBool(false);
+
+  Future<void> updateSpliterData() async {
+    isLoadingUpdateSpliterData.value = true;
+    try {
+      final response = await closingCustomerService.patchPhaseStatus(
+        id: closingCustomerDetail.value!.id,
+        model: RequestSpliterClosingCustomerModel(
+          spliterId: selectedSpliter.value!.id,
+          coverageAreaId: selectedSpliter.value!.coverageAreaId,
+        ),
+      );
+      Get.back();
+      SnackbarUtils.show(
+        messageText: response.message,
+        type: AnimatedSnackBarType.success,
+      );
+    } catch (e) {
+      if (e is ResponseGlobalModel) {
+        SnackbarUtils.show(
+          messageText: e.message,
+          type: AnimatedSnackBarType.error,
+        );
+      }
+    } finally {
+      isLoadingUpdateSpliterData.value = false;
+    }
+  }
 
   Future<void> getSplitersData() async {
     isLoadingGetSplitersData.value = true;
@@ -73,7 +104,7 @@ class SpliterClosingCustomerController extends GetxController {
   }
 
   void updateSpliterMarkers() {
-    markers.removeWhere((marker) => marker.markerId.value != "customerMarker");
+    markers.removeWhere((marker) => marker.markerId.value != "customer");
     for (Datum data in spliters.value ?? []) {
       final Marker marker = Marker(
         markerId: MarkerId(data.id.toString()),
@@ -87,7 +118,16 @@ class SpliterClosingCustomerController extends GetxController {
         ),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
         onTap: () {
-          selectedSpliter.value = Marker(
+          selectedSpliter.value = SpliterClosingCustomerModel(
+            id: data.id,
+            coverageAreaId: data.coverageAreaId,
+            latitude: data.lat,
+            longitude: data.lng,
+            customers: data.customers,
+            area: data.area,
+            spliter: data.spliter,
+          );
+          Marker tempSpliter = Marker(
             markerId: MarkerId(data.id.toString()),
             position: LatLng(
               data.lat,
@@ -97,8 +137,10 @@ class SpliterClosingCustomerController extends GetxController {
               title: data.spliter,
               snippet: "${data.customers} Customers",
             ),
+            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
           );
-        }
+          markers.add(tempSpliter);
+        },
       );
       markers.add(marker);
     }
@@ -106,8 +148,9 @@ class SpliterClosingCustomerController extends GetxController {
 
   void updateCustomerMarker() {
     final marker = Marker(
-      markerId: const MarkerId("customerMarker"),
+      markerId: const MarkerId("customer"),
       position: customerLatLng.value!,
+      infoWindow: const InfoWindow(title: "Customer"),
     );
     markers.add(marker);
   }

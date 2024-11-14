@@ -1,4 +1,5 @@
 import 'package:dasarata_mobile/env/env.dart';
+import 'package:dasarata_mobile/models/customer/closing/request_route_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_spliter_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_survey_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_closing_customer_model.dart';
@@ -95,7 +96,9 @@ class ClosingCustomerService {
             ? model.toJson()
             : model is RequestSpliterClosingCustomerModel
                 ? model.toJson()
-                : null,
+                : model is RequestRouteClosingCustomerModel
+                    ? model.toJson()
+                    : null,
       );
       final rawResponse = response.data;
       return ResponseGlobalModel.fromJson(rawResponse);

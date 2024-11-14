@@ -6,7 +6,7 @@ import 'package:dasarata_mobile/models/customer/prospect/request_form_prospect_c
 import 'package:dasarata_mobile/models/customer/prospect/response_form_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/prospect/response_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/maps/spliter_maps_model.dart' as spliter_maps_model;
-import 'package:dasarata_mobile/screens/customer/prospect/dashboard/detail_dialog_dashboard_prospect_customer_widget.dart';
+import 'package:dasarata_mobile/screens/customer/prospect/dashboard/widgets/detail_dialog_dashboard_prospect_customer_widget.dart';
 import 'package:dasarata_mobile/services/google_maps_service.dart';
 import 'package:dasarata_mobile/services/prospect_customer_service.dart';
 import 'package:dasarata_mobile/utilities/snackbar_utils.dart';

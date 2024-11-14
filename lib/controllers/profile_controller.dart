@@ -1,6 +1,6 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:dasarata_mobile/models/profile/response_profile_model.dart';
-import 'package:dasarata_mobile/routes/app_route.dart';
+import 'package:dasarata_mobile/config/app_route.dart';
 import 'package:dasarata_mobile/services/authentication_service.dart';
 import 'package:dasarata_mobile/services/profile_service.dart';
 import 'package:dasarata_mobile/utilities/shared_pref.dart';

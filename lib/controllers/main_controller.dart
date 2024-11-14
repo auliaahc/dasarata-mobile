@@ -1,4 +1,4 @@
-import 'package:dasarata_mobile/routes/app_route.dart';
+import 'package:dasarata_mobile/config/app_route.dart';
 import 'package:dasarata_mobile/utilities/shared_pref.dart';
 import 'package:get/get.dart';
 

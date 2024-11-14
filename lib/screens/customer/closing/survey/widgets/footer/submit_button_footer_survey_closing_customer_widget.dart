@@ -16,7 +16,7 @@ class SubmitButtonFooterSurveyClosingCustomerWidget extends StatelessWidget {
           isLoading: surveyClosingCustomerController.isLoadingUpdateSurveyData.value,
           isDisabled: isDisabled,
           label: "Submit",
-          onTap: () => surveyClosingCustomerController.updateSurveyData(),
+          onTap: surveyClosingCustomerController.updateSurveyData
         );
       },
     );

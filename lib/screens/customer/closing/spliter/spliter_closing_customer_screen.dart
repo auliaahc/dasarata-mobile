@@ -20,8 +20,9 @@ class SpliterClosingCustomerScreen extends StatelessWidget {
     });
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(statusBarColor: ColorConstant.whiteColor),
-      child: const Scaffold(
-        body: SafeArea(
+      child: Scaffold(
+        backgroundColor: ColorConstant.whiteColor,
+        body: const SafeArea(
           child: Stack(
             children: [
               MapsSpliterClosingCustomerWidget(),

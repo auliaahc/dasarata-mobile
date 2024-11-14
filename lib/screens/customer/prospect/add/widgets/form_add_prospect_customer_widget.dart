@@ -1,5 +1,5 @@
 import 'package:dasarata_mobile/constants/spacing_constant.dart';
-import 'package:dasarata_mobile/routes/app_route.dart';
+import 'package:dasarata_mobile/config/app_route.dart';
 import 'package:dasarata_mobile/utilities/validator_input_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

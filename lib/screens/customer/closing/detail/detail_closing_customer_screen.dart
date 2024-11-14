@@ -1,4 +1,5 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
+import 'package:dasarata_mobile/constants/spacing_constant.dart';
 import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/address_detail_closing_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/documentation_detail_closing_customer_widget.dart';
@@ -18,7 +19,6 @@ class DetailClosingCustomerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
-
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       appBar: AppbarGlobalWidget(
@@ -29,20 +29,26 @@ class DetailClosingCustomerScreen extends StatelessWidget {
       ),
       body: Obx(
         () {
-          if (closingCustomerController.isLoadingGetClosingCustomer.value) {
+          if (closingCustomerController.isLoadingGetClosingCustomer.value || closingCustomerController.detailClosingCustomer.value == null) {
             return const Center(
               child: LoadingAnimationGlobalWidget(),
             );
           } else {
-            return const SingleChildScrollView(
+            return SingleChildScrollView(
               child: Column(
                 children: [
-                  StatusDetailClosingCustomerWidget(),
-                  PersonalDetailClosingCustomerWidget(),
-                  AddressDetailClosingCustomerWidget(),
-                  TechnicalDetailClosingCustomerWidget(),
-                  SubscriptionDetailClosingCustomerWidget(),
-                  DocumentationDetailClosingCustomerWidget(),
+                  SpacingConstant.verticalSpacing12px,
+                  const StatusDetailClosingCustomerWidget(),
+                  SpacingConstant.verticalSpacing12px,
+                  const PersonalDetailClosingCustomerWidget(),
+                  SpacingConstant.verticalSpacing6px,
+                  const AddressDetailClosingCustomerWidget(),
+                  SpacingConstant.verticalSpacing6px,
+                  const SubscriptionDetailClosingCustomerWidget(),
+                  SpacingConstant.verticalSpacing6px,
+                  const TechnicalDetailClosingCustomerWidget(),
+                  SpacingConstant.verticalSpacing6px,
+                  const DocumentationDetailClosingCustomerWidget(),
                 ],
               ),
             );

@@ -6,7 +6,6 @@ import 'package:dasarata_mobile/models/response_global_model.dart';
 import 'package:dasarata_mobile/services/closing_customer_service.dart';
 import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -34,13 +33,11 @@ class SurveyClosingCustomerController extends GetxController {
           longitude: selectedLatLng.value!.longitude,
         ),
       );
-      if (response.success) {
-        Get.back();
-        SnackbarUtils.show(
-          messageText: response.message,
-          type: AnimatedSnackBarType.success,
-        );
-      }
+      Get.back();
+      SnackbarUtils.show(
+        messageText: response.message,
+        type: AnimatedSnackBarType.success,
+      );
     } catch (e) {
       if (e is ResponseGlobalModel) {
         SnackbarUtils.show(
@@ -53,7 +50,7 @@ class SurveyClosingCustomerController extends GetxController {
     }
   }
 
-  Future<void> checkData(int closingId) async {
+  Future<void> fetchData(int closingId) async {
     await getClosingCustomer(closingId);
     if (selectedLatLng.value != null) {
       await moveCamera(selectedLatLng.value!);
@@ -95,7 +92,11 @@ class SurveyClosingCustomerController extends GetxController {
     isLoadingGetCurrentLocation.value = true;
     await handleLocationPermission();
     try {
-      final response = await Geolocator.getCurrentPosition();
+      final response = await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.low,
+        ),
+      );
       selectedLatLng.value = LatLng(
         response.latitude,
         response.longitude,
@@ -137,14 +138,12 @@ class SurveyClosingCustomerController extends GetxController {
     try {
       final response = await closingCustomerService.getClosingCustomer(closingId);
       closingCustomerData.value = response.data;
-      if (closingCustomerData.value!.longitude != 0 &&
-          closingCustomerData.value!.latitude != 0) {
+      if (closingCustomerData.value!.longitude != 0 && closingCustomerData.value!.latitude != 0) {
         selectedLatLng.value = LatLng(
           closingCustomerData.value!.latitude,
           closingCustomerData.value!.longitude,
         );
-        latLngController.text =
-            "${selectedLatLng.value!.latitude}, ${selectedLatLng.value!.longitude}";
+        latLngController.text = "${selectedLatLng.value!.latitude}, ${selectedLatLng.value!.longitude}";
         updateMarker(selectedLatLng.value!);
       }
     } catch (e) {
@@ -171,53 +170,25 @@ class SurveyClosingCustomerController extends GetxController {
   Future<bool> handleLocationPermission() async {
     bool locationServiceEnabled;
     LocationPermission locationPermission;
-    try {
-      locationServiceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!locationServiceEnabled) {
+
+    locationServiceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!locationServiceEnabled) {
+      SnackbarUtils.show(
+        messageText: "Layanan lokasi tidak diaktifkan",
+        type: AnimatedSnackBarType.error,
+      );
+    }
+    locationPermission = await Geolocator.checkPermission();
+    if (locationPermission == LocationPermission.denied) {
+      locationPermission = await Geolocator.requestPermission();
+      if (locationPermission == LocationPermission.denied) {
         SnackbarUtils.show(
-          messageText: "Layanan lokasi tidak diaktifkan",
+          messageText: "Izin akses lokasi ditolak",
           type: AnimatedSnackBarType.error,
         );
         return false;
       }
-      locationPermission = await Geolocator.checkPermission();
-      if (locationPermission == LocationPermission.denied) {
-        locationPermission = await Geolocator.requestPermission();
-        if (locationPermission == LocationPermission.denied) {
-          SnackbarUtils.show(
-            messageText: "Izin akses lokasi ditolak",
-            type: AnimatedSnackBarType.error,
-          );
-          return false;
-        } else if (locationPermission == LocationPermission.deniedForever) {
-          SnackbarUtils.show(
-            messageText:
-                "Izin akses lokasi ditolak selamanya. Atur izin secara manual di pengaturan perangkat.",
-            type: AnimatedSnackBarType.error,
-          );
-          return false;
-        }
-      }
-      return await _requestAccurateLocation();
-    } on PlatformException catch (e) {
-      SnackbarUtils.show(
-        messageText: e.toString(),
-        type: AnimatedSnackBarType.error,
-      );
-      return false;
     }
-  }
-
-  Future<bool> _requestAccurateLocation() async {
-    try {
-      await Geolocator.getCurrentPosition();
-      return true;
-    } catch (e) {
-      SnackbarUtils.show(
-        messageText: "Gagal mendapatkan lokasi dengan akurasi tinggi: $e",
-        type: AnimatedSnackBarType.error,
-      );
-      return false;
-    }
+    return true;
   }
 }

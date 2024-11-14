@@ -35,8 +35,8 @@ class DetailHeaderSpliterClosingCustomerWidget extends StatelessWidget {
                 final selectedSpliter = spliterClosingCustomerController.selectedSpliter.value;
                 return Text(
                   selectedSpliter != null
-                      ? "${selectedSpliter.infoWindow.title}"
-                      : "Belum memilih spliter",
+                      ? selectedSpliter.spliter
+                      : "Belum ada spliter yang dipilih",
                 );
               },
             ),

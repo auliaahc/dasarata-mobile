@@ -1,6 +1,5 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/constants/shadow_constant.dart';
-import 'package:dasarata_mobile/constants/text_style_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 

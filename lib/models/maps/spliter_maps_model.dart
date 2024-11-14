@@ -26,6 +26,7 @@ class Datum {
   final double lat;
   final double lng;
   final int customers;
+  final int coverageAreaId;
   Datum({
     required this.id,
     required this.area,
@@ -33,6 +34,7 @@ class Datum {
     required this.lat,
     required this.lng,
     required this.customers,
+    required this.coverageAreaId,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) {
@@ -43,6 +45,7 @@ class Datum {
       lat: json["lat"] ?? 0,
       lng: json["lng"] ?? 0,
       customers: json["customers"] ?? 0,
+      coverageAreaId: json["coverage_area_id"] ?? 0,
     );
   }
 }

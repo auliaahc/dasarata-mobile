@@ -24,28 +24,33 @@ class StatusDetailClosingCustomerWidget extends StatelessWidget {
         } else {
           activeStepIndex = 3;
         }
-        return EasyStepper(
-          activeStep: activeStepIndex,
-          activeStepTextColor: ColorConstant.primaryColor,
-          activeStepBorderColor: ColorConstant.primaryColor,
-          defaultStepBorderType: BorderType.normal,
-          activeStepIconColor: ColorConstant.primaryColor,
-          finishedStepBackgroundColor: ColorConstant.primaryColor,
-          finishedStepTextColor: ColorConstant.primaryColor,
-          steps: const [
-            EasyStep(
-              icon: LineIcon.home(),
-              title: "Survei",
+        return SizedBox(
+          height: 105,
+          child: Center(
+            child: EasyStepper(
+              enableStepTapping: false,
+              activeStep: activeStepIndex,
+              activeStepTextColor: ColorConstant.primaryColor,
+              activeStepBorderColor: ColorConstant.primaryColor,
+              defaultStepBorderType: BorderType.normal,
+              finishedStepBackgroundColor: ColorConstant.primaryColor,
+              finishedStepTextColor: ColorConstant.primaryColor,
+              steps: const [
+                EasyStep(
+                  icon: LineIcon.home(),
+                  title: "Survei",
+                ),
+                EasyStep(
+                  icon: LineIcon.mapPin(),
+                  title: "Spliter",
+                ),
+                EasyStep(
+                  icon: LineIcon.route(),
+                  title: "Rute",
+                ),
+              ],
             ),
-            EasyStep(
-              icon: LineIcon.mapPin(),
-              title: "Spliter",
-            ),
-            EasyStep(
-              icon: LineIcon.route(),
-              title: "Rute",
-            ),
-          ],
+          ),
         );
       },
     );

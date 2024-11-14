@@ -1,7 +1,7 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:flutter/material.dart';
 
-class AppThemeConstant {
+class AppTheme {
   static ThemeData appTheme = ThemeData(
     fontFamily: "Poppins",
     textSelectionTheme: TextSelectionThemeData(

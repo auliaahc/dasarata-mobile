@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:dasarata_mobile/constants/color_constant.dart';
+import 'package:dasarata_mobile/models/customer/closing/request_route_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_find_closing_customer_model.dart';
+import 'package:dasarata_mobile/models/response_global_model.dart';
 import 'package:dasarata_mobile/services/closing_customer_service.dart';
 import 'package:dasarata_mobile/services/google_maps_service.dart';
 import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
@@ -26,6 +28,47 @@ class RouteClosingCustomerController extends GetxController {
   RxList<LatLng> routeLatLng = RxList<LatLng>();
   RxDouble distance = RxDouble(0);
   RxList<double> listDistance = RxList<double>();
+  RxBool isLoadingUpdateRouteData = RxBool(false);
+
+  Future<void> updateRouteData() async {
+    isLoadingUpdateRouteData.value = true;
+    try {
+      final response = await closingCustomerService.patchPhaseStatus(
+        id: closingCustomerDetail.value!.id,
+        model: RequestRouteClosingCustomerModel(
+          length: distance.value,
+          lengthText: "${distance.value.toStringAsFixed(2)} m",
+          points: markers
+              .where(
+                (marker) =>
+                    marker.markerId.value != "customer" &&
+                    marker.markerId.value != "spliter",
+              )
+              .map(
+                (marker) => Point(
+                  lat: marker.position.latitude.toString(),
+                  lng: marker.position.longitude.toString(),
+                ),
+              )
+              .toList(),
+        ),
+      );
+      Get.back();
+      SnackbarUtils.show(
+        messageText: response.message,
+        type: AnimatedSnackBarType.success,
+      );
+    } catch (e) {
+      if (e is ResponseGlobalModel) {
+        SnackbarUtils.show(
+          messageText: e.message,
+          type: AnimatedSnackBarType.error,
+        );
+      }
+    } finally {
+      isLoadingUpdateRouteData.value = false;
+    }
+  }
 
   Future<void> getClosingCustomerData(int closingId) async {
     isLoadingGetClosingCustomerData.value = true;
@@ -93,12 +136,12 @@ class RouteClosingCustomerController extends GetxController {
     distance.value = 0;
     int totalIndex = routeLatLng.length - 1;
     if (totalIndex > 0) {
-      for (int i=0; i<totalIndex; i++) {
+      for (int i = 0; i < totalIndex; i++) {
         double tempDistance = flutterMapMath.distanceBetween(
           routeLatLng[i].latitude,
           routeLatLng[i].longitude,
-          routeLatLng[i+1].latitude,
-          routeLatLng[i+1].longitude,
+          routeLatLng[i + 1].latitude,
+          routeLatLng[i + 1].longitude,
           "meters",
         );
         distance.value += tempDistance;
@@ -113,10 +156,12 @@ class RouteClosingCustomerController extends GetxController {
         listMarkers[i] = Marker(
           markerId: MarkerId(newLatLng.toString()),
           position: newLatLng,
-          onTap: () => deleteRouteMarker(newLatLng, MarkerId(newLatLng.toString())),
+          onTap: () =>
+              deleteRouteMarker(newLatLng, MarkerId(newLatLng.toString())),
           draggable: true,
           onDragEnd: (latLng) => moveRouteMarker(newLatLng, latLng),
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
         );
         break;
       }
@@ -142,7 +187,7 @@ class RouteClosingCustomerController extends GetxController {
       Polyline(
         polylineId: const PolylineId("routePolyline"),
         points: routeLatLng,
-        color: ColorConstant.secondaryColor
+        color: ColorConstant.secondaryColor,
       ),
     );
   }

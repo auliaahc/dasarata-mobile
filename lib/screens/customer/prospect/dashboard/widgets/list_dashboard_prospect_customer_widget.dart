@@ -1,7 +1,7 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/constants/spacing_constant.dart';
 import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
-import 'package:dasarata_mobile/screens/customer/prospect/dashboard/add_floating_button_dashboard_prospect_customer_widget.dart';
+import 'package:dasarata_mobile/screens/customer/prospect/dashboard/widgets/add_floating_button_dashboard_prospect_customer_widget.dart';
 import 'package:dasarata_mobile/widgets/empty_state_global_widget.dart';
 import 'package:dasarata_mobile/widgets/item_customer_global_widget.dart';
 import 'package:dasarata_mobile/widgets/loading_animation_global_widget.dart';
