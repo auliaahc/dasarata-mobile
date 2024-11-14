@@ -8,6 +8,7 @@ import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/status_d
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/subscription_detail_closing_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/technical_detail_closing_customer_widget.dart';
 import 'package:dasarata_mobile/widgets/appbar_global_widget.dart';
+import 'package:dasarata_mobile/widgets/empty_state_global_widget.dart';
 import 'package:dasarata_mobile/widgets/loading_animation_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,9 +30,17 @@ class DetailClosingCustomerScreen extends StatelessWidget {
       ),
       body: Obx(
         () {
-          if (closingCustomerController.isLoadingGetClosingCustomer.value || closingCustomerController.detailClosingCustomer.value == null) {
+          if (closingCustomerController.isLoadingGetClosingCustomer.value) {
             return const Center(
               child: LoadingAnimationGlobalWidget(),
+            );
+          } else if (closingCustomerController.detailClosingCustomer.value == null) {
+            return Expanded(
+              child: Center(
+                child: EmptyStateGlobalWidget(
+                  additionalSpacing: SpacingConstant.verticalSpacing80px,
+                ),
+              ),
             );
           } else {
             return SingleChildScrollView(
@@ -49,6 +58,7 @@ class DetailClosingCustomerScreen extends StatelessWidget {
                   const TechnicalDetailClosingCustomerWidget(),
                   SpacingConstant.verticalSpacing6px,
                   const DocumentationDetailClosingCustomerWidget(),
+                  SpacingConstant.verticalSpacing12px,
                 ],
               ),
             );

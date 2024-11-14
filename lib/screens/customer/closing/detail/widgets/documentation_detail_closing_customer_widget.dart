@@ -40,7 +40,7 @@ class DocumentationDetailClosingCustomerWidget extends StatelessWidget {
                 children: [
                   Text(
                     data["field"],
-                    style: TextStyleConstant.boldCaption.copyWith(
+                    style: TextStyleConstant.semiboldCaption.copyWith(
                       color: ColorConstant.neutralColor600,
                     ),
                   ),

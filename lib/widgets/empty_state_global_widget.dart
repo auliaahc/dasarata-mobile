@@ -39,7 +39,7 @@ class EmptyStateGlobalWidget extends StatelessWidget {
           ],
         ),
         Text(
-          "Hmm, tampaknya belum ada data di sini!",
+          "Hmm, tidak ada data di sini!",
           style: TextStyleConstant.regularCaption.copyWith(
             color: ColorConstant.neutralColor600,
           ),

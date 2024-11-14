@@ -12,10 +12,10 @@ class SubscriptionDetailClosingCustomerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ClosingCustomerController closingCustomerController = Get.find();
-    final TextStyle fieldTextStyle = TextStyleConstant.boldCaption.copyWith(
+    final TextStyle fieldTextStyle = TextStyleConstant.semiboldCaption.copyWith(
       color: ColorConstant.neutralColor600,
     );
-    final TextStyle valueTextStyle = TextStyleConstant.mediumParagraph.copyWith(
+    final TextStyle valueTextStyle = TextStyleConstant.regularParagraph.copyWith(
       color: ColorConstant.neutralColor800,
     );
     return Obx(

@@ -97,7 +97,6 @@ class FormAddClosingCustomerWidget extends StatelessWidget {
   textInputAction: TextInputAction.done,
   keyboardType: TextInputType.datetime,
   onChanged: (value) {
-    print("Selected Date: $value");
   },
   additionalLabel: "Help",
   additionalAction: () {

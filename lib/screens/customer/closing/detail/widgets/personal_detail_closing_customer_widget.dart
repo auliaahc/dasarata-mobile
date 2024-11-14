@@ -46,14 +46,14 @@ class PersonalDetailClosingCustomerWidget extends StatelessWidget {
                 children: [
                   Text(
                     data["field"],
-                    style: TextStyleConstant.boldCaption.copyWith(
+                    style: TextStyleConstant.semiboldCaption.copyWith(
                       color: ColorConstant.neutralColor600,
                     ),
                   ),
                   SpacingConstant.verticalSpacing2px,
                   Text(
                     data["value"],
-                    style: TextStyleConstant.mediumParagraph.copyWith(
+                    style: TextStyleConstant.regularParagraph.copyWith(
                       color: ColorConstant.neutralColor800,
                     ),
                   ),
