@@ -1,3 +1,4 @@
+import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
 import 'package:dasarata_mobile/controllers/dashboard_customer_controller.dart';
 import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
@@ -16,18 +17,32 @@ class SearchBarDashboardCustomerWidget extends StatelessWidget {
     final ClosingCustomerController closingCustomerController = Get.find();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: TextFieldGlobalWidget(
-        controller: dashboardCustomerController.searchCustomerController,
-        icon: LineIcons.search,
-        hint: "Search",
-        textInputAction: TextInputAction.search,
-        keyboardType: TextInputType.text,
-        onSubmit: (query) => {
-          if (dashboardCustomerController.selectedCustomerTabIndex.value == 0) {
-            prospectCustomerController.doSearchProspectCustomer(query)
-          } else if (dashboardCustomerController.selectedCustomerTabIndex.value == 1){
-            closingCustomerController.doSearchClosingCustomer(query)
-          }
+      child: Obx(
+        () {
+          return TextFieldGlobalWidget(
+            controller: dashboardCustomerController.searchCustomerController,
+            icon: LineIcons.search,
+            hint: "Search",
+            textInputAction: TextInputAction.search,
+            keyboardType: TextInputType.text,
+            suffixIcon: dashboardCustomerController.searchCustomerQuery.value.isNotEmpty
+                ? IconButton(
+                    onPressed: dashboardCustomerController.onClearSearchCustomer,
+                    icon: Icon(
+                      Icons.close,
+                      color: ColorConstant.neutralColor600,
+                    ),
+                  )
+                : null,
+            onSubmit: (query) {
+              if (dashboardCustomerController.selectedCustomerTabIndex.value == 0) {
+                prospectCustomerController.doSearchProspectCustomer(query);
+              } else if (dashboardCustomerController.selectedCustomerTabIndex.value == 1) {
+                closingCustomerController.doSearchClosingCustomer(query);
+              }
+            },
+            onChanged: (query) => dashboardCustomerController.searchCustomerQuery.value = query,
+          );
         },
       ),
     );
