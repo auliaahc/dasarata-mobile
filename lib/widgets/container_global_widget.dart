@@ -20,10 +20,9 @@ class ContainerGlobalWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        boxShadow: shadow ?? ShadowConstant.shadowSm,
-        color: ColorConstant.whiteColor,
-        borderRadius: BorderRadius.circular(12)
-      ),
+          boxShadow: shadow ?? ShadowConstant.shadowSm,
+          color: ColorConstant.whiteColor,
+          borderRadius: BorderRadius.circular(12)),
       width: width,
       height: height,
       child: child,

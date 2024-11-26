@@ -41,7 +41,7 @@ class BottomNavbarGlobalWidget extends StatelessWidget {
         color: const Color(0XFF9DB2CE),
         activeColor: ColorConstant.primaryColor,
         iconSize: 24,
-        tabBackgroundColor:const Color(0XFFD6E9F9),
+        tabBackgroundColor: const Color(0XFFD6E9F9),
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
         backgroundColor: ColorConstant.whiteColor,
         tabs: const [

@@ -1,4 +1,5 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
+import 'package:dasarata_mobile/constants/spacing_constant.dart';
 import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/address_detail_closing_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/documentation_detail_closing_customer_widget.dart';
@@ -6,8 +7,8 @@ import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/personal
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/status_detail_closing_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/subscription_detail_closing_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/technical_detail_closing_customer_widget.dart';
-import 'package:dasarata_mobile/screens/customer/closing/spliter/spliter_closing_customer_screen.dart';
 import 'package:dasarata_mobile/widgets/appbar_global_widget.dart';
+import 'package:dasarata_mobile/widgets/empty_state_global_widget.dart';
 import 'package:dasarata_mobile/widgets/loading_animation_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,14 +21,19 @@ class DetailClosingCustomerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ClosingCustomerController closingCustomerController =
         Get.put(ClosingCustomerController());
-
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       appBar: AppbarGlobalWidget(
         title: "Detail Customer Closing",
         implyLeading: true,
-        action: const Icon(LineIcons.map),
-        onPressedAction: () => Get.to(const SpliterClosingCustomerScreen()),
+        action: Icon(
+          LineIcons.mapMarker,
+          color: ColorConstant.neutralColor900,
+        ),
+        tooltip: "Update Status Phase",
+        onPressedAction: () => closingCustomerController
+            .moveToUpdateStatusPhaseScreen(closingCustomerController
+                .detailClosingCustomer.value!.phaseStatus),
       ),
       body: Obx(
         () {
@@ -35,16 +41,32 @@ class DetailClosingCustomerScreen extends StatelessWidget {
             return const Center(
               child: LoadingAnimationGlobalWidget(),
             );
+          } else if (closingCustomerController.detailClosingCustomer.value ==
+              null) {
+            return Expanded(
+              child: Center(
+                child: EmptyStateGlobalWidget(
+                  additionalSpacing: SpacingConstant.verticalSpacing80px,
+                ),
+              ),
+            );
           } else {
-            return const SingleChildScrollView(
+            return SingleChildScrollView(
               child: Column(
                 children: [
-                  StatusDetailClosingCustomerWidget(),
-                  PersonalDetailClosingCustomerWidget(),
-                  AddressDetailClosingCustomerWidget(),
-                  TechnicalDetailClosingCustomerWidget(),
-                  SubscriptionDetailClosingCustomerWidget(),
-                  DocumentationDetailClosingCustomerWidget(),
+                  SpacingConstant.verticalSpacing12px,
+                  const StatusDetailClosingCustomerWidget(),
+                  SpacingConstant.verticalSpacing12px,
+                  const PersonalDetailClosingCustomerWidget(),
+                  SpacingConstant.verticalSpacing6px,
+                  const AddressDetailClosingCustomerWidget(),
+                  SpacingConstant.verticalSpacing6px,
+                  const SubscriptionDetailClosingCustomerWidget(),
+                  SpacingConstant.verticalSpacing6px,
+                  const TechnicalDetailClosingCustomerWidget(),
+                  SpacingConstant.verticalSpacing6px,
+                  const DocumentationDetailClosingCustomerWidget(),
+                  SpacingConstant.verticalSpacing12px,
                 ],
               ),
             );

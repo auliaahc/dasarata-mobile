@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 class AuthenticationService {
   final Dio _dio = Dio();
 
-  Future<ResponseLoginModel> loginWithEmail({required RequestLoginModel model}) async {
+  Future<ResponseLoginModel> loginWithEmail(RequestLoginModel model) async {
     const url = "${Env.baseUrl}/login";
     try {
       final response = await _dio.post(
@@ -32,16 +32,14 @@ class AuthenticationService {
     }
   }
 
-  Future<ResponseGlobalModel> postLogout() async {
+  Future<ResponseGlobalModel> logout() async {
     const url = "${Env.baseUrl}/logout";
     final token = await SharedPref.getToken();
     try {
-      final response = await _dio.post(
-        url,
-        options: Options(headers: {
-          "Authorization": "Bearer $token",
-        })
-      );
+      final response = await _dio.post(url,
+          options: Options(headers: {
+            "Authorization": "Bearer $token",
+          }));
       final rawResponse = response.data;
       return ResponseGlobalModel.fromJson(rawResponse);
     } on DioException catch (e) {

@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class RegisteredLocationFooterSpliterClosingCustomerWidget extends StatelessWidget {
+class RegisteredLocationFooterSpliterClosingCustomerWidget
+    extends StatelessWidget {
   const RegisteredLocationFooterSpliterClosingCustomerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final SpliterClosingCustomerController spliterClosingCustomerController = Get.find();
+    final SpliterClosingCustomerController spliterClosingCustomerController =
+        Get.find();
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -22,7 +24,8 @@ class RegisteredLocationFooterSpliterClosingCustomerWidget extends StatelessWidg
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(32),
             ),
-            onPressed: spliterClosingCustomerController.moveCameraToCustomerLocation,
+            onPressed:
+                spliterClosingCustomerController.moveCameraToCustomerLocation,
             child: Center(
               child: SvgPicture.asset(IconConstant.currentLocation),
             ),

@@ -23,9 +23,10 @@ class Datum {
   final int id;
   final String area;
   final String spliter;
-  final String lat;
-  final String lng;
+  final double lat;
+  final double lng;
   final int customers;
+  final int coverageAreaId;
   Datum({
     required this.id,
     required this.area,
@@ -33,6 +34,7 @@ class Datum {
     required this.lat,
     required this.lng,
     required this.customers,
+    required this.coverageAreaId,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) {
@@ -40,9 +42,10 @@ class Datum {
       area: json["area"] ?? "",
       id: json["id"] ?? 0,
       spliter: json["spliter"] ?? "",
-      lat: json["lat"] ?? "",
-      lng: json["lng"] ?? "",
+      lat: json["lat"] ?? 0,
+      lng: json["lng"] ?? 0,
       customers: json["customers"] ?? 0,
+      coverageAreaId: json["coverage_area_id"] ?? 0,
     );
   }
 }

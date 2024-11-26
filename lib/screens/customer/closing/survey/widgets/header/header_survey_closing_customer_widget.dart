@@ -4,8 +4,8 @@ import 'package:dasarata_mobile/screens/customer/closing/survey/widgets/header/s
 import 'package:dasarata_mobile/screens/customer/closing/survey/widgets/header/type_toggle_header_survey_closing_customer_widget.dart';
 import 'package:flutter/material.dart';
 
-class HeaderHomePointClosingCustomerWidget extends StatelessWidget {
-  const HeaderHomePointClosingCustomerWidget({super.key});
+class HeaderSurveyClosingCustomerWidget extends StatelessWidget {
+  const HeaderSurveyClosingCustomerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,8 @@ class HeaderHomePointClosingCustomerWidget extends StatelessWidget {
           ),
           child: const Column(
             children: [
-              AppbarHeaderHomePointClosingCustomerWidget(),
-              SearchHeaderHomePointClosingCustomerWidget(),
+              AppbarHeaderSurveyClosingCustomerWidget(),
+              SearchHeaderSurveyClosingCustomerWidget(),
             ],
           ),
         ),
@@ -28,7 +28,7 @@ class HeaderHomePointClosingCustomerWidget extends StatelessWidget {
             left: 16,
             top: 24,
           ),
-          child: TypeToggleHeaderHomePointClosingCustomerWidget(),
+          child: TypeToggleHeaderSurveyClosingCustomerWidget(),
         )
       ],
     );

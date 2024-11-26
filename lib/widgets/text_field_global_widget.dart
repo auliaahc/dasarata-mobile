@@ -24,8 +24,10 @@ class TextFieldGlobalWidget extends StatelessWidget {
   final Function()? additionalAction;
   final Function(String)? onSubmit;
   final String? initialValue;
+  final bool? enabled;
 
   const TextFieldGlobalWidget({
+    this.enabled,
     this.initialValue,
     this.onSubmit,
     this.obscureText,
@@ -92,6 +94,7 @@ class TextFieldGlobalWidget extends StatelessWidget {
             minLines: minLines ?? 1,
             maxLines: maxLines ?? 5,
             decoration: InputDecoration(
+              enabled: enabled ?? true,
               errorText: errorText,
               prefixIcon: icon != null
                   ? Padding(
@@ -118,6 +121,13 @@ class TextFieldGlobalWidget extends StatelessWidget {
                 borderSide: BorderSide(
                   color: ColorConstant.secondaryColor,
                   width: 2,
+                ),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(32),
+                borderSide: BorderSide(
+                  color: ColorConstant.neutralColor700,
+                  width: 0.5,
                 ),
               ),
               enabledBorder: OutlineInputBorder(

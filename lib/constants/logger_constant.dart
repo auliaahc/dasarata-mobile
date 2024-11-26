@@ -18,7 +18,7 @@ class LoggerConstant {
     logger.i(message, error: title);
   }
 
-  static void error(String message, {String title="Error"}) {
+  static void error(String message, {String title = "Error"}) {
     logger.e(message, error: title);
   }
 }

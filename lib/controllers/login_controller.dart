@@ -1,7 +1,7 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:dasarata_mobile/models/login/request_login_model.dart';
 import 'package:dasarata_mobile/models/login/response_login_model.dart';
-import 'package:dasarata_mobile/routes/app_route.dart';
+import 'package:dasarata_mobile/config/app_route.dart';
 import 'package:dasarata_mobile/services/authentication_service.dart';
 import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class LoginController extends GetxController {
       loginFormKey.currentState!.save();
       try {
         final response = await authenticationService.loginWithEmail(
-          model: RequestLoginModel(
+          RequestLoginModel(
             email: email.value!,
             password: password.value!,
           ),

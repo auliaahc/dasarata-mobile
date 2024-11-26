@@ -1,16 +1,17 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
-import 'package:dasarata_mobile/controllers/home_point_closing_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/survey_closing_customer_controller.dart';
 import 'package:dasarata_mobile/widgets/text_field_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
 
-class SearchHeaderHomePointClosingCustomerWidget extends StatelessWidget {
-  const SearchHeaderHomePointClosingCustomerWidget({super.key});
+class SearchHeaderSurveyClosingCustomerWidget extends StatelessWidget {
+  const SearchHeaderSurveyClosingCustomerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final HomePointClosingCustomerController homePointClosingCustomerController = Get.find();
+    final SurveyClosingCustomerController surveyClosingCustomerController =
+        Get.find();
     return Container(
       padding: const EdgeInsets.only(
         left: 16,
@@ -26,13 +27,14 @@ class SearchHeaderHomePointClosingCustomerWidget extends StatelessWidget {
       ),
       child: Center(
         child: TextFieldGlobalWidget(
-          controller: homePointClosingCustomerController.latLngController,
+          controller: surveyClosingCustomerController.latLngController,
           maxLines: 1,
           icon: LineIcons.mapPin,
           hint: "Latitude, Longitude",
           textInputAction: TextInputAction.search,
           keyboardType: TextInputType.text,
-          onSubmit: (String query) => homePointClosingCustomerController.onSubmitLatLng(query),
+          onSubmit: (String query) =>
+              surveyClosingCustomerController.onSubmitLatLng(query),
         ),
       ),
     );

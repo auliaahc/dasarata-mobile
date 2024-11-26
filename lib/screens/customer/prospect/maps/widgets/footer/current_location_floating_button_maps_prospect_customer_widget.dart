@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class CurrentLocationFloatingButtonMapsProspectCustomerWidget extends StatelessWidget {
+class CurrentLocationFloatingButtonMapsProspectCustomerWidget
+    extends StatelessWidget {
   const CurrentLocationFloatingButtonMapsProspectCustomerWidget({super.key});
 
   @override
@@ -22,11 +23,15 @@ class CurrentLocationFloatingButtonMapsProspectCustomerWidget extends StatelessW
             () {
               return FloatingActionButton(
                 backgroundColor: ColorConstant.whiteColor,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32)),
                 onPressed: prospectCustomerController.getCurrentPosition,
-                child: prospectCustomerController.isLoadingCurrentLocation.value == true
+                child: prospectCustomerController
+                            .isLoadingCurrentLocation.value ==
+                        true
                     ? const LoadingAnimationGlobalWidget(size: 28)
-                    : Center(child: SvgPicture.asset(IconConstant.currentLocation)),
+                    : Center(
+                        child: SvgPicture.asset(IconConstant.currentLocation)),
               );
             },
           ),

@@ -1,3 +1,6 @@
+import 'package:dasarata_mobile/constants/color_constant.dart';
+import 'package:dasarata_mobile/constants/spacing_constant.dart';
+import 'package:dasarata_mobile/constants/text_style_constant.dart';
 import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
 import 'package:dasarata_mobile/widgets/accordion_global_widget.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +17,8 @@ class PersonalDetailClosingCustomerWidget extends StatelessWidget {
         final List<Map<String, dynamic>> personalInformation = [
           {
             "field": "Nama Lengkap",
-            "value": closingCustomerController.detailClosingCustomer.value!.fullName,
+            "value":
+                closingCustomerController.detailClosingCustomer.value!.name,
           },
           {
             "field": "NIK",
@@ -22,37 +26,45 @@ class PersonalDetailClosingCustomerWidget extends StatelessWidget {
           },
           {
             "field": "Jenis Kelamin",
-            "value": closingCustomerController.detailClosingCustomer.value!.gender == "male" ? "Laki-laki" : "Perempuan",
+            "value":
+                closingCustomerController.detailClosingCustomer.value!.gender ==
+                        "male"
+                    ? "Laki-laki"
+                    : "Perempuan",
           },
           {
             "field": "Nomor Telepon",
-            "value": "085739206149" // TODO
+            "value": closingCustomerController
+                .detailClosingCustomer.value!.phoneNumber
           },
         ];
         return AccordionGlobalWidget(
           title: "Personal",
-          widgetItems: ListView.builder(
+          widgetItems: ListView.separated(
+            separatorBuilder: (context, index) =>
+                SpacingConstant.verticalSpacing12px,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: personalInformation.length,
             itemBuilder: (context, index) {
               final data = personalInformation[index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      data["field"],
-                      style: const TextStyle(fontSize: 16, color: Colors.black),
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    data["field"],
+                    style: TextStyleConstant.semiboldCaption.copyWith(
+                      color: ColorConstant.neutralColor600,
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      data["value"],
-                      style: const TextStyle(fontSize: 14, color: Colors.black),
+                  ),
+                  SpacingConstant.verticalSpacing2px,
+                  Text(
+                    data["value"],
+                    style: TextStyleConstant.regularParagraph.copyWith(
+                      color: ColorConstant.neutralColor800,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             },
           ),

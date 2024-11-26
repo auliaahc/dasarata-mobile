@@ -1,17 +1,19 @@
 import 'dart:async';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
-import 'package:dasarata_mobile/models/customer/prospect/category_prospect_customer_model.dart' as category_prospect_customer_model;
-import 'package:dasarata_mobile/models/customer/prospect/meet_prospect_customer_model.dart' as meet_prospect_customer_model;
+import 'package:dasarata_mobile/models/customer/prospect/category_prospect_customer_model.dart'
+    as category_prospect_customer_model;
+import 'package:dasarata_mobile/models/customer/prospect/meet_prospect_customer_model.dart'
+    as meet_prospect_customer_model;
 import 'package:dasarata_mobile/models/customer/prospect/request_form_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/prospect/response_form_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/prospect/response_prospect_customer_model.dart';
-import 'package:dasarata_mobile/models/maps/spliter_maps_model.dart' as spliter_maps_model;
-import 'package:dasarata_mobile/screens/customer/prospect/dashboard/detail_dialog_dashboard_prospect_customer_widget.dart';
+import 'package:dasarata_mobile/models/maps/spliter_maps_model.dart'
+    as spliter_maps_model;
+import 'package:dasarata_mobile/screens/customer/prospect/dashboard/widgets/detail_dialog_dashboard_prospect_customer_widget.dart';
 import 'package:dasarata_mobile/services/google_maps_service.dart';
 import 'package:dasarata_mobile/services/prospect_customer_service.dart';
 import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -39,9 +41,11 @@ class ProspectCustomerController extends GetxController {
   RxInt selectedMapTypeIndex = RxInt(0);
   Rx<MapType> selectedMapType = Rx<MapType>(MapType.normal);
   GoogleMapsService googleMapsService = GoogleMapsService();
-  Rxn<List<spliter_maps_model.Datum>> spliterData = Rxn<List<spliter_maps_model.Datum>>();
+  Rxn<List<spliter_maps_model.Datum>> spliterData =
+      Rxn<List<spliter_maps_model.Datum>>();
   RxSet<Marker> markers = RxSet<Marker>();
-  Completer<GoogleMapController> mapsController = Completer<GoogleMapController>();
+  Completer<GoogleMapController> mapsController =
+      Completer<GoogleMapController>();
   Rxn<Position> currentPosition = Rxn<Position>();
   Rxn<LatLng> currentLatLng = Rxn<LatLng>();
   Rxn<Placemark> currentPlacemark = Rxn<Placemark>();
@@ -50,10 +54,13 @@ class ProspectCustomerController extends GetxController {
   RxnString searchMaps = RxnString();
 
   // Form Add
-  Rxn<List<category_prospect_customer_model.Datum>> prospectCategoryData = Rxn<List<category_prospect_customer_model.Datum>>();
-  Rxn<List<meet_prospect_customer_model.Datum>> prospectMeetData = Rxn<List<meet_prospect_customer_model.Datum>>();
+  Rxn<List<category_prospect_customer_model.Datum>> prospectCategoryData =
+      Rxn<List<category_prospect_customer_model.Datum>>();
+  Rxn<List<meet_prospect_customer_model.Datum>> prospectMeetData =
+      Rxn<List<meet_prospect_customer_model.Datum>>();
   final GlobalKey<FormState> addProspectFormKey = GlobalKey<FormState>();
-  Rxn<RequestFormProspectCustomerModel> prospectCustomerData = Rxn<RequestFormProspectCustomerModel>();
+  Rxn<RequestFormProspectCustomerModel> prospectCustomerData =
+      Rxn<RequestFormProspectCustomerModel>();
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -103,21 +110,19 @@ class ProspectCustomerController extends GetxController {
     }
   }
 
-  void onSubmitFormAddProspectCustomer(String nipSalesId) async {
-    print("cek");
+  Future<void> onSubmitFormAddProspectCustomer(String nipSalesId) async {
     if (addProspectFormKey.currentState!.validate()) {
-      print("ok");
       isLoadingAddProspectCustomer.value = true;
       prospectCustomerData.value = RequestFormProspectCustomerModel(
-        nipSalesId: nipSalesId,
-        prospectCategoryId: int.parse(prospectCategoryValue.value!),
-        prospectMeetId: int.parse(prospectMeetValue.value!),
-        name: name.value!,
-        phoneNumber: phone.value!,
-        installedAddress: address.value!
-      );
+          nipSalesId: nipSalesId,
+          prospectCategoryId: int.parse(prospectCategoryValue.value!),
+          prospectMeetId: int.parse(prospectMeetValue.value!),
+          name: name.value!,
+          phoneNumber: phone.value!,
+          installedAddress: address.value!);
       try {
-        final response = await prospectCustomerService.postCreateProspectCustomer(prospectCustomerData.value!);
+        final response = await prospectCustomerService
+            .createProspectCustomer(prospectCustomerData.value!);
         if (response.success) {
           SnackbarUtils.show(
             messageText: "Data customer prospek berhasil ditambahkan!",
@@ -148,6 +153,11 @@ class ProspectCustomerController extends GetxController {
     }
   }
 
+  void fetchAddScreenData() {
+    getProspectCategoryData();
+    getProspectMeetData();
+  }
+
   void validateFormAddProspectCustomer() {
     isFormAddProspectCustomerValid.value = nameController.text.isNotEmpty &&
         addressController.text.isNotEmpty &&
@@ -160,7 +170,7 @@ class ProspectCustomerController extends GetxController {
     if (address.value != null) {
       searchMapsController.text = address.value!;
       searchMaps.value = searchMapsController.text;
-      doSearchMaps(searchMaps.value!);
+      onSubmitSearchMaps(searchMaps.value!);
     } else {
       searchMapsController.clear();
       getCurrentPosition();
@@ -176,13 +186,14 @@ class ProspectCustomerController extends GetxController {
   }
 
   void updateSpliterMarker() {
-    markers.removeWhere((marker) => marker.markerId.value != "currentLocationMarker");
+    markers.removeWhere(
+        (marker) => marker.markerId.value != "currentLocationMarker");
     for (spliter_maps_model.Datum spliter in spliterData.value ?? []) {
       final Marker marker = Marker(
         markerId: MarkerId(spliter.id.toString()),
         position: LatLng(
-          double.parse(spliter.lat),
-          double.parse(spliter.lng),
+          spliter.lat,
+          spliter.lng,
         ),
         infoWindow: InfoWindow(
           title: spliter.spliter,
@@ -196,7 +207,7 @@ class ProspectCustomerController extends GetxController {
 
   Future<void> getSpliterData() async {
     try {
-      final response = await googleMapsService.getSpliter();
+      final response = await googleMapsService.getSpliters();
       spliterData.value = response.data;
       updateSpliterMarker();
     } catch (e) {
@@ -274,6 +285,7 @@ class ProspectCustomerController extends GetxController {
   void showDetailDialog(Datum data) {
     Get.dialog(
       DetailDialogDashboardProspectCustomerWidget(
+        id: data.id,
         name: data.name,
         telephoneNumber: data.phone,
         meetMethod: data.meetCategory,
@@ -350,7 +362,7 @@ class ProspectCustomerController extends GetxController {
     isLoadingGetAddress.value = true;
     currentAddress.value = null;
     try {
-      final response = await googleMapsService.getPlacemark(
+      final response = await googleMapsService.getPlacemarks(
           latLng.latitude, latLng.longitude);
       currentPlacemark.value = response.first;
       if (currentPlacemark.value != null) {
@@ -367,7 +379,7 @@ class ProspectCustomerController extends GetxController {
     }
   }
 
-  Future<void> doSearchMaps(String query) async {
+  Future<void> onSubmitSearchMaps(String query) async {
     searchMaps.value = query;
     if (searchMaps.value != null) {
       final input = searchMaps.value!.trim();
@@ -400,7 +412,9 @@ class ProspectCustomerController extends GetxController {
       currentPosition.value = response["position"];
       if (currentPosition.value != null && currentPosition.value != null) {
         currentLatLng.value = LatLng(
-            currentPosition.value!.latitude, currentPosition.value!.longitude);
+          currentPosition.value!.latitude,
+          currentPosition.value!.longitude,
+        );
         currentAddress.value =
             "${currentPlacemark.value?.street ?? "Unknown Street"}, ${currentPlacemark.value?.subLocality}, ${currentPlacemark.value?.locality}, ${currentPlacemark.value!.subAdministrativeArea}";
         updateCurrentLocationMarker();
@@ -428,53 +442,25 @@ class ProspectCustomerController extends GetxController {
   Future<bool> handleLocationPermission() async {
     bool locationServiceEnabled;
     LocationPermission locationPermission;
-    try {
-      locationServiceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!locationServiceEnabled) {
+
+    locationServiceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!locationServiceEnabled) {
+      SnackbarUtils.show(
+        messageText: "Layanan lokasi tidak diaktifkan",
+        type: AnimatedSnackBarType.error,
+      );
+    }
+    locationPermission = await Geolocator.checkPermission();
+    if (locationPermission == LocationPermission.denied) {
+      locationPermission = await Geolocator.requestPermission();
+      if (locationPermission == LocationPermission.denied) {
         SnackbarUtils.show(
-          messageText: "Layanan lokasi tidak diaktifkan",
+          messageText: "Izin akses lokasi ditolak",
           type: AnimatedSnackBarType.error,
         );
         return false;
       }
-      locationPermission = await Geolocator.checkPermission();
-      if (locationPermission == LocationPermission.denied) {
-        locationPermission = await Geolocator.requestPermission();
-        if (locationPermission == LocationPermission.denied) {
-          SnackbarUtils.show(
-            messageText: "Izin akses lokasi ditolak",
-            type: AnimatedSnackBarType.error,
-          );
-          return false;
-        } else if (locationPermission == LocationPermission.deniedForever) {
-          SnackbarUtils.show(
-            messageText:
-                "Izin akses lokasi ditolak selamanya. Atur izin secara manual di pengaturan perangkat.",
-            type: AnimatedSnackBarType.error,
-          );
-          return false;
-        }
-      }
-      return await _requestAccurateLocation();
-    } on PlatformException catch (e) {
-      SnackbarUtils.show(
-        messageText: e.toString(),
-        type: AnimatedSnackBarType.error,
-      );
-      return false;
     }
-  }
-
-  Future<bool> _requestAccurateLocation() async {
-    try {
-      await Geolocator.getCurrentPosition();
-      return true;
-    } catch (e) {
-      SnackbarUtils.show(
-        messageText: "Gagal mendapatkan lokasi dengan akurasi tinggi: $e",
-        type: AnimatedSnackBarType.error,
-      );
-      return false;
-    }
+    return true;
   }
 }

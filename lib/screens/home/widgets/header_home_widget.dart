@@ -3,7 +3,7 @@ import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/constants/image_constant.dart';
 import 'package:dasarata_mobile/constants/shadow_constant.dart';
 import 'package:dasarata_mobile/constants/text_style_constant.dart';
-import 'package:dasarata_mobile/controllers/profile_controller.dart';
+import 'package:dasarata_mobile/controllers/dashboard_controller.dart';
 import 'package:dasarata_mobile/utilities/date_time_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,10 +13,7 @@ class HeaderHomeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProfileController profileController = Get.put(ProfileController());
-    Get.engine.addPostFrameCallback((_) {
-      profileController.getProfileData();
-    });
+    final DashboardController dashboardController = Get.find();
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.vertical(
@@ -45,15 +42,19 @@ class HeaderHomeWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    profileController.isLoadingProfile.value || profileController.profileData.value == null
+                    dashboardController.isLoadingGetUser.value ||
+                            dashboardController.profileData.value == null
                         ? "Sales"
-                        : profileController.profileData.value!.name.split(" ")[0],
+                        : dashboardController.profileData.value!.name
+                            .split(" ")[0],
                     style: TextStyleConstant.semiboldSubtitle,
                   ),
                 ],
               ),
               ClipOval(
-                child: profileController.isLoadingProfile.value || profileController.profileData.value == null || profileController.profileData.value!.photo.isEmpty
+                child: dashboardController.isLoadingGetUser.value ||
+                        dashboardController.profileData.value == null ||
+                        dashboardController.profileData.value!.photo.isEmpty
                     ? Image.asset(
                         ImageConstant.profilePlaceholder,
                         width: 55,
@@ -63,7 +64,7 @@ class HeaderHomeWidget extends StatelessWidget {
                         width: 55,
                         height: 55,
                         fit: BoxFit.cover,
-                        imageUrl: profileController.profileData.value!.photo,
+                        imageUrl: dashboardController.profileData.value!.photo,
                         placeholder: (context, url) =>
                             CircularProgressIndicator(
                           color: ColorConstant.primaryColor,

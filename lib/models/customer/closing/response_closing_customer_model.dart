@@ -2,7 +2,6 @@ class ResponseClosingCustomerModel {
   final bool success;
   final String message;
   final Data? data;
-
   ResponseClosingCustomerModel({
     required this.success,
     required this.message,
@@ -24,7 +23,6 @@ class Data {
   final int lastPage;
   final int perPage;
   final int to;
-
   Data({
     required this.currentPage,
     this.data,
@@ -35,7 +33,9 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
-      data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))) : null,
+      data: json["data"] != null
+          ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x)))
+          : null,
       currentPage: json["current_page"] ?? 1,
       lastPage: json["last_page"] ?? 1,
       perPage: json["per_page"] ?? 1,

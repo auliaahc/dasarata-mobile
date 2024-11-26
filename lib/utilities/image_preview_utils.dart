@@ -1,5 +1,6 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/constants/text_style_constant.dart';
+import 'package:dasarata_mobile/widgets/loading_animation_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
@@ -27,16 +28,14 @@ class ImagePreviewUtils {
                 errorBuilder: (context, error, stackTrace) => Center(
                   child: Text(
                     errorText,
-                    style: TextStyleConstant.semiboldCaption.copyWith(
+                    style: TextStyleConstant.regularCaption.copyWith(
                       color: ColorConstant.whiteColor,
                     ),
                   ),
                 ),
                 loadingBuilder: (context, event) => Center(
-                  child: CircularProgressIndicator(
-                    value: event == null
-                        ? null
-                        : event.cumulativeBytesLoaded / (event.expectedTotalBytes ?? 1),
+                  child: LoadingAnimationGlobalWidget(
+                    color: ColorConstant.secondaryColor,
                   ),
                 ),
               ),

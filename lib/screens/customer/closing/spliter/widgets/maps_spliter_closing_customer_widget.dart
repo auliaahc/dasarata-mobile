@@ -10,20 +10,24 @@ class MapsSpliterClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SpliterClosingCustomerController spliterClosingCustomerController = Get.find();
+    final SpliterClosingCustomerController spliterClosingCustomerController =
+        Get.find();
     return Scaffold(
       backgroundColor: ColorConstant.backgroundColor,
       body: Obx(
         () {
-          if (spliterClosingCustomerController.customerLatLng.value == null || spliterClosingCustomerController.spliters.value == null) {
+          if (spliterClosingCustomerController.customerLatLng.value == null ||
+              spliterClosingCustomerController.spliters.value == null) {
             return const Center(
               child: LoadingAnimationGlobalWidget(),
             );
           } else {
             return GoogleMap(
               onMapCreated: (GoogleMapController controller) {
-                if (!spliterClosingCustomerController.mapsController.isCompleted) {
-                  spliterClosingCustomerController.mapsController.complete(controller);
+                if (!spliterClosingCustomerController
+                    .mapsController.isCompleted) {
+                  spliterClosingCustomerController.mapsController
+                      .complete(controller);
                 }
               },
               zoomControlsEnabled: false,
@@ -33,7 +37,8 @@ class MapsSpliterClosingCustomerWidget extends StatelessWidget {
                 zoom: 40,
               ),
               mapType: spliterClosingCustomerController.selectedMapType.value,
-              markers: Set<Marker>.from(spliterClosingCustomerController.markers),
+              markers:
+                  Set<Marker>.from(spliterClosingCustomerController.markers),
             );
           }
         },

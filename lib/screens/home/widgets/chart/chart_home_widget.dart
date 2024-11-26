@@ -1,96 +1,36 @@
-import 'package:dasarata_mobile/constants/color_constant.dart';
-import 'package:dasarata_mobile/constants/text_style_constant.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ChartHomeWidget extends StatelessWidget {
   final List<Map<String, dynamic>> data;
+  final Color? lineColor;
   const ChartHomeWidget({
     super.key,
     required this.data,
+    this.lineColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: LineChart(
-          LineChartData(
-            lineBarsData: [
-              LineChartBarData(
-                color: ColorConstant.secondaryColor,
-                spots: _getDataSpots(),
-                isCurved: true,
-                belowBarData: BarAreaData(show: true),
-              ),
-            ],
-            titlesData: FlTitlesData(
-              rightTitles: const AxisTitles(),
-              bottomTitles: AxisTitles(
-                sideTitles: SideTitles(
-                  showTitles: true,
-                  getTitlesWidget: (value, meta) {
-                    int index = value.toInt();
-                    if (index >= 0 && index < data.length) {
-                      return Text(
-                        data[index]["month"],
-                        style: TextStyleConstant.regularCaption
-                      );
-                    }
-                    return Container();
-                  },
-                  interval: 1,
-                ),
-              ),
-              leftTitles: AxisTitles(
-                sideTitles: SideTitles(
-                  showTitles: true,
-                  getTitlesWidget: (value, meta) {
-                    if (value % 50 == 0) {
-                      return Text(
-                        '${value.toInt()}',
-                        style: TextStyleConstant.regularCaption
-                      );
-                    }
-                    return Container();
-                  },
-                  reservedSize: 40,
-                ),
-              ),
-              topTitles: const AxisTitles(),
-            ),
-            gridData: const FlGridData(
-              show: true,
-              horizontalInterval: 50,
-              verticalInterval: 1,
-            ),
-            borderData: FlBorderData(
-              border: Border.all(
-                color: ColorConstant.neutralColor500,
-              ),
-            ),
-          ),
+    final xKey = data.first.keys.elementAt(0);
+    final yKey = data.first.keys.elementAt(1);
+    return SfCartesianChart(
+      tooltipBehavior: TooltipBehavior(enable: true),
+      primaryXAxis: const CategoryAxis(
+        labelStyle: TextStyle(fontSize: 12),
+      ),
+      primaryYAxis: const NumericAxis(
+        labelStyle: TextStyle(fontSize: 12),
+      ),
+      series: [
+        LineSeries<Map<String, dynamic>, String>(
+          dataSource: data,
+          xValueMapper: (datum, _) => datum[xKey].toString(),
+          yValueMapper: (datum, _) => datum[yKey],
+          color: lineColor,
+          markerSettings: const MarkerSettings(isVisible: true),
         ),
-      ),
+      ],
     );
   }
-
-List<FlSpot> _getDataSpots() {
-  List<FlSpot> spots = [];
-
-  for (int i = 0; i < data.length; i++) {
-    double total = data[i]["total"] != null ? data[i]["total"].toDouble() : 0.0;
-    spots.add(
-      FlSpot(
-        i.toDouble(),
-        total,
-      ),
-    );
-  }
-
-  return spots;
-}
-
 }

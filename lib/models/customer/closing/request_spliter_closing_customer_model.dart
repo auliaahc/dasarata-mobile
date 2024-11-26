@@ -1,11 +1,11 @@
 class RequestSpliterClosingCustomerModel {
+  final String? type;
   final int spliterId;
   final int coverageAreaId;
-  final String? type;
   RequestSpliterClosingCustomerModel({
+    this.type = "spliter",
     required this.spliterId,
     required this.coverageAreaId,
-    this.type = "spliter",
   });
 
   Map<String, dynamic> toJson() {

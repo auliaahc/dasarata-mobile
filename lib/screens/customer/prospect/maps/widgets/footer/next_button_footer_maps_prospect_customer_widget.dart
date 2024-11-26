@@ -12,8 +12,10 @@ class NextButtonFooterMapsProspectCustomerWidget extends StatelessWidget {
     return Obx(
       () {
         return ButtonGlobalWidget(
-          isLoading: prospectCustomerController.isLoadingGetAddress.value || prospectCustomerController.currentLatLng.value == null,
-          isDisabled: prospectCustomerController.isLoadingGetAddress.value || prospectCustomerController.currentLatLng.value == null,
+          isLoading: prospectCustomerController.isLoadingGetAddress.value ||
+              prospectCustomerController.currentLatLng.value == null,
+          isDisabled: prospectCustomerController.isLoadingGetAddress.value ||
+              prospectCustomerController.currentLatLng.value == null,
           label: "Selanjutnya",
           onTap: () => prospectCustomerController.onSubmitMaps(),
         );

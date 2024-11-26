@@ -15,8 +15,9 @@ class DashboardCustomerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DashboardCustomerController dashboardCustomerController = Get.put(DashboardCustomerController());
-    final ProspectCustomerController prospectCustomerController = Get.put(ProspectCustomerController());
+    final DashboardCustomerController dashboardCustomerController =
+        Get.put(DashboardCustomerController());
+    Get.put(ProspectCustomerController());
     Get.put(ClosingCustomerController());
     Get.engine.addPostFrameCallback((_) {
       dashboardCustomerController.resetCustomerTabIndex();

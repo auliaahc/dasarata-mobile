@@ -1,3 +1,6 @@
+import 'package:dasarata_mobile/constants/color_constant.dart';
+import 'package:dasarata_mobile/constants/spacing_constant.dart';
+import 'package:dasarata_mobile/constants/text_style_constant.dart';
 import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
 import 'package:dasarata_mobile/widgets/accordion_global_widget.dart';
 import 'package:flutter/material.dart';
@@ -9,47 +12,74 @@ class SubscriptionDetailClosingCustomerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ClosingCustomerController closingCustomerController = Get.find();
+    final TextStyle fieldTextStyle = TextStyleConstant.semiboldCaption.copyWith(
+      color: ColorConstant.neutralColor600,
+    );
+    final TextStyle valueTextStyle =
+        TextStyleConstant.regularParagraph.copyWith(
+      color: ColorConstant.neutralColor800,
+    );
     return Obx(
       () {
-        final List<Map<String, dynamic>> subscritionInformation = [
-          {
-            "field": "Jenis Customer",
-            "value": closingCustomerController
-                .detailClosingCustomer.value!.customerCategory,
-          },
-          {
-            "field": "Paket Layanan",
-            "value": closingCustomerController
-                .detailClosingCustomer.value!.servicePackageId
-                .toString(),
-          }
-        ];
         return AccordionGlobalWidget(
           title: "Subscription",
-          widgetItems: ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: subscritionInformation.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final data = subscritionInformation[index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      data["field"],
-                      style: const TextStyle(fontSize: 16, color: Colors.black),
+          widgetItems: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Jenis Customer",
+                style: fieldTextStyle,
+              ),
+              SpacingConstant.verticalSpacing2px,
+              Text(
+                closingCustomerController
+                        .detailClosingCustomer.value!.customerCategory ??
+                    "-",
+                style: valueTextStyle,
+              ),
+              SpacingConstant.verticalSpacing12px,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Paket Layanan",
+                          style: fieldTextStyle,
+                        ),
+                        SpacingConstant.verticalSpacing2px,
+                        Text(
+                          closingCustomerController
+                              .detailClosingCustomer.value!.package.namePackage,
+                          style: valueTextStyle,
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      data["value"],
-                      style: const TextStyle(fontSize: 14, color: Colors.black),
+                  ),
+                  SpacingConstant.horizontalSpacing24px,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Program",
+                          style: fieldTextStyle,
+                        ),
+                        SpacingConstant.verticalSpacing2px,
+                        Text(
+                          closingCustomerController
+                              .detailClosingCustomer.value!.program.nameProgram,
+                          style: valueTextStyle,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              );
-            },
+                  ),
+                ],
+              ),
+            ],
           ),
         );
       },

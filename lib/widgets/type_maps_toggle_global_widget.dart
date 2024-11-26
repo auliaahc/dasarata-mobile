@@ -9,7 +9,7 @@ class TypeMapsToggleGlobalWidget extends StatelessWidget {
   const TypeMapsToggleGlobalWidget({
     super.key,
     required this.onToggle,
-    required this.index
+    required this.index,
   });
 
   @override
@@ -19,7 +19,7 @@ class TypeMapsToggleGlobalWidget extends StatelessWidget {
       decoration: BoxDecoration(boxShadow: ShadowConstant.mapTypeShadow),
       child: ToggleSwitch(
         labels: const [
-          "Map",
+          "Normal",
           "Satellite",
         ],
         dividerColor: ColorConstant.primaryColor,
@@ -34,6 +34,12 @@ class TypeMapsToggleGlobalWidget extends StatelessWidget {
         minHeight: 30,
         minWidth: 80,
         initialLabelIndex: index,
+        customTextStyles: const [
+          TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 12,
+          ),
+        ],
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:dasarata_mobile/env/env.dart';
 import 'package:dasarata_mobile/models/customer/prospect/category_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/prospect/meet_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/prospect/request_form_prospect_customer_model.dart';
+import 'package:dasarata_mobile/models/customer/prospect/response_find_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/prospect/response_form_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/prospect/response_prospect_customer_model.dart';
 import 'package:dasarata_mobile/utilities/shared_pref.dart';
@@ -11,7 +12,8 @@ class ProspectCustomerService {
   final Dio _dio = Dio();
   final url = "${Env.baseUrl}/sales";
 
-  Future<ResponseProspectCustomerModel> getAllProspectCustomer({String? search, required int page}) async {
+  Future<ResponseProspectCustomerModel> getAllProspectCustomer(
+      {String? search, required int page}) async {
     final finalUrl = "$url/prospect";
     final token = await SharedPref.getToken();
     try {
@@ -25,14 +27,49 @@ class ProspectCustomerService {
       final rawResponse = response.data;
       return ResponseProspectCustomerModel.fromJson(rawResponse);
     } on DioException catch (e) {
-      final errorResponse = e.response?.data;
-      if (errorResponse != null) {
-        throw ResponseProspectCustomerModel.fromJson(errorResponse);
-      } else {
+      if (e.response?.statusCode == 500) {
         throw ResponseProspectCustomerModel(
           success: false,
-          message: "Tidak terhubung ke internet",
+          message: "Sesi berakhir",
         );
+      } else {
+        final errorResponse = e.response?.data;
+        if (errorResponse != null) {
+          throw ResponseProspectCustomerModel.fromJson(errorResponse);
+        } else {
+          throw ResponseProspectCustomerModel(
+            success: false,
+            message: "Tidak terhubung ke internet",
+          );
+        }
+      }
+    }
+  }
+
+  Future<ResponseFindProspectCustomerModel> getProspectCustomer(int id) async {
+    final finalUrl = "$url/prospect/$id";
+    final token = await SharedPref.getToken();
+    try {
+      final response = await _dio.get(finalUrl,
+          options: Options(headers: {"Authorization": "Bearer $token"}));
+      final rawResponse = response.data;
+      return ResponseFindProspectCustomerModel.fromJson(rawResponse);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 500) {
+        throw ResponseFindProspectCustomerModel(
+          success: false,
+          message: "Sesi berakhir",
+        );
+      } else {
+        final errorResponse = e.response?.data;
+        if (errorResponse != null) {
+          throw ResponseFindProspectCustomerModel.fromJson(errorResponse);
+        } else {
+          throw ResponseFindProspectCustomerModel(
+            success: false,
+            message: "Tidak terhubung ke internet",
+          );
+        }
       }
     }
   }
@@ -50,17 +87,17 @@ class ProspectCustomerService {
       final rawResponse = response.data;
       return CategoryProspectCustomerModel.fromJson(rawResponse);
     } on DioException catch (e) {
-      if (e.response?.statusCode == 404) {
-        throw ResponseProspectCustomerModel(
+      if (e.response?.statusCode == 500) {
+        throw CategoryProspectCustomerModel(
           success: false,
-          message: "404: Data tidak ditemukan",
+          message: "Sesi berakhir",
         );
       } else {
         final errorResponse = e.response?.data;
         if (errorResponse != null) {
-          throw ResponseProspectCustomerModel.fromJson(errorResponse);
+          throw CategoryProspectCustomerModel.fromJson(errorResponse);
         } else {
-          throw ResponseProspectCustomerModel(
+          throw CategoryProspectCustomerModel(
             success: false,
             message: "Tidak terhubung ke internet",
           );
@@ -82,10 +119,10 @@ class ProspectCustomerService {
       final rawResponse = response.data;
       return MeetProspectCustomerModel.fromJson(rawResponse);
     } on DioException catch (e) {
-      if (e.response?.statusCode == 404) {
+      if (e.response?.statusCode == 500) {
         throw MeetProspectCustomerModel(
           success: false,
-          message: "404: Data tidak ditemukan",
+          message: "Sesi berakhir",
         );
       } else {
         final errorResponse = e.response?.data;
@@ -101,7 +138,8 @@ class ProspectCustomerService {
     }
   }
 
-  Future<ResponseFormProspectCustomerModel> postCreateProspectCustomer(RequestFormProspectCustomerModel model) async {
+  Future<ResponseFormProspectCustomerModel> createProspectCustomer(
+      RequestFormProspectCustomerModel model) async {
     final finalUrl = "$url/prospect";
     final token = await SharedPref.getToken();
     try {
@@ -115,10 +153,10 @@ class ProspectCustomerService {
       final rawResponse = response.data;
       return ResponseFormProspectCustomerModel.fromJson(rawResponse);
     } on DioException catch (e) {
-      if (e.response?.statusCode == 404) {
+      if (e.response?.statusCode == 500) {
         throw ResponseFormProspectCustomerModel(
           success: false,
-          message: "404: Data tidak ditemukan",
+          message: "Sesi berakhir",
         );
       } else {
         final errorResponse = e.response?.data;

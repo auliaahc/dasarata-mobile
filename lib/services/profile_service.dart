@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 class ProfileService {
   final Dio _dio = Dio();
 
-  Future<ResponseProfileModel> getProfileData() async {
+  Future<ResponseProfileModel> getProfile() async {
     const url = "${Env.baseUrl}/me";
     final token = await SharedPref.getToken();
     try {
@@ -19,8 +19,22 @@ class ProfileService {
       final rawResponse = response.data;
       return ResponseProfileModel.fromJson(rawResponse);
     } on DioException catch (e) {
-      final errorResponse = e.response?.data;
-      throw ResponseProfileModel.fromJson(errorResponse);
+      if (e.response?.statusCode == 500) {
+        throw ResponseProfileModel(
+          success: false,
+          message: "Sesi berakhir",
+        );
+      } else {
+        final errorResponse = e.response?.data;
+        if (errorResponse != null) {
+          throw ResponseProfileModel.fromJson(errorResponse);
+        } else {
+          throw ResponseProfileModel(
+            success: false,
+            message: "Tidak terhubung ke internet",
+          );
+        }
+      }
     }
   }
 }

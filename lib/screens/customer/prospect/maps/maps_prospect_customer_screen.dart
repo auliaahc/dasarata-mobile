@@ -22,6 +22,7 @@ class MapsProspectCustomerScreen extends StatelessWidget {
         statusBarColor: ColorConstant.whiteColor,
       ),
       child: const Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Stack(
             children: [

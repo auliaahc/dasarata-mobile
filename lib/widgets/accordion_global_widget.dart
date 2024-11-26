@@ -18,6 +18,13 @@ class AccordionGlobalWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomAccordion(
       title: title,
+      showContent: isOpened,
+      widgetItemsPadding: const EdgeInsets.only(
+        left: 16,
+        right: 16,
+        top: 12,
+        bottom: 12,
+      ),
       backgroundColor: ColorConstant.whiteColor,
       headerBackgroundColor: ColorConstant.whiteColor,
       titleStyle: TextStyleConstant.semiboldSubtitle,

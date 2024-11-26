@@ -20,7 +20,8 @@ class FooterMapsProspectCustomerWidget extends StatelessWidget {
             children: [
               if (prospectCustomerController.currentLatLng.value != null)
                 const CurrentLocationFloatingButtonMapsProspectCustomerWidget(),
-              if (prospectCustomerController.currentAddress.value != null && !prospectCustomerController.isLoadingGetAddress.value) ...[
+              if (prospectCustomerController.currentAddress.value != null &&
+                  !prospectCustomerController.isLoadingGetAddress.value) ...[
                 SpacingConstant.verticalSpacing16px,
                 const DetailFooterMapsProspectCustomerWidget(),
               ],
