@@ -16,6 +16,7 @@ class DashboardCustomerController extends GetxController {
         const Duration(milliseconds: 100),
         () {
           searchCustomerController.clear();
+          searchCustomerQuery.value = "";
         },
       );
     }
@@ -24,13 +25,13 @@ class DashboardCustomerController extends GetxController {
 
   void resetCustomerTabIndex() {
     searchCustomerController.clear();
+    searchCustomerQuery.value = "";
     selectedCustomerTabIndex.value = 0;
   }
 
   void onClearSearchCustomer() {
     searchCustomerController.clear();
     searchCustomerQuery.value = "";
-    print("WOYYY");
     if (selectedCustomerTabIndex.value == 0) {
       prospectCustomerController.resetDashboardProspectCustomer();
     } else {

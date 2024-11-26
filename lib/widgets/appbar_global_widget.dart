@@ -8,7 +8,9 @@ class AppbarGlobalWidget extends StatelessWidget implements PreferredSizeWidget 
   final bool? implyLeading;
   final Widget? action;
   final Function()? onPressedAction;
+  final String? tooltip;
   const AppbarGlobalWidget({
+    this.tooltip,
     super.key,
     required this.title,
     this.onPressedAction,
@@ -22,11 +24,14 @@ class AppbarGlobalWidget extends StatelessWidget implements PreferredSizeWidget 
     return AppBar(
       actions: action != null && onPressedAction != null
           ? [
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: IconButton(
-                  onPressed: onPressedAction,
-                  icon: action!,
+              Tooltip(
+                message: tooltip,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: IconButton(
+                    onPressed: onPressedAction,
+                    icon: action!,
+                  ),
                 ),
               )
             ]

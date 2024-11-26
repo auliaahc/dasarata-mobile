@@ -69,6 +69,8 @@ dependencies:
   image_picker: ^1.1.2
   flutter_localizations:
     sdk: flutter
+  another_stepper: ^1.2.2
+  syncfusion_flutter_charts: ^27.2.2
 
 dev_dependencies:
   flutter_test:

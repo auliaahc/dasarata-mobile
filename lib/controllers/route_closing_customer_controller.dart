@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:dasarata_mobile/constants/color_constant.dart';
+import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_route_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_find_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/response_global_model.dart';
@@ -29,6 +30,7 @@ class RouteClosingCustomerController extends GetxController {
   RxDouble distance = RxDouble(0);
   RxList<double> listDistance = RxList<double>();
   RxBool isLoadingUpdateRouteData = RxBool(false);
+  ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
 
   Future<void> updateRouteData() async {
     isLoadingUpdateRouteData.value = true;
@@ -54,6 +56,8 @@ class RouteClosingCustomerController extends GetxController {
         ),
       );
       Get.back();
+      closingCustomerController.getClosingCustomerData(closingCustomerController.detailClosingCustomer.value!.id);
+      closingCustomerController.resetDashboardClosingCustomer();
       SnackbarUtils.show(
         messageText: response.message,
         type: AnimatedSnackBarType.success,

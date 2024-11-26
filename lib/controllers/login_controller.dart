@@ -38,7 +38,7 @@ class LoginController extends GetxController {
       loginFormKey.currentState!.save();
       try {
         final response = await authenticationService.loginWithEmail(
-          model: RequestLoginModel(
+          RequestLoginModel(
             email: email.value!,
             password: password.value!,
           ),

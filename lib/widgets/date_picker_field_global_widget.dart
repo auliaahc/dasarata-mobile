@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/constants/spacing_constant.dart';
 import 'package:dasarata_mobile/constants/text_style_constant.dart';
+import 'package:intl/intl.dart';
+import 'package:line_icons/line_icons.dart';
 
 class DatePickerFieldGlobalWidget extends StatefulWidget {
   final String hint;
@@ -10,13 +12,9 @@ class DatePickerFieldGlobalWidget extends StatefulWidget {
   final Function(String)? onChanged;
   final String? errorText;
   final String? Function(String?)? validator;
-  final TextInputAction textInputAction;
-  final TextInputType keyboardType;
   final double? height;
   final FormFieldSetter<String>? onSaved;
   final String? initialValue;
-  final String? additionalLabel;
-  final Function()? additionalAction;
   const DatePickerFieldGlobalWidget({
     super.key,
     this.initialValue,
@@ -27,11 +25,7 @@ class DatePickerFieldGlobalWidget extends StatefulWidget {
     this.labelName,
     this.errorText,
     this.validator,
-    required this.textInputAction,
-    required this.keyboardType,
     this.height,
-    this.additionalLabel,
-    this.additionalAction,
   });
 
   @override
@@ -41,10 +35,21 @@ class DatePickerFieldGlobalWidget extends StatefulWidget {
 class _DatePickerFieldGlobalWidgetState extends State<DatePickerFieldGlobalWidget> {
   DateTime? selectedDate;
 
+  String _formatDateForReturn(DateTime date) {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(date);
+  }
+
+  String _formatDateForDisplay(DateTime date) {
+    final DateFormat formatter = DateFormat('dd MMMM yyyy');
+    return formatter.format(date);
+  }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime currentDate = DateTime.now();
-    final DateTime firstDate = DateTime(currentDate.year - 1);
-    final DateTime lastDate = DateTime(currentDate.year + 1);
+    final DateTime firstDate = DateTime(1900);
+    final DateTime lastDate =
+        currentDate; // Rentang tahun sampai tahun sekarang
 
     final DateTime? pickedDate = await showDatePicker(
       confirmText: "Pilih",
@@ -64,7 +69,7 @@ class _DatePickerFieldGlobalWidgetState extends State<DatePickerFieldGlobalWidge
               headerBackgroundColor: ColorConstant.primaryColor,
               headerForegroundColor: ColorConstant.whiteColor,
               backgroundColor: ColorConstant.whiteColor,
-            )
+            ),
           ),
           child: child!,
         );
@@ -76,10 +81,10 @@ class _DatePickerFieldGlobalWidgetState extends State<DatePickerFieldGlobalWidge
         selectedDate = pickedDate;
       });
       if (widget.controller != null) {
-        widget.controller!.text = "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}";
+        widget.controller!.text = _formatDateForDisplay(selectedDate!);
       }
       if (widget.onChanged != null) {
-        widget.onChanged!("${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}");
+        widget.onChanged!(_formatDateForReturn(selectedDate!));
       }
     }
   }
@@ -96,16 +101,6 @@ class _DatePickerFieldGlobalWidgetState extends State<DatePickerFieldGlobalWidge
                 widget.labelName!,
                 style: TextStyleConstant.mediumParagraph,
               ),
-              if (widget.additionalLabel != null)
-                GestureDetector(
-                  onTap: widget.additionalAction,
-                  child: Text(
-                    "${widget.additionalLabel!} >",
-                    style: TextStyleConstant.regularParagraph.copyWith(
-                      color: ColorConstant.primaryColor,
-                    ),
-                  ),
-                ),
             ],
           ),
           SpacingConstant.verticalSpacing6px
@@ -121,25 +116,13 @@ class _DatePickerFieldGlobalWidgetState extends State<DatePickerFieldGlobalWidge
             validator: widget.validator,
             onChanged: widget.onChanged,
             onSaved: widget.onSaved,
-            textInputAction: widget.textInputAction,
-            keyboardType: widget.keyboardType,
             style: TextStyleConstant.regularParagraph,
             decoration: InputDecoration(
               errorText: widget.errorText,
               prefixIcon: Icon(
-                Icons.calendar_today,
+                LineIcons.calendar,
                 color: ColorConstant.primaryColor,
               ),
-              suffixIcon: widget.controller?.text.isNotEmpty == true
-                  ? IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: () {
-                        setState(() {
-                          widget.controller?.clear();
-                        });
-                      },
-                    )
-                  : null,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 10,

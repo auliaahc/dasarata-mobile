@@ -4,8 +4,8 @@ import 'package:dasarata_mobile/constants/text_style_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SubtitleDashboardHomeWidget extends StatelessWidget {
-  const SubtitleDashboardHomeWidget({super.key});
+class DashboardSubtitleHomeWidget extends StatelessWidget {
+  const DashboardSubtitleHomeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

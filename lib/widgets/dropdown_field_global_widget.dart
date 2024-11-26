@@ -16,7 +16,6 @@ class DropdownFieldGlobalWidget<T> extends StatelessWidget {
   final String Function(T) getValue;
   final String Function(T) getLabel;
   final Function(String?)? onSaved;
-
   const DropdownFieldGlobalWidget({
     this.onSaved,
     this.labelName,
@@ -68,6 +67,13 @@ class DropdownFieldGlobalWidget<T> extends StatelessWidget {
               borderRadius: BorderRadius.circular(32),
             ),
           ),
+          dropdownStyleData: DropdownStyleData(
+            maxHeight: 250,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: ColorConstant.whiteColor,
+            ),
+          ),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.zero,
             filled: true,
@@ -94,21 +100,14 @@ class DropdownFieldGlobalWidget<T> extends StatelessWidget {
               ),
             ),
           ),
-          dropdownStyleData: DropdownStyleData(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: ColorConstant.whiteColor,
-            ),
-          ),
           hint: Text(
             hint,
             style: TextStyleConstant.mediumParagraph.copyWith(
               color: const Color(0XFFB5B7B9),
             ),
           ),
-          value: value,
           isExpanded: true,
-          items: items.map((item) {
+          items: (items).map((item) {
             final itemValue = getValue(item);
             return DropdownMenuItem(
               value: itemValue,
@@ -118,7 +117,10 @@ class DropdownFieldGlobalWidget<T> extends StatelessWidget {
               ),
             );
           }).toList(),
-          onChanged: onChanged,
+          value: (items.isNotEmpty)
+              ? value
+              : null,
+          onChanged: (value) => onChanged?.call(value),
           validator: validator,
           onSaved: onSaved,
         ),

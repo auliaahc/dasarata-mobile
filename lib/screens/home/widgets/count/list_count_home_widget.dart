@@ -1,5 +1,5 @@
 import 'package:dasarata_mobile/constants/icon_constant.dart';
-import 'package:dasarata_mobile/controllers/home_controller.dart';
+import 'package:dasarata_mobile/controllers/dashboard_controller.dart';
 import 'package:dasarata_mobile/screens/home/widgets/count/item_count_home_widget.dart';
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ class ListCountHomeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Get.find();
+    final DashboardController dashboardController = Get.find();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Obx(
@@ -19,12 +19,12 @@ class ListCountHomeWidget extends StatelessWidget {
             {
               "title": "Cust. Prospek",
               "icon": IconConstant.prospect,
-              "count": homeController.homeData.value?.countProspect ?? 0
+              "count": dashboardController.dashboardData.value?.countProspect ?? 0
             },
             {
               "title": "Cust. Closing",
               "icon": IconConstant.closing,
-              "count": homeController.homeData.value?.countClosing ?? 0
+              "count": dashboardController.dashboardData.value?.countClosing ?? 0
             }
           ];
           return DynamicHeightGridView(

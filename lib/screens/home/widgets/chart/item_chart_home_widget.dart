@@ -25,11 +25,18 @@ class ItemChartHomeWidget extends StatelessWidget {
             title,
             style: TextStyleConstant.mediumParagraph,
           ),
-          SpacingConstant.verticalSpacing24px,
-          if (data != [])
-          ChartHomeWidget(data: data)
-          else
-          const EmptyStateGlobalWidget(),
+          if (data.isNotEmpty) ...[
+            SpacingConstant.verticalSpacing24px,
+            ChartHomeWidget(data: data)
+          ] else
+            const Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Center(
+                child: EmptyStateGlobalWidget(
+                  size: 225,
+                ),
+              ),
+            ),
         ],
       ),
     );

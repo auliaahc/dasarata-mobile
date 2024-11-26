@@ -25,7 +25,11 @@ class DetailClosingCustomerScreen extends StatelessWidget {
       appBar: AppbarGlobalWidget(
         title: "Detail Customer Closing",
         implyLeading: true,
-        action: const Icon(LineIcons.map),
+        action: Icon(
+          LineIcons.mapMarker,
+          color: ColorConstant.neutralColor900,
+        ),
+        tooltip: "Update Status Phase",
         onPressedAction: () => closingCustomerController.moveToUpdateStatusPhaseScreen(closingCustomerController.detailClosingCustomer.value!.phaseStatus),
       ),
       body: Obx(

@@ -1,3 +1,4 @@
+import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
 import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
 import 'package:dasarata_mobile/config/app_route.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:dasarata_mobile/constants/text_style_constant.dart';
 import 'package:dasarata_mobile/widgets/button_global_widget.dart';
 
 class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
+  final int id;
   final String name;
   final String telephoneNumber;
   final String meetMethod;
@@ -16,6 +18,7 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
   final String address;
   const DetailDialogDashboardProspectCustomerWidget({
     super.key,
+    required this.id,
     required this.name,
     required this.telephoneNumber,
     required this.meetMethod,
@@ -26,34 +29,36 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ProspectCustomerController prospectCustomerController = Get.put(ProspectCustomerController());
+    final ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
     return AlertDialog(
       insetPadding: const EdgeInsets.symmetric(horizontal: 16),
       backgroundColor: ColorConstant.whiteColor,
       content: Column(
-       crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.only(right: 0),
+            padding: const EdgeInsets.only(top: 8),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Detail Customer Prospek",
                   style: TextStyleConstant.semiboldSubtitle,
                 ),
-                IconButton(
-                  icon: Icon(
+                GestureDetector(
+                  onTap: () => Get.back(),
+                  child: Icon(
                     Icons.close,
                     color: ColorConstant.neutralColor600,
                   ),
-                  onPressed: () => Get.back(),
                 ),
               ],
             ),
           ),
           SpacingConstant.verticalSpacing20px,
           Text(
-            "NAMA",
+            "Nama",
             style: TextStyleConstant.boldCaption.copyWith(
               color: ColorConstant.neutralColor600,
             ),
@@ -61,13 +66,13 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             name,
-            style: TextStyleConstant.mediumCaption.copyWith(
+            style: TextStyleConstant.mediumParagraph.copyWith(
               color: ColorConstant.neutralColor800,
             ),
           ),
           SpacingConstant.verticalSpacing12px,
           Text(
-            "NOMOR TELEPON",
+            "Nomor Telepon",
             style: TextStyleConstant.boldCaption.copyWith(
               color: ColorConstant.neutralColor600,
             ),
@@ -75,7 +80,7 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             telephoneNumber,
-            style: TextStyleConstant.mediumCaption.copyWith(
+            style: TextStyleConstant.mediumParagraph.copyWith(
               color: ColorConstant.neutralColor800,
             ),
           ),
@@ -86,7 +91,7 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "METODE BERTEMU",
+                    "Metode Bertemu",
                     style: TextStyleConstant.boldCaption.copyWith(
                       color: ColorConstant.neutralColor600,
                     ),
@@ -94,7 +99,7 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     meetMethod,
-                    style: TextStyleConstant.mediumCaption.copyWith(
+                    style: TextStyleConstant.mediumParagraph.copyWith(
                       color: ColorConstant.neutralColor800,
                     ),
                   ),
@@ -105,7 +110,7 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "STATUS",
+                    "Status",
                     style: TextStyleConstant.boldCaption.copyWith(
                       color: ColorConstant.neutralColor600,
                     ),
@@ -113,7 +118,7 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     status,
-                    style: TextStyleConstant.mediumCaption.copyWith(
+                    style: TextStyleConstant.mediumParagraph.copyWith(
                       color: ColorConstant.neutralColor800,
                     ),
                   ),
@@ -123,7 +128,7 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
           ),
           SpacingConstant.verticalSpacing12px,
           Text(
-            "ALAMAT",
+            "Alamat",
             style: TextStyleConstant.boldCaption.copyWith(
               color: ColorConstant.neutralColor600,
             ),
@@ -131,11 +136,11 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
           SpacingConstant.verticalSpacing4px,
           Text(
             address,
-            style: TextStyleConstant.mediumCaption.copyWith(
+            style: TextStyleConstant.mediumParagraph.copyWith(
               color: ColorConstant.neutralColor800,
             ),
           ),
-          SpacingConstant.verticalSpacing32px,
+          SpacingConstant.verticalSpacing24px,
           ButtonGlobalWidget(
             isLoading: false,
             isDisabled: false,
@@ -147,12 +152,15 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
               color: ColorConstant.successColor,
             ),
           ),
-          SpacingConstant.verticalSpacing8px,
+          SpacingConstant.verticalSpacing12px,
           ButtonGlobalWidget(
             isLoading: false,
             isDisabled: false,
             label: "Closing",
-            onTap: () => Get.toNamed(AppRoute.addClosingCustomer)
+            onTap: () {
+              Get.toNamed(AppRoute.addClosingCustomer);
+              closingCustomerController.getProspectCustomerData(id);
+            }
           ),
         ],
       ),

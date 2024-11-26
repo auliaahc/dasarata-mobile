@@ -44,30 +44,34 @@ class ListDashboardProspectCustomerWidget extends StatelessWidget {
                 return Expanded(
                   child: LazyLoadScrollView(
                     onEndOfPage: () => prospectCustomerController.onEndOfPage(),
-                    child: ListView.separated(
-                      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-                      itemCount: prospectCustomerController.listDataConfiguration.value!.to + (prospectCustomerController.isLoadingListProspectCustomer.value ? 1 : 0),
-                      separatorBuilder: (context, index) => SpacingConstant.verticalSpacing16px,
-                      itemBuilder: (context, index) {
-                        if (index == (prospectCustomerController.listDataConfiguration.value!.to) && prospectCustomerController.isLoadingListProspectCustomer.value) {
-                          return const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 20),
-                            child: LoadingAnimationGlobalWidget(
-                              size: 30,
-                            ),
-                          );
-                        } else {
-                          final customer = prospectCustomerController.listProspectCustomer.value[index];
-                          return ItemCustomerGlobalWidget(
-                            onTap: () => prospectCustomerController.showDetailDialog(customer),
-                            index: index,
-                            name: customer.name,
-                            address: customer.installedAddress,
-                            telephoneNumber: customer.phone,
-                            status: customer.prospectCategory,
-                          );
-                        }
-                      },
+                    child: GlowingOverscrollIndicator(
+                      axisDirection: AxisDirection.down,
+                      color: ColorConstant.neutralColor700,
+                      child: ListView.separated(
+                        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+                        itemCount: prospectCustomerController.listDataConfiguration.value!.to + (prospectCustomerController.isLoadingListProspectCustomer.value ? 1 : 0),
+                        separatorBuilder: (context, index) => SpacingConstant.verticalSpacing16px,
+                        itemBuilder: (context, index) {
+                          if (index == (prospectCustomerController.listDataConfiguration.value!.to) && prospectCustomerController.isLoadingListProspectCustomer.value) {
+                            return const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 20),
+                              child: LoadingAnimationGlobalWidget(
+                                size: 30,
+                              ),
+                            );
+                          } else {
+                            final customer = prospectCustomerController.listProspectCustomer.value[index];
+                            return ItemCustomerGlobalWidget(
+                              onTap: () => prospectCustomerController.showDetailDialog(customer),
+                              index: index,
+                              name: customer.name,
+                              address: customer.installedAddress,
+                              telephoneNumber: customer.phone,
+                              status: customer.prospectCategory,
+                            );
+                          }
+                        },
+                      ),
                     ),
                   ),
                 );

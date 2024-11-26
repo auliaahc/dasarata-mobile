@@ -42,30 +42,34 @@ class ListDashboardClosingCustomerWidget extends StatelessWidget {
                 return Expanded(
                   child: LazyLoadScrollView(
                     onEndOfPage: () => closingCustomerController.onEndOfPage(),
-                    child: ListView.separated(
-                      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-                      itemCount: closingCustomerController.listDataConfiguration.value!.to + (closingCustomerController.isLoadingFetchDashboardData.value ? 1 : 0),
-                      separatorBuilder: (context, index) => SpacingConstant.verticalSpacing16px,
-                      itemBuilder: (context, index) {
-                        if (index == (closingCustomerController.listDataConfiguration.value!.to) && closingCustomerController.isLoadingFetchDashboardData.value) {
-                          return const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 20),
-                            child: LoadingAnimationGlobalWidget(
-                              size: 30,
-                            ),
-                          );
-                        } else {
-                          final customer = closingCustomerController.listClosingCustomer.value[index];
-                          return ItemCustomerGlobalWidget(
-                            onTap: () => closingCustomerController.moveToDetailScreen(customer.id),
-                            index: index,
-                            name: customer.name,
-                            address: customer.installedAddress,
-                            telephoneNumber: customer.phoneNumber,
-                            status: customer.phaseStatus,
-                          );
-                        }
-                      },
+                    child: GlowingOverscrollIndicator(
+                      axisDirection: AxisDirection.down,
+                      color: ColorConstant.neutralColor700,
+                      child: ListView.separated(
+                        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+                        itemCount: closingCustomerController.listDataConfiguration.value!.to + (closingCustomerController.isLoadingFetchDashboardData.value ? 1 : 0),
+                        separatorBuilder: (context, index) => SpacingConstant.verticalSpacing16px,
+                        itemBuilder: (context, index) {
+                          if (index == (closingCustomerController.listDataConfiguration.value!.to) && closingCustomerController.isLoadingFetchDashboardData.value) {
+                            return const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 20),
+                              child: LoadingAnimationGlobalWidget(
+                                size: 30,
+                              ),
+                            );
+                          } else {
+                            final customer = closingCustomerController.listClosingCustomer.value[index];
+                            return ItemCustomerGlobalWidget(
+                              onTap: () => closingCustomerController.moveToDetailScreen(customer.id),
+                              index: index,
+                              name: customer.name,
+                              address: customer.installedAddress,
+                              telephoneNumber: customer.phoneNumber,
+                              status: customer.phaseStatus,
+                            );
+                          }
+                        },
+                      ),
                     ),
                   ),
                 );

@@ -8,7 +8,7 @@ import "package:geolocator/geolocator.dart";
 class GoogleMapsService {
   final Dio _dio = Dio();
 
-  Future<List<Placemark>> getPlacemark(double latitude, double longitude) async {
+  Future<List<Placemark>> getPlacemarks(double latitude, double longitude) async {
     const url = "${Env.baseUrlGoogleMaps}/geocode/json";
     try {
       final response = await _dio.get(
@@ -166,7 +166,7 @@ class GoogleMapsService {
     }
   }
 
-  Future<SpliterMapsModel> getSpliter() async {
+  Future<SpliterMapsModel> getSpliters() async {
     const url = "${Env.baseUrl}/sales/spliters";
     final token = await SharedPref.getToken();
     try {

@@ -12,6 +12,7 @@ class MapsProspectCustomerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProspectCustomerController prospectCustomerController = Get.find();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: ColorConstant.backgroundColor,
       body: Obx(
         () {

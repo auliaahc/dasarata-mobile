@@ -1,13 +1,13 @@
 import 'package:dasarata_mobile/env/env.dart';
-import 'package:dasarata_mobile/models/profile/response_profile_model.dart';
+import 'package:dasarata_mobile/models/dashboard/dashboard_model.dart';
 import 'package:dasarata_mobile/utilities/shared_pref.dart';
 import 'package:dio/dio.dart';
 
-class ProfileService {
+class DashboardService {
   final Dio _dio = Dio();
 
-  Future<ResponseProfileModel> getProfile() async {
-    const url = "${Env.baseUrl}/me";
+  Future<DashboardModel> getDashboard() async {
+    const url = "${Env.baseUrl}/sales";
     final token = await SharedPref.getToken();
     try {
       final response = await _dio.get(
@@ -17,19 +17,19 @@ class ProfileService {
         ),
       );
       final rawResponse = response.data;
-      return ResponseProfileModel.fromJson(rawResponse);
+      return DashboardModel.fromJson(rawResponse);
     } on DioException catch (e) {
       if (e.response?.statusCode == 500) {
-        throw ResponseProfileModel(
+        throw DashboardModel(
           success: false,
           message: "Sesi berakhir",
         );
       } else {
         final errorResponse = e.response?.data;
         if (errorResponse != null) {
-          throw ResponseProfileModel.fromJson(errorResponse);
+          throw DashboardModel.fromJson(errorResponse);
         } else {
-          throw ResponseProfileModel(
+          throw DashboardModel(
             success: false,
             message: "Tidak terhubung ke internet",
           );

@@ -17,9 +17,10 @@ class SubmitButtonAddProspectCustomerWidget extends StatelessWidget {
       bottom: 32,
       child: Obx(
         () {
+          final isDisabled = !prospectCustomerController.isFormAddProspectCustomerValid.value || prospectCustomerController.isLoadingAddProspectCustomer.value;
           return ButtonGlobalWidget(
             isLoading: prospectCustomerController.isLoadingAddProspectCustomer.value,
-            isDisabled: !prospectCustomerController.isFormAddProspectCustomerValid.value,
+            isDisabled: isDisabled,
             label: "Submit",
             onTap: () => prospectCustomerController.onSubmitFormAddProspectCustomer(profileController.profileData.value!.nip),
           );

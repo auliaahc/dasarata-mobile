@@ -1,55 +1,35 @@
-import 'dart:convert';
-
-ResponseHomeModel responseHomeModelFromJson(String str) => ResponseHomeModel.fromJson(json.decode(str));
-String responseHomeModelToJson(ResponseHomeModel data) => json.encode(data.toJson());
-
-class ResponseHomeModel {
+class DashboardModel {
   final bool success;
   final String message;
-  final ResponseHomeModelData? data;
-  ResponseHomeModel({
+  final DashboardModelData? data;
+  DashboardModel({
     required this.success,
     required this.message,
     this.data,
   });
 
-  factory ResponseHomeModel.fromJson(Map<String, dynamic> json) {
-    return ResponseHomeModel(
+  factory DashboardModel.fromJson(Map<String, dynamic> json) {
+    return DashboardModel(
       success: json["success"] ?? false,
       message: json["message"] ?? "",
-      data: json["data"] != null ? ResponseHomeModelData.fromJson(json["data"]) : null,
+      data: json["data"] != null ? DashboardModelData.fromJson(json["data"]) : null,
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "success": success,
-      "message": message,
-      "data": data?.toJson(),
-    };
   }
 }
 
-class ResponseHomeModelData {
+class DashboardModelData {
   final Data data;
   final String status;
-  ResponseHomeModelData({
+  DashboardModelData({
     required this.data,
     required this.status,
   });
 
-  factory ResponseHomeModelData.fromJson(Map<String, dynamic> json) {
-    return ResponseHomeModelData(
+  factory DashboardModelData.fromJson(Map<String, dynamic> json) {
+    return DashboardModelData(
       data: Data.fromJson(json["data"]),
       status: json["status"] ?? "",
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "data": data.toJson(),
-      "status": status,
-    };
   }
 }
 
@@ -77,15 +57,6 @@ class Data {
               .toList() ?? [],
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "countClosing": countClosing,
-      "countProspect": countProspect,
-      "growthProspect": growthProspect.map((e) => e.toJson()).toList(),
-      "growthClosing": growthClosing.map((e) => e.toJson()).toList(),
-    };
-  }
 }
 
 class GrowthProspect {
@@ -104,14 +75,6 @@ class GrowthProspect {
       monthName: json["month_name"] ?? "",
       year: json["year"] ?? 0,
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "total": total,
-      "month_name": monthName,
-      "year": year,
-    };
   }
 }
 
@@ -133,11 +96,4 @@ class GrowthClosing {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      "total": total,
-      "month_name": monthName,
-      "year": year,
-    };
-  }
 }

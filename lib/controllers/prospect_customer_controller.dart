@@ -11,7 +11,6 @@ import 'package:dasarata_mobile/services/google_maps_service.dart';
 import 'package:dasarata_mobile/services/prospect_customer_service.dart';
 import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -103,7 +102,7 @@ class ProspectCustomerController extends GetxController {
     }
   }
 
-  void onSubmitFormAddProspectCustomer(String nipSalesId) async {
+  Future<void> onSubmitFormAddProspectCustomer(String nipSalesId) async {
     if (addProspectFormKey.currentState!.validate()) {
       isLoadingAddProspectCustomer.value = true;
       prospectCustomerData.value = RequestFormProspectCustomerModel(
@@ -115,7 +114,7 @@ class ProspectCustomerController extends GetxController {
         installedAddress: address.value!
       );
       try {
-        final response = await prospectCustomerService.postCreateProspectCustomer(prospectCustomerData.value!);
+        final response = await prospectCustomerService.createProspectCustomer(prospectCustomerData.value!);
         if (response.success) {
           SnackbarUtils.show(
             messageText: "Data customer prospek berhasil ditambahkan!",
@@ -146,6 +145,11 @@ class ProspectCustomerController extends GetxController {
     }
   }
 
+  void fetchAddScreenData() {
+    getProspectCategoryData();
+    getProspectMeetData();
+  }
+
   void validateFormAddProspectCustomer() {
     isFormAddProspectCustomerValid.value = nameController.text.isNotEmpty &&
         addressController.text.isNotEmpty &&
@@ -158,7 +162,7 @@ class ProspectCustomerController extends GetxController {
     if (address.value != null) {
       searchMapsController.text = address.value!;
       searchMaps.value = searchMapsController.text;
-      doSearchMaps(searchMaps.value!);
+      onSubmitSearchMaps(searchMaps.value!);
     } else {
       searchMapsController.clear();
       getCurrentPosition();
@@ -194,7 +198,7 @@ class ProspectCustomerController extends GetxController {
 
   Future<void> getSpliterData() async {
     try {
-      final response = await googleMapsService.getSpliter();
+      final response = await googleMapsService.getSpliters();
       spliterData.value = response.data;
       updateSpliterMarker();
     } catch (e) {
@@ -272,6 +276,7 @@ class ProspectCustomerController extends GetxController {
   void showDetailDialog(Datum data) {
     Get.dialog(
       DetailDialogDashboardProspectCustomerWidget(
+        id: data.id,
         name: data.name,
         telephoneNumber: data.phone,
         meetMethod: data.meetCategory,
@@ -348,12 +353,10 @@ class ProspectCustomerController extends GetxController {
     isLoadingGetAddress.value = true;
     currentAddress.value = null;
     try {
-      final response = await googleMapsService.getPlacemark(
-          latLng.latitude, latLng.longitude);
+      final response = await googleMapsService.getPlacemarks(latLng.latitude, latLng.longitude);
       currentPlacemark.value = response.first;
       if (currentPlacemark.value != null) {
-        currentAddress.value =
-            "${currentPlacemark.value?.street ?? "Unknown Street"}, ${currentPlacemark.value!.subLocality}, ${currentPlacemark.value!.locality}, ${currentPlacemark.value!.subAdministrativeArea}";
+        currentAddress.value = "${currentPlacemark.value?.street ?? "Unknown Street"}, ${currentPlacemark.value!.subLocality}, ${currentPlacemark.value!.locality}, ${currentPlacemark.value!.subAdministrativeArea}";
       }
     } catch (e) {
       SnackbarUtils.show(
@@ -365,7 +368,7 @@ class ProspectCustomerController extends GetxController {
     }
   }
 
-  Future<void> doSearchMaps(String query) async {
+  Future<void> onSubmitSearchMaps(String query) async {
     searchMaps.value = query;
     if (searchMaps.value != null) {
       final input = searchMaps.value!.trim();
@@ -392,15 +395,15 @@ class ProspectCustomerController extends GetxController {
   Future<void> getAddressLatLngFromAddressPlusCode() async {
     isLoadingGetAddress.value = true;
     try {
-      final response = await googleMapsService
-          .getPlacemarkFromAddressPlusCode(searchMaps.value!);
+      final response = await googleMapsService.getPlacemarkFromAddressPlusCode(searchMaps.value!);
       currentPlacemark.value = response["placemarks"].first;
       currentPosition.value = response["position"];
       if (currentPosition.value != null && currentPosition.value != null) {
         currentLatLng.value = LatLng(
-            currentPosition.value!.latitude, currentPosition.value!.longitude);
-        currentAddress.value =
-            "${currentPlacemark.value?.street ?? "Unknown Street"}, ${currentPlacemark.value?.subLocality}, ${currentPlacemark.value?.locality}, ${currentPlacemark.value!.subAdministrativeArea}";
+          currentPosition.value!.latitude,
+          currentPosition.value!.longitude,
+        );
+        currentAddress.value = "${currentPlacemark.value?.street ?? "Unknown Street"}, ${currentPlacemark.value?.subLocality}, ${currentPlacemark.value?.locality}, ${currentPlacemark.value!.subAdministrativeArea}";
         updateCurrentLocationMarker();
         await moveCamera(currentLatLng.value!);
       }
@@ -426,53 +429,25 @@ class ProspectCustomerController extends GetxController {
   Future<bool> handleLocationPermission() async {
     bool locationServiceEnabled;
     LocationPermission locationPermission;
-    try {
-      locationServiceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!locationServiceEnabled) {
+
+    locationServiceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!locationServiceEnabled) {
+      SnackbarUtils.show(
+        messageText: "Layanan lokasi tidak diaktifkan",
+        type: AnimatedSnackBarType.error,
+      );
+    }
+    locationPermission = await Geolocator.checkPermission();
+    if (locationPermission == LocationPermission.denied) {
+      locationPermission = await Geolocator.requestPermission();
+      if (locationPermission == LocationPermission.denied) {
         SnackbarUtils.show(
-          messageText: "Layanan lokasi tidak diaktifkan",
+          messageText: "Izin akses lokasi ditolak",
           type: AnimatedSnackBarType.error,
         );
         return false;
       }
-      locationPermission = await Geolocator.checkPermission();
-      if (locationPermission == LocationPermission.denied) {
-        locationPermission = await Geolocator.requestPermission();
-        if (locationPermission == LocationPermission.denied) {
-          SnackbarUtils.show(
-            messageText: "Izin akses lokasi ditolak",
-            type: AnimatedSnackBarType.error,
-          );
-          return false;
-        } else if (locationPermission == LocationPermission.deniedForever) {
-          SnackbarUtils.show(
-            messageText:
-                "Izin akses lokasi ditolak selamanya. Atur izin secara manual di pengaturan perangkat.",
-            type: AnimatedSnackBarType.error,
-          );
-          return false;
-        }
-      }
-      return await _requestAccurateLocation();
-    } on PlatformException catch (e) {
-      SnackbarUtils.show(
-        messageText: e.toString(),
-        type: AnimatedSnackBarType.error,
-      );
-      return false;
     }
-  }
-
-  Future<bool> _requestAccurateLocation() async {
-    try {
-      await Geolocator.getCurrentPosition();
-      return true;
-    } catch (e) {
-      SnackbarUtils.show(
-        messageText: "Gagal mendapatkan lokasi dengan akurasi tinggi: $e",
-        type: AnimatedSnackBarType.error,
-      );
-      return false;
-    }
+    return true;
   }
 }

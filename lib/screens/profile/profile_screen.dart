@@ -3,6 +3,7 @@ import 'package:dasarata_mobile/controllers/profile_controller.dart';
 import 'package:dasarata_mobile/screens/profile/widgets/detail/list_detail_profile_widget.dart';
 import 'package:dasarata_mobile/screens/profile/widgets/header/header_profile_widget.dart';
 import 'package:dasarata_mobile/widgets/appbar_global_widget.dart';
+import 'package:dasarata_mobile/widgets/empty_state_global_widget.dart';
 import 'package:dasarata_mobile/widgets/loading_animation_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,14 +21,22 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppbarGlobalWidget(
         title: "Profile",
         action: const Icon(Icons.exit_to_app_rounded),
-        onPressedAction: profileController.logout,
+        onPressedAction: profileController.logoutUser,
+        tooltip: "Logout",
       ),
       backgroundColor: ColorConstant.whiteColor,
       body: Obx(
         () {
-          if (profileController.isLoadingProfile.value) {
+          if (profileController.isLoadingGetProfile.value) {
             return const Center(
               child: LoadingAnimationGlobalWidget(),
+            );
+          } else if (!profileController.isLoadingGetProfile.value && profileController.profileData.value == null) {
+            return const Padding(
+              padding: EdgeInsets.only(bottom: 50),
+              child: Center(
+                child: EmptyStateGlobalWidget(),
+              ),
             );
           } else {
             return const SingleChildScrollView(

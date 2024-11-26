@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_spliter_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_find_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/spliter_closing_customer_model.dart';
@@ -12,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SpliterClosingCustomerController extends GetxController {
+  ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
   GoogleMapsService googleMapsService = GoogleMapsService();
   ClosingCustomerService closingCustomerService = ClosingCustomerService();
   Completer<GoogleMapController> mapsController = Completer<GoogleMapController>();
@@ -37,6 +39,8 @@ class SpliterClosingCustomerController extends GetxController {
         ),
       );
       Get.back();
+      closingCustomerController.getClosingCustomerData(closingCustomerController.detailClosingCustomer.value!.id);
+      closingCustomerController.resetDashboardClosingCustomer();
       SnackbarUtils.show(
         messageText: response.message,
         type: AnimatedSnackBarType.success,
@@ -56,7 +60,7 @@ class SpliterClosingCustomerController extends GetxController {
   Future<void> getSplitersData() async {
     isLoadingGetSplitersData.value = true;
     try {
-      final response = await googleMapsService.getSpliter();
+      final response = await googleMapsService.getSpliters();
       spliters.value = response.data;
       updateSpliterMarkers();
     } catch (e) {
