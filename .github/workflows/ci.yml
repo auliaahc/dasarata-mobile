@@ -20,6 +20,13 @@ jobs:
     - run: flutter pub get
     # - run: dart format --set-exit-if-changed .
     # - run: flutter analyze .
+    - name: Create google_maps_api.xml
+      run: |
+        mkdir -p android/app/src/main/res/values/
+        echo '<?xml version="1.0" encoding="utf-8"?>' > android/app/src/main/res/values/google_maps_api.xml
+        echo '<resources>' >> android/app/src/main/res/values/google_maps_api.xml
+        echo '    <string name="GoogleMapsKey">${{ secrets.GOOGLE_MAPS_API_KEY }}</string>' >> android/app/src/main/res/values/google_maps_api.xml
+        echo '</resources>' >> android/app/src/main/res/values/google_maps_api.xml
     - name: Setup .env file
       run: |
         echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
