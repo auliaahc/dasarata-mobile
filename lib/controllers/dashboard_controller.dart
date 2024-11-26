@@ -47,9 +47,7 @@ class DashboardController extends GetxController {
     try {
       final response = await profileService.getProfile();
       profileData.value = response.data;
-      print("ok");
     } catch (e) {
-      print(e);
       if (e is response_profile_model.ResponseProfileModel) {
         SnackbarUtils.show(
           messageText: e.message,

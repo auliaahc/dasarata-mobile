@@ -38,7 +38,7 @@ class MapsRouteClosingCustomerWidget extends StatelessWidget {
               ),
               mapType: routeClosingCustomerController.selectedMapType.value,
               markers: Set<Marker>.from(routeClosingCustomerController.markers),
-              polylines: routeClosingCustomerController.polylines.value,
+              polylines: Set<Polyline>.from(routeClosingCustomerController.polylines),
               onTap: (latLng) =>
                   routeClosingCustomerController.addRoute(latLng),
             );
