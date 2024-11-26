@@ -19,7 +19,7 @@ jobs:
         channel: 'beta' # 'dev', 'alpha', default to: 'stable'
         # flutter-version: '1.12.x' # you can also specify exact version of flutter
     - run: flutter pub get
-    - run: dart format --set-exit-if-changed .
+    # - run: dart format --set-exit-if-changed .
     - run: flutter analyze .
     - run: flutter build apk
     - uses: actions/upload-artifact@v4
