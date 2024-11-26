@@ -10,7 +10,8 @@ class MapsSurveyClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SurveyClosingCustomerController surveyClosingCustomerController = Get.find();
+    SurveyClosingCustomerController surveyClosingCustomerController =
+        Get.find();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorConstant.backgroundColor,
@@ -22,8 +23,10 @@ class MapsSurveyClosingCustomerWidget extends StatelessWidget {
             );
           } else {
             return GoogleMap(
-              onTap: (LatLng latLng) => surveyClosingCustomerController.onTapMaps(latLng),
-              markers: Set<Marker>.from(surveyClosingCustomerController.selectedPoint),
+              onTap: (LatLng latLng) =>
+                  surveyClosingCustomerController.onTapMaps(latLng),
+              markers: Set<Marker>.from(
+                  surveyClosingCustomerController.selectedPoint),
               zoomControlsEnabled: false,
               compassEnabled: false,
               mapType: surveyClosingCustomerController.selectedMapType.value,
@@ -32,8 +35,10 @@ class MapsSurveyClosingCustomerWidget extends StatelessWidget {
                 target: surveyClosingCustomerController.selectedLatLng.value!,
               ),
               onMapCreated: (GoogleMapController controller) {
-                if (!surveyClosingCustomerController.mapsController.isCompleted) {
-                  surveyClosingCustomerController.mapsController.complete(controller);
+                if (!surveyClosingCustomerController
+                    .mapsController.isCompleted) {
+                  surveyClosingCustomerController.mapsController
+                      .complete(controller);
                 }
               },
             );

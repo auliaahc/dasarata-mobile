@@ -17,7 +17,8 @@ class RouteClosingCustomerController extends GetxController {
   GoogleMapsService googleMapsService = GoogleMapsService();
   ClosingCustomerService closingCustomerService = ClosingCustomerService();
   FlutterMapMath flutterMapMath = FlutterMapMath();
-  Completer<GoogleMapController> mapsController = Completer<GoogleMapController>();
+  Completer<GoogleMapController> mapsController =
+      Completer<GoogleMapController>();
   RxBool isLoadingGetClosingCustomerData = RxBool(false);
   Rxn<Data> closingCustomerDetail = Rxn<Data>();
   Rxn<LatLng> customerLatLng = Rxn<LatLng>();
@@ -30,7 +31,8 @@ class RouteClosingCustomerController extends GetxController {
   RxDouble distance = RxDouble(0);
   RxList<double> listDistance = RxList<double>();
   RxBool isLoadingUpdateRouteData = RxBool(false);
-  ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
+  ClosingCustomerController closingCustomerController =
+      Get.put(ClosingCustomerController());
 
   Future<void> updateRouteData() async {
     isLoadingUpdateRouteData.value = true;
@@ -56,7 +58,8 @@ class RouteClosingCustomerController extends GetxController {
         ),
       );
       Get.back();
-      closingCustomerController.getClosingCustomerData(closingCustomerController.detailClosingCustomer.value!.id);
+      closingCustomerController.getClosingCustomerData(
+          closingCustomerController.detailClosingCustomer.value!.id);
       closingCustomerController.resetDashboardClosingCustomer();
       SnackbarUtils.show(
         messageText: response.message,
@@ -77,7 +80,8 @@ class RouteClosingCustomerController extends GetxController {
   Future<void> getClosingCustomerData(int closingId) async {
     isLoadingGetClosingCustomerData.value = true;
     try {
-      final response = await closingCustomerService.getClosingCustomer(closingId);
+      final response =
+          await closingCustomerService.getClosingCustomer(closingId);
       closingCustomerDetail.value = response.data;
       customerLatLng.value = LatLng(
         closingCustomerDetail.value!.latitude,

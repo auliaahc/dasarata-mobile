@@ -15,7 +15,8 @@ class SubscriptionDetailClosingCustomerWidget extends StatelessWidget {
     final TextStyle fieldTextStyle = TextStyleConstant.semiboldCaption.copyWith(
       color: ColorConstant.neutralColor600,
     );
-    final TextStyle valueTextStyle = TextStyleConstant.regularParagraph.copyWith(
+    final TextStyle valueTextStyle =
+        TextStyleConstant.regularParagraph.copyWith(
       color: ColorConstant.neutralColor800,
     );
     return Obx(
@@ -31,7 +32,9 @@ class SubscriptionDetailClosingCustomerWidget extends StatelessWidget {
               ),
               SpacingConstant.verticalSpacing2px,
               Text(
-                closingCustomerController.detailClosingCustomer.value!.customerCategory ?? "-",
+                closingCustomerController
+                        .detailClosingCustomer.value!.customerCategory ??
+                    "-",
                 style: valueTextStyle,
               ),
               SpacingConstant.verticalSpacing12px,
@@ -49,7 +52,8 @@ class SubscriptionDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          closingCustomerController.detailClosingCustomer.value!.package.namePackage,
+                          closingCustomerController
+                              .detailClosingCustomer.value!.package.namePackage,
                           style: valueTextStyle,
                         ),
                       ],
@@ -66,7 +70,8 @@ class SubscriptionDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          closingCustomerController.detailClosingCustomer.value!.program.nameProgram,
+                          closingCustomerController
+                              .detailClosingCustomer.value!.program.nameProgram,
                           style: valueTextStyle,
                         ),
                       ],

@@ -117,9 +117,7 @@ class DropdownFieldGlobalWidget<T> extends StatelessWidget {
               ),
             );
           }).toList(),
-          value: (items.isNotEmpty)
-              ? value
-              : null,
+          value: (items.isNotEmpty) ? value : null,
           onChanged: (value) => onChanged?.call(value),
           validator: validator,
           onSaved: onSaved,

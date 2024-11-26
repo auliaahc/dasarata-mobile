@@ -10,12 +10,16 @@ class FooterSpliterClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SpliterClosingCustomerController spliterClosingCustomerController = Get.find();
+    final SpliterClosingCustomerController spliterClosingCustomerController =
+        Get.find();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Obx(
         () {
-          final bool isLoading = spliterClosingCustomerController.isLoadingGetSplitersData.value || spliterClosingCustomerController.isLoadingGetClosingCustomerData.value;
+          final bool isLoading =
+              spliterClosingCustomerController.isLoadingGetSplitersData.value ||
+                  spliterClosingCustomerController
+                      .isLoadingGetClosingCustomerData.value;
           return Column(
             children: [
               if (!isLoading) ...[

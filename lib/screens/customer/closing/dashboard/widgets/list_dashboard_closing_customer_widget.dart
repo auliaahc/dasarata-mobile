@@ -13,7 +13,8 @@ class ListDashboardClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
+    final ClosingCustomerController closingCustomerController =
+        Get.put(ClosingCustomerController());
     Get.engine.addPostFrameCallback((_) {
       closingCustomerController.resetDashboardClosingCustomer();
     });
@@ -24,13 +25,17 @@ class ListDashboardClosingCustomerWidget extends StatelessWidget {
         children: [
           Obx(
             () {
-              if (closingCustomerController.isLoadingFetchDashboardData.value && closingCustomerController.listClosingCustomer.value.isEmpty) {
+              if (closingCustomerController.isLoadingFetchDashboardData.value &&
+                  closingCustomerController.listClosingCustomer.value.isEmpty) {
                 return const Expanded(
                   child: Center(
                     child: LoadingAnimationGlobalWidget(),
                   ),
                 );
-              } else if (closingCustomerController.listDataConfiguration.value == null || closingCustomerController.listClosingCustomer.value.isEmpty) {
+              } else if (closingCustomerController
+                          .listDataConfiguration.value ==
+                      null ||
+                  closingCustomerController.listClosingCustomer.value.isEmpty) {
                 return Expanded(
                   child: Center(
                     child: EmptyStateGlobalWidget(
@@ -46,11 +51,22 @@ class ListDashboardClosingCustomerWidget extends StatelessWidget {
                       axisDirection: AxisDirection.down,
                       color: ColorConstant.neutralColor700,
                       child: ListView.separated(
-                        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-                        itemCount: closingCustomerController.listDataConfiguration.value!.to + (closingCustomerController.isLoadingFetchDashboardData.value ? 1 : 0),
-                        separatorBuilder: (context, index) => SpacingConstant.verticalSpacing16px,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 24, horizontal: 16),
+                        itemCount: closingCustomerController
+                                .listDataConfiguration.value!.to +
+                            (closingCustomerController
+                                    .isLoadingFetchDashboardData.value
+                                ? 1
+                                : 0),
+                        separatorBuilder: (context, index) =>
+                            SpacingConstant.verticalSpacing16px,
                         itemBuilder: (context, index) {
-                          if (index == (closingCustomerController.listDataConfiguration.value!.to) && closingCustomerController.isLoadingFetchDashboardData.value) {
+                          if (index ==
+                                  (closingCustomerController
+                                      .listDataConfiguration.value!.to) &&
+                              closingCustomerController
+                                  .isLoadingFetchDashboardData.value) {
                             return const Padding(
                               padding: EdgeInsets.symmetric(vertical: 20),
                               child: LoadingAnimationGlobalWidget(
@@ -58,9 +74,11 @@ class ListDashboardClosingCustomerWidget extends StatelessWidget {
                               ),
                             );
                           } else {
-                            final customer = closingCustomerController.listClosingCustomer.value[index];
+                            final customer = closingCustomerController
+                                .listClosingCustomer.value[index];
                             return ItemCustomerGlobalWidget(
-                              onTap: () => closingCustomerController.moveToDetailScreen(customer.id),
+                              onTap: () => closingCustomerController
+                                  .moveToDetailScreen(customer.id),
                               index: index,
                               name: customer.name,
                               address: customer.installedAddress,

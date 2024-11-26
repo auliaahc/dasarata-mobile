@@ -23,9 +23,7 @@ class ProfileController extends GetxController {
     } catch (e) {
       if (e is ResponseProfileModel) {
         SnackbarUtils.show(
-          messageText: e.message,
-          type: AnimatedSnackBarType.error
-        );
+            messageText: e.message, type: AnimatedSnackBarType.error);
       }
     } finally {
       isLoadingGetProfile.value = false;

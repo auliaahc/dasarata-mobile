@@ -31,7 +31,8 @@ class ProfileScreen extends StatelessWidget {
             return const Center(
               child: LoadingAnimationGlobalWidget(),
             );
-          } else if (!profileController.isLoadingGetProfile.value && profileController.profileData.value == null) {
+          } else if (!profileController.isLoadingGetProfile.value &&
+              profileController.profileData.value == null) {
             return const Padding(
               padding: EdgeInsets.only(bottom: 50),
               child: Center(

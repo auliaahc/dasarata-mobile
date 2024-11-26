@@ -2,7 +2,8 @@ import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:get/get.dart';
 
 class SnackbarUtils {
-  static void show({required String messageText, required AnimatedSnackBarType type}) {
+  static void show(
+      {required String messageText, required AnimatedSnackBarType type}) {
     AnimatedSnackBar.material(
       messageText,
       type: type,

@@ -13,10 +13,13 @@ class RouteClosingCustomerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RouteClosingCustomerController routeClosingCustomerController = Get.put(RouteClosingCustomerController());
-    final ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
+    final RouteClosingCustomerController routeClosingCustomerController =
+        Get.put(RouteClosingCustomerController());
+    final ClosingCustomerController closingCustomerController =
+        Get.put(ClosingCustomerController());
     Get.engine.addPostFrameCallback((_) {
-      routeClosingCustomerController.getClosingCustomerData(closingCustomerController.detailClosingCustomer.value!.id);
+      routeClosingCustomerController.getClosingCustomerData(
+          closingCustomerController.detailClosingCustomer.value!.id);
     });
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(statusBarColor: ColorConstant.whiteColor),

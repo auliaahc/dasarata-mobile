@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
-import 'package:dasarata_mobile/models/customer/prospect/category_prospect_customer_model.dart' as category_prospect_customer_model;
-import 'package:dasarata_mobile/models/customer/prospect/meet_prospect_customer_model.dart' as meet_prospect_customer_model;
+import 'package:dasarata_mobile/models/customer/prospect/category_prospect_customer_model.dart'
+    as category_prospect_customer_model;
+import 'package:dasarata_mobile/models/customer/prospect/meet_prospect_customer_model.dart'
+    as meet_prospect_customer_model;
 import 'package:dasarata_mobile/models/customer/prospect/request_form_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/prospect/response_form_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/prospect/response_prospect_customer_model.dart';
-import 'package:dasarata_mobile/models/maps/spliter_maps_model.dart' as spliter_maps_model;
+import 'package:dasarata_mobile/models/maps/spliter_maps_model.dart'
+    as spliter_maps_model;
 import 'package:dasarata_mobile/screens/customer/prospect/dashboard/widgets/detail_dialog_dashboard_prospect_customer_widget.dart';
 import 'package:dasarata_mobile/services/google_maps_service.dart';
 import 'package:dasarata_mobile/services/prospect_customer_service.dart';
@@ -38,9 +41,11 @@ class ProspectCustomerController extends GetxController {
   RxInt selectedMapTypeIndex = RxInt(0);
   Rx<MapType> selectedMapType = Rx<MapType>(MapType.normal);
   GoogleMapsService googleMapsService = GoogleMapsService();
-  Rxn<List<spliter_maps_model.Datum>> spliterData = Rxn<List<spliter_maps_model.Datum>>();
+  Rxn<List<spliter_maps_model.Datum>> spliterData =
+      Rxn<List<spliter_maps_model.Datum>>();
   RxSet<Marker> markers = RxSet<Marker>();
-  Completer<GoogleMapController> mapsController = Completer<GoogleMapController>();
+  Completer<GoogleMapController> mapsController =
+      Completer<GoogleMapController>();
   Rxn<Position> currentPosition = Rxn<Position>();
   Rxn<LatLng> currentLatLng = Rxn<LatLng>();
   Rxn<Placemark> currentPlacemark = Rxn<Placemark>();
@@ -49,10 +54,13 @@ class ProspectCustomerController extends GetxController {
   RxnString searchMaps = RxnString();
 
   // Form Add
-  Rxn<List<category_prospect_customer_model.Datum>> prospectCategoryData = Rxn<List<category_prospect_customer_model.Datum>>();
-  Rxn<List<meet_prospect_customer_model.Datum>> prospectMeetData = Rxn<List<meet_prospect_customer_model.Datum>>();
+  Rxn<List<category_prospect_customer_model.Datum>> prospectCategoryData =
+      Rxn<List<category_prospect_customer_model.Datum>>();
+  Rxn<List<meet_prospect_customer_model.Datum>> prospectMeetData =
+      Rxn<List<meet_prospect_customer_model.Datum>>();
   final GlobalKey<FormState> addProspectFormKey = GlobalKey<FormState>();
-  Rxn<RequestFormProspectCustomerModel> prospectCustomerData = Rxn<RequestFormProspectCustomerModel>();
+  Rxn<RequestFormProspectCustomerModel> prospectCustomerData =
+      Rxn<RequestFormProspectCustomerModel>();
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -106,15 +114,15 @@ class ProspectCustomerController extends GetxController {
     if (addProspectFormKey.currentState!.validate()) {
       isLoadingAddProspectCustomer.value = true;
       prospectCustomerData.value = RequestFormProspectCustomerModel(
-        nipSalesId: nipSalesId,
-        prospectCategoryId: int.parse(prospectCategoryValue.value!),
-        prospectMeetId: int.parse(prospectMeetValue.value!),
-        name: name.value!,
-        phoneNumber: phone.value!,
-        installedAddress: address.value!
-      );
+          nipSalesId: nipSalesId,
+          prospectCategoryId: int.parse(prospectCategoryValue.value!),
+          prospectMeetId: int.parse(prospectMeetValue.value!),
+          name: name.value!,
+          phoneNumber: phone.value!,
+          installedAddress: address.value!);
       try {
-        final response = await prospectCustomerService.createProspectCustomer(prospectCustomerData.value!);
+        final response = await prospectCustomerService
+            .createProspectCustomer(prospectCustomerData.value!);
         if (response.success) {
           SnackbarUtils.show(
             messageText: "Data customer prospek berhasil ditambahkan!",
@@ -178,7 +186,8 @@ class ProspectCustomerController extends GetxController {
   }
 
   void updateSpliterMarker() {
-    markers.removeWhere((marker) => marker.markerId.value != "currentLocationMarker");
+    markers.removeWhere(
+        (marker) => marker.markerId.value != "currentLocationMarker");
     for (spliter_maps_model.Datum spliter in spliterData.value ?? []) {
       final Marker marker = Marker(
         markerId: MarkerId(spliter.id.toString()),
@@ -353,10 +362,12 @@ class ProspectCustomerController extends GetxController {
     isLoadingGetAddress.value = true;
     currentAddress.value = null;
     try {
-      final response = await googleMapsService.getPlacemarks(latLng.latitude, latLng.longitude);
+      final response = await googleMapsService.getPlacemarks(
+          latLng.latitude, latLng.longitude);
       currentPlacemark.value = response.first;
       if (currentPlacemark.value != null) {
-        currentAddress.value = "${currentPlacemark.value?.street ?? "Unknown Street"}, ${currentPlacemark.value!.subLocality}, ${currentPlacemark.value!.locality}, ${currentPlacemark.value!.subAdministrativeArea}";
+        currentAddress.value =
+            "${currentPlacemark.value?.street ?? "Unknown Street"}, ${currentPlacemark.value!.subLocality}, ${currentPlacemark.value!.locality}, ${currentPlacemark.value!.subAdministrativeArea}";
       }
     } catch (e) {
       SnackbarUtils.show(
@@ -395,7 +406,8 @@ class ProspectCustomerController extends GetxController {
   Future<void> getAddressLatLngFromAddressPlusCode() async {
     isLoadingGetAddress.value = true;
     try {
-      final response = await googleMapsService.getPlacemarkFromAddressPlusCode(searchMaps.value!);
+      final response = await googleMapsService
+          .getPlacemarkFromAddressPlusCode(searchMaps.value!);
       currentPlacemark.value = response["placemarks"].first;
       currentPosition.value = response["position"];
       if (currentPosition.value != null && currentPosition.value != null) {
@@ -403,7 +415,8 @@ class ProspectCustomerController extends GetxController {
           currentPosition.value!.latitude,
           currentPosition.value!.longitude,
         );
-        currentAddress.value = "${currentPlacemark.value?.street ?? "Unknown Street"}, ${currentPlacemark.value?.subLocality}, ${currentPlacemark.value?.locality}, ${currentPlacemark.value!.subAdministrativeArea}";
+        currentAddress.value =
+            "${currentPlacemark.value?.street ?? "Unknown Street"}, ${currentPlacemark.value?.subLocality}, ${currentPlacemark.value?.locality}, ${currentPlacemark.value!.subAdministrativeArea}";
         updateCurrentLocationMarker();
         await moveCamera(currentLatLng.value!);
       }

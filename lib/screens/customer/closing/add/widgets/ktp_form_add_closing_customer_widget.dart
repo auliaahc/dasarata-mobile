@@ -85,8 +85,10 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "labelName": "Provinsi",
             "items": closingCustomerController.provincesData.value ?? [],
             "data": closingCustomerController.province.value,
-            "getValue": (dynamic item) => (item as province_closing_customer_model.Datum).id.toString(),
-            "getLabel": (dynamic item) => (item as province_closing_customer_model.Datum).name,
+            "getValue": (dynamic item) =>
+                (item as province_closing_customer_model.Datum).id.toString(),
+            "getLabel": (dynamic item) =>
+                (item as province_closing_customer_model.Datum).name,
             "onChanged": (value) {
               closingCustomerController.getRegenciesData(value!);
             },
@@ -97,8 +99,10 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "labelName": "Kota",
             "items": closingCustomerController.regenciesData.value ?? [],
             "data": closingCustomerController.regency.value,
-            "getValue": (dynamic item) => (item as regency_closing_customer_model.Datum).id.toString(),
-            "getLabel": (dynamic item) => (item as regency_closing_customer_model.Datum).name,
+            "getValue": (dynamic item) =>
+                (item as regency_closing_customer_model.Datum).id.toString(),
+            "getLabel": (dynamic item) =>
+                (item as regency_closing_customer_model.Datum).name,
             "onChanged": (value) {
               closingCustomerController.getDistrictsData(value!);
             },
@@ -109,8 +113,10 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "labelName": "Kecamatan",
             "items": closingCustomerController.districtsData.value ?? [],
             "data": closingCustomerController.district.value,
-            "getValue": (dynamic item) => (item as district_closing_customer_model.Datum).id.toString(),
-            "getLabel": (dynamic item) => (item as district_closing_customer_model.Datum).name,
+            "getValue": (dynamic item) =>
+                (item as district_closing_customer_model.Datum).id.toString(),
+            "getLabel": (dynamic item) =>
+                (item as district_closing_customer_model.Datum).name,
             "onChanged": (value) {
               closingCustomerController.getVillagesData(value!);
             },
@@ -121,8 +127,10 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "labelName": "Kelurahan",
             "items": closingCustomerController.villagesData.value ?? [],
             "data": closingCustomerController.village.value,
-            "getValue": (dynamic item) => (item as village_closing_customer_model.Datum).id.toString(),
-            "getLabel": (dynamic item) => (item as village_closing_customer_model.Datum).name,
+            "getValue": (dynamic item) =>
+                (item as village_closing_customer_model.Datum).id.toString(),
+            "getLabel": (dynamic item) =>
+                (item as village_closing_customer_model.Datum).name,
             "onChanged": (value) {
               closingCustomerController.village.value = value;
             },
@@ -159,7 +167,8 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.only(bottom: 104),
-            separatorBuilder: (context, index) => SpacingConstant.verticalSpacing16px,
+            separatorBuilder: (context, index) =>
+                SpacingConstant.verticalSpacing16px,
             itemCount: inputFields.length,
             itemBuilder: (context, index) {
               final inputField = inputFields[index];
@@ -167,12 +176,14 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
                 return TextFieldGlobalWidget(
                   controller: inputField["controller"] as TextEditingController,
                   hint: inputField["hint"] as String,
-                  textInputAction: inputField["textInputAction"] as TextInputAction,
+                  textInputAction:
+                      inputField["textInputAction"] as TextInputAction,
                   keyboardType: inputField["keyboardType"] as TextInputType,
                   labelName: inputField["labelName"] as String?,
                   onChanged: inputField["onChanged"] as Function(String)?,
                   maxLines: inputField["maxLines"] as int?,
-                  validator: inputField["validator"] as String? Function(String?)?,
+                  validator:
+                      inputField["validator"] as String? Function(String?)?,
                 );
               } else if (inputField["type"] == "image") {
                 return ImagePickerFieldGlobalField(

@@ -29,8 +29,10 @@ class ListChartHomeWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Obx(
         () {
-          final prospectStats = dashboardController.prospectStatisticts.value ?? [];
-          final closingStats = dashboardController.closingStatisticts.value ?? [];
+          final prospectStats =
+              dashboardController.prospectStatisticts.value ?? [];
+          final closingStats =
+              dashboardController.closingStatisticts.value ?? [];
           return DynamicHeightGridView(
             itemCount: 2,
             crossAxisCount: 1,
@@ -57,12 +59,14 @@ class ListChartHomeWidget extends StatelessWidget {
   }
 
   Widget _buildStatictics(String title, List<dynamic> data) {
-    final sortedData = data.map(
-        (e) => {
-          "month_name": e.monthName,
-          "total": e.total,
-        },
-      ).toList();
+    final sortedData = data
+        .map(
+          (e) => {
+            "month_name": e.monthName,
+            "total": e.total,
+          },
+        )
+        .toList();
 
     sortedData.sort((a, b) {
       final monthAIndex = monthOrder.indexOf(a["month_name"]);

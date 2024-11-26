@@ -10,7 +10,8 @@ class DistanceHeaderRouteClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RouteClosingCustomerController routeClosingCustomerController = Get.find();
+    final RouteClosingCustomerController routeClosingCustomerController =
+        Get.find();
     return Container(
       padding: const EdgeInsets.only(
         left: 16,

@@ -11,9 +11,13 @@ class SubmitButtonFooterRouteClosingCustomerWidget extends StatelessWidget {
     RouteClosingCustomerController routeClosingCustomerController = Get.find();
     return Obx(
       () {
-        final isDisabled = routeClosingCustomerController.isLoadingGetClosingCustomerData.value || routeClosingCustomerController.isLoadingUpdateRouteData.value || routeClosingCustomerController.distance.value == 0;
+        final isDisabled = routeClosingCustomerController
+                .isLoadingGetClosingCustomerData.value ||
+            routeClosingCustomerController.isLoadingUpdateRouteData.value ||
+            routeClosingCustomerController.distance.value == 0;
         return ButtonGlobalWidget(
-          isLoading: routeClosingCustomerController.isLoadingUpdateRouteData.value,
+          isLoading:
+              routeClosingCustomerController.isLoadingUpdateRouteData.value,
           isDisabled: isDisabled,
           label: "Submit",
           onTap: routeClosingCustomerController.updateRouteData,

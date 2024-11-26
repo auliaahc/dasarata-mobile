@@ -13,7 +13,8 @@ class AddClosingCustomerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
+    ClosingCustomerController closingCustomerController =
+        Get.put(ClosingCustomerController());
     Get.engine.addPostFrameCallback((_) {
       closingCustomerController.fetchAddClosingCustomerData();
     });

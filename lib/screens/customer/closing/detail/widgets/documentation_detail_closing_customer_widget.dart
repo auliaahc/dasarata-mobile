@@ -19,17 +19,20 @@ class DocumentationDetailClosingCustomerWidget extends StatelessWidget {
         final List<Map<String, dynamic>> documentationInformation = [
           {
             "field": "Foto KTP",
-            "value": closingCustomerController.detailClosingCustomer.value!.photoKtpUrl,
+            "value": closingCustomerController
+                .detailClosingCustomer.value!.photoKtpUrl,
           },
           {
             "field": "Foto Rumah",
-            "value": closingCustomerController.detailClosingCustomer.value!.photoHomeUrl,
+            "value": closingCustomerController
+                .detailClosingCustomer.value!.photoHomeUrl,
           },
         ];
         return AccordionGlobalWidget(
           title: "Dokumentasi",
           widgetItems: ListView.separated(
-            separatorBuilder: (context, index) => SpacingConstant.verticalSpacing12px,
+            separatorBuilder: (context, index) =>
+                SpacingConstant.verticalSpacing12px,
             itemCount: documentationInformation.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

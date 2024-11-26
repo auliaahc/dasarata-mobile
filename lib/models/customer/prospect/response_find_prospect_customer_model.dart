@@ -8,7 +8,8 @@ class ResponseFindProspectCustomerModel {
     this.data,
   });
 
-  factory ResponseFindProspectCustomerModel.fromJson(Map<String, dynamic> json) {
+  factory ResponseFindProspectCustomerModel.fromJson(
+      Map<String, dynamic> json) {
     return ResponseFindProspectCustomerModel(
       success: json["success"],
       message: json["message"],

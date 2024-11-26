@@ -2,7 +2,8 @@ import 'package:dasarata_mobile/constants/text_style_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:dasarata_mobile/constants/color_constant.dart';
 
-class AppbarGlobalWidget extends StatelessWidget implements PreferredSizeWidget {
+class AppbarGlobalWidget extends StatelessWidget
+    implements PreferredSizeWidget {
   final String title;
   final Color? shadowColor;
   final bool? implyLeading;
@@ -43,7 +44,8 @@ class AppbarGlobalWidget extends StatelessWidget implements PreferredSizeWidget 
       backgroundColor: ColorConstant.whiteColor,
       centerTitle: true,
       title: Text(title),
-      titleTextStyle: TextStyleConstant.semiboldTitle.copyWith(fontFamily: "Poppins"),
+      titleTextStyle:
+          TextStyleConstant.semiboldTitle.copyWith(fontFamily: "Poppins"),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(50),

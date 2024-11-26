@@ -15,7 +15,8 @@ class TechnicalDetailClosingCustomerWidget extends StatelessWidget {
     final TextStyle fieldTextStyle = TextStyleConstant.semiboldCaption.copyWith(
       color: ColorConstant.neutralColor600,
     );
-    final TextStyle valueTextStyle = TextStyleConstant.regularParagraph.copyWith(
+    final TextStyle valueTextStyle =
+        TextStyleConstant.regularParagraph.copyWith(
       color: ColorConstant.neutralColor800,
     );
     return Obx(
@@ -39,9 +40,12 @@ class TechnicalDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          closingCustomerController.detailClosingCustomer.value!.coverage.nameCoverage == ""
+                          closingCustomerController.detailClosingCustomer.value!
+                                      .coverage.nameCoverage ==
+                                  ""
                               ? "-"
-                              : closingCustomerController.detailClosingCustomer.value!.coverage.nameCoverage,
+                              : closingCustomerController.detailClosingCustomer
+                                  .value!.coverage.nameCoverage,
                           style: valueTextStyle,
                         ),
                       ],
@@ -58,9 +62,12 @@ class TechnicalDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          closingCustomerController.detailClosingCustomer.value!.spliter.spliterName == ""
+                          closingCustomerController.detailClosingCustomer.value!
+                                      .spliter.spliterName ==
+                                  ""
                               ? "-"
-                              : closingCustomerController.detailClosingCustomer.value!.spliter.spliterName,
+                              : closingCustomerController.detailClosingCustomer
+                                  .value!.spliter.spliterName,
                           style: valueTextStyle,
                         ),
                       ],
@@ -83,9 +90,13 @@ class TechnicalDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          closingCustomerController.detailClosingCustomer.value!.latitude == 0
+                          closingCustomerController
+                                      .detailClosingCustomer.value!.latitude ==
+                                  0
                               ? "-"
-                              : closingCustomerController.detailClosingCustomer.value!.latitude.toString(),
+                              : closingCustomerController
+                                  .detailClosingCustomer.value!.latitude
+                                  .toString(),
                           style: valueTextStyle,
                         ),
                       ],
@@ -102,9 +113,13 @@ class TechnicalDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          closingCustomerController.detailClosingCustomer.value!.longitude == 0
+                          closingCustomerController
+                                      .detailClosingCustomer.value!.longitude ==
+                                  0
                               ? "-"
-                              : closingCustomerController.detailClosingCustomer.value!.longitude.toString(),
+                              : closingCustomerController
+                                  .detailClosingCustomer.value!.longitude
+                                  .toString(),
                           style: valueTextStyle,
                         ),
                       ],

@@ -12,7 +12,9 @@ class DashboardModel {
     return DashboardModel(
       success: json["success"] ?? false,
       message: json["message"] ?? "",
-      data: json["data"] != null ? DashboardModelData.fromJson(json["data"]) : null,
+      data: json["data"] != null
+          ? DashboardModelData.fromJson(json["data"])
+          : null,
     );
   }
 }
@@ -51,10 +53,12 @@ class Data {
       countProspect: json["countProspect"] ?? 0,
       growthProspect: (json["growthProspect"] as List<dynamic>?)
               ?.map((item) => GrowthProspect.fromJson(item))
-              .toList() ?? [],
+              .toList() ??
+          [],
       growthClosing: (json["growthClosing"] as List<dynamic>?)
               ?.map((item) => GrowthClosing.fromJson(item))
-              .toList() ?? [],
+              .toList() ??
+          [],
     );
   }
 }
@@ -95,5 +99,4 @@ class GrowthClosing {
       year: json["year"] ?? 0,
     );
   }
-
 }

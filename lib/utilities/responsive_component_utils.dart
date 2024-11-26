@@ -5,12 +5,11 @@ class ResponsiveComponentUtils {
   final double small;
   final double medium;
   final double large;
-  ResponsiveComponentUtils({
-    required this.context,
-    required this.small,
-    required this.medium,
-    required this.large
-  });
+  ResponsiveComponentUtils(
+      {required this.context,
+      required this.small,
+      required this.medium,
+      required this.large});
 
   static const double androidSmall = 360;
   static const double androidMedium = 412;

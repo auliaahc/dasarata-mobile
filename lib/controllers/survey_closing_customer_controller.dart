@@ -12,9 +12,11 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SurveyClosingCustomerController extends GetxController {
-  ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
+  ClosingCustomerController closingCustomerController =
+      Get.put(ClosingCustomerController());
   ClosingCustomerService closingCustomerService = ClosingCustomerService();
-  Completer<GoogleMapController> mapsController = Completer<GoogleMapController>();
+  Completer<GoogleMapController> mapsController =
+      Completer<GoogleMapController>();
   Rx<MapType> selectedMapType = Rx<MapType>(MapType.normal);
   Rxn<LatLng> selectedLatLng = Rxn<LatLng>();
   RxSet<Marker> selectedPoint = RxSet<Marker>();
@@ -36,7 +38,8 @@ class SurveyClosingCustomerController extends GetxController {
         ),
       );
       Get.back();
-      closingCustomerController.getClosingCustomerData(closingCustomerController.detailClosingCustomer.value!.id);
+      closingCustomerController.getClosingCustomerData(
+          closingCustomerController.detailClosingCustomer.value!.id);
       closingCustomerController.resetDashboardClosingCustomer();
       SnackbarUtils.show(
         messageText: response.message,
@@ -121,7 +124,8 @@ class SurveyClosingCustomerController extends GetxController {
 
   Future<void> onTapMaps(LatLng latLng) async {
     selectedLatLng.value = latLng;
-    latLngController.text = "${selectedLatLng.value!.latitude}, ${selectedLatLng.value!.longitude}";
+    latLngController.text =
+        "${selectedLatLng.value!.latitude}, ${selectedLatLng.value!.longitude}";
     await updateMarker(selectedLatLng.value!);
     await moveCamera(latLng);
   }
@@ -140,14 +144,17 @@ class SurveyClosingCustomerController extends GetxController {
   Future<void> getClosingCustomer(int closingId) async {
     isLoadingGetClosingCustomer.value = true;
     try {
-      final response = await closingCustomerService.getClosingCustomer(closingId);
+      final response =
+          await closingCustomerService.getClosingCustomer(closingId);
       closingCustomerData.value = response.data;
-      if (closingCustomerData.value!.longitude != 0 && closingCustomerData.value!.latitude != 0) {
+      if (closingCustomerData.value!.longitude != 0 &&
+          closingCustomerData.value!.latitude != 0) {
         selectedLatLng.value = LatLng(
           closingCustomerData.value!.latitude,
           closingCustomerData.value!.longitude,
         );
-        latLngController.text = "${selectedLatLng.value!.latitude}, ${selectedLatLng.value!.longitude}";
+        latLngController.text =
+            "${selectedLatLng.value!.latitude}, ${selectedLatLng.value!.longitude}";
         updateMarker(selectedLatLng.value!);
       }
     } catch (e) {

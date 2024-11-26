@@ -8,16 +8,20 @@ class SubmitButtonFooterSurveyClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SurveyClosingCustomerController surveyClosingCustomerController = Get.find();
+    final SurveyClosingCustomerController surveyClosingCustomerController =
+        Get.find();
     return Obx(
       () {
-        final bool isDisabled = surveyClosingCustomerController.isLoadingGetCurrentLocation.value || surveyClosingCustomerController.isLoadingGetClosingCustomer.value || surveyClosingCustomerController.isLoadingUpdateSurveyData.value;
+        final bool isDisabled = surveyClosingCustomerController
+                .isLoadingGetCurrentLocation.value ||
+            surveyClosingCustomerController.isLoadingGetClosingCustomer.value ||
+            surveyClosingCustomerController.isLoadingUpdateSurveyData.value;
         return ButtonGlobalWidget(
-          isLoading: surveyClosingCustomerController.isLoadingUpdateSurveyData.value,
-          isDisabled: isDisabled,
-          label: "Submit",
-          onTap: surveyClosingCustomerController.updateSurveyData
-        );
+            isLoading:
+                surveyClosingCustomerController.isLoadingUpdateSurveyData.value,
+            isDisabled: isDisabled,
+            label: "Submit",
+            onTap: surveyClosingCustomerController.updateSurveyData);
       },
     );
   }

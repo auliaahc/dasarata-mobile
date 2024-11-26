@@ -17,7 +17,8 @@ class FooterRouteClosingCustomerWidget extends StatelessWidget {
         () {
           return Column(
             children: [
-              if (!routeClosingCustomerController.isLoadingGetClosingCustomerData.value) ...[
+              if (!routeClosingCustomerController
+                  .isLoadingGetClosingCustomerData.value) ...[
                 const AccurateCameraFooterRouteClosingCustomerWidget(),
                 SpacingConstant.verticalSpacing24px,
               ],

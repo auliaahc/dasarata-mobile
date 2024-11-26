@@ -15,7 +15,8 @@ class AddressDetailClosingCustomerWidget extends StatelessWidget {
     final TextStyle fieldTextStyle = TextStyleConstant.semiboldCaption.copyWith(
       color: ColorConstant.neutralColor600,
     );
-    final TextStyle valueTextStyle = TextStyleConstant.regularParagraph.copyWith(
+    final TextStyle valueTextStyle =
+        TextStyleConstant.regularParagraph.copyWith(
       color: ColorConstant.neutralColor800,
     );
     return Obx(

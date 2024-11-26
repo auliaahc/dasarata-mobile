@@ -13,10 +13,13 @@ class SurveyClosingCustomerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
-    final SurveyClosingCustomerController surveyClosingCustomerController =  Get.put(SurveyClosingCustomerController());
+    final ClosingCustomerController closingCustomerController =
+        Get.put(ClosingCustomerController());
+    final SurveyClosingCustomerController surveyClosingCustomerController =
+        Get.put(SurveyClosingCustomerController());
     Get.engine.addPostFrameCallback((_) {
-      surveyClosingCustomerController.fetchData(closingCustomerController.detailClosingCustomer.value!.id);
+      surveyClosingCustomerController
+          .fetchData(closingCustomerController.detailClosingCustomer.value!.id);
     });
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(statusBarColor: ColorConstant.whiteColor),

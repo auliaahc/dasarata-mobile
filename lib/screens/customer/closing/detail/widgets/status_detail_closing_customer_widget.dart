@@ -13,13 +13,16 @@ class StatusDetailClosingCustomerWidget extends StatelessWidget {
     final ClosingCustomerController closingCustomerController = Get.find();
     return Obx(
       () {
-        final String closingStatusPhase = closingCustomerController.detailClosingCustomer.value!.phaseStatus;
+        final String closingStatusPhase =
+            closingCustomerController.detailClosingCustomer.value!.phaseStatus;
         int activeStepIndex;
-        if (closingStatusPhase == "Teknis" || closingStatusPhase == "Personal") {
+        if (closingStatusPhase == "Teknis" ||
+            closingStatusPhase == "Personal") {
           activeStepIndex = 0;
         } else if (closingStatusPhase == "Survei") {
           activeStepIndex = 1;
-        } else if (closingStatusPhase == "Path" || closingStatusPhase == "Spliter") {
+        } else if (closingStatusPhase == "Path" ||
+            closingStatusPhase == "Spliter") {
           activeStepIndex = 2;
         } else {
           activeStepIndex = 3;

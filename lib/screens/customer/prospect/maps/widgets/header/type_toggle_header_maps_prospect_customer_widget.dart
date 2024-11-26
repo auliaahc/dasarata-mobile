@@ -10,8 +10,7 @@ class TypeToggleHeaderMapsProspectCustomerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     ProspectCustomerController prospectCustomerController = Get.find();
     return TypeMapsToggleGlobalWidget(
-      onToggle: (index) => prospectCustomerController.changeMapType(index!),
-      index: prospectCustomerController.selectedMapTypeIndex.value
-    );
+        onToggle: (index) => prospectCustomerController.changeMapType(index!),
+        index: prospectCustomerController.selectedMapTypeIndex.value);
   }
 }

@@ -42,15 +42,19 @@ class HeaderHomeWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    dashboardController.isLoadingGetUser.value || dashboardController.profileData.value == null
+                    dashboardController.isLoadingGetUser.value ||
+                            dashboardController.profileData.value == null
                         ? "Sales"
-                        : dashboardController.profileData.value!.name.split(" ")[0],
+                        : dashboardController.profileData.value!.name
+                            .split(" ")[0],
                     style: TextStyleConstant.semiboldSubtitle,
                   ),
                 ],
               ),
               ClipOval(
-                child: dashboardController.isLoadingGetUser.value || dashboardController.profileData.value == null || dashboardController.profileData.value!.photo.isEmpty
+                child: dashboardController.isLoadingGetUser.value ||
+                        dashboardController.profileData.value == null ||
+                        dashboardController.profileData.value!.photo.isEmpty
                     ? Image.asset(
                         ImageConstant.profilePlaceholder,
                         width: 55,

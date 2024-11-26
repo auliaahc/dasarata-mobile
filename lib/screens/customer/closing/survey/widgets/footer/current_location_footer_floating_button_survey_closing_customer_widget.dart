@@ -6,12 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class CurrentLocationFloatingButtonFooterSurveyClosingCustomerWidget extends StatelessWidget {
-  const CurrentLocationFloatingButtonFooterSurveyClosingCustomerWidget({super.key});
+class CurrentLocationFloatingButtonFooterSurveyClosingCustomerWidget
+    extends StatelessWidget {
+  const CurrentLocationFloatingButtonFooterSurveyClosingCustomerWidget(
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
-    final SurveyClosingCustomerController surveyClosingCustomerController = Get.find();
+    final SurveyClosingCustomerController surveyClosingCustomerController =
+        Get.find();
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -26,7 +29,9 @@ class CurrentLocationFloatingButtonFooterSurveyClosingCustomerWidget extends Sta
                   borderRadius: BorderRadius.circular(32),
                 ),
                 onPressed: surveyClosingCustomerController.getCurrentLocation,
-                child: surveyClosingCustomerController.isLoadingGetCurrentLocation.value == true
+                child: surveyClosingCustomerController
+                            .isLoadingGetCurrentLocation.value ==
+                        true
                     ? const LoadingAnimationGlobalWidget(size: 28)
                     : Center(
                         child: SvgPicture.asset(IconConstant.currentLocation),

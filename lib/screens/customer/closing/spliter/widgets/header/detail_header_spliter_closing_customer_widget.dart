@@ -10,7 +10,8 @@ class DetailHeaderSpliterClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SpliterClosingCustomerController spliterClosingCustomerController = Get.find();
+    final SpliterClosingCustomerController spliterClosingCustomerController =
+        Get.find();
     return Container(
       padding: const EdgeInsets.only(
         left: 16,
@@ -32,7 +33,8 @@ class DetailHeaderSpliterClosingCustomerWidget extends StatelessWidget {
             SpacingConstant.horizontalSpacing6px,
             Obx(
               () {
-                final selectedSpliter = spliterClosingCustomerController.selectedSpliter.value;
+                final selectedSpliter =
+                    spliterClosingCustomerController.selectedSpliter.value;
                 return Text(
                   selectedSpliter != null
                       ? selectedSpliter.spliter

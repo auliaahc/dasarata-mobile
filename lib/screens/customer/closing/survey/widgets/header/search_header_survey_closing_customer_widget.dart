@@ -10,7 +10,8 @@ class SearchHeaderSurveyClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SurveyClosingCustomerController surveyClosingCustomerController = Get.find();
+    final SurveyClosingCustomerController surveyClosingCustomerController =
+        Get.find();
     return Container(
       padding: const EdgeInsets.only(
         left: 16,
@@ -32,7 +33,8 @@ class SearchHeaderSurveyClosingCustomerWidget extends StatelessWidget {
           hint: "Latitude, Longitude",
           textInputAction: TextInputAction.search,
           keyboardType: TextInputType.text,
-          onSubmit: (String query) => surveyClosingCustomerController.onSubmitLatLng(query),
+          onSubmit: (String query) =>
+              surveyClosingCustomerController.onSubmitLatLng(query),
         ),
       ),
     );

@@ -16,7 +16,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemUiOverlayUtils.setSystemUiOverlay();
-    final DashboardController dashboardController = Get.put(DashboardController());
+    final DashboardController dashboardController =
+        Get.put(DashboardController());
     Get.engine.addPostFrameCallback((_) {
       dashboardController.fetchDashboardData();
     });

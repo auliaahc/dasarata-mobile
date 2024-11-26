@@ -8,11 +8,14 @@ class ServicePackageClosingCustomerModel {
     this.data,
   });
 
-  factory ServicePackageClosingCustomerModel.fromJson(Map<String, dynamic> json) {
+  factory ServicePackageClosingCustomerModel.fromJson(
+      Map<String, dynamic> json) {
     return ServicePackageClosingCustomerModel(
       success: json["success"] ?? false,
       message: json["message"] ?? "",
-      data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))) : null,
+      data: json["data"] != null
+          ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x)))
+          : null,
     );
   }
 }

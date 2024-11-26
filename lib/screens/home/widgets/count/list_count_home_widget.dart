@@ -19,12 +19,14 @@ class ListCountHomeWidget extends StatelessWidget {
             {
               "title": "Cust. Prospek",
               "icon": IconConstant.prospect,
-              "count": dashboardController.dashboardData.value?.countProspect ?? 0
+              "count":
+                  dashboardController.dashboardData.value?.countProspect ?? 0
             },
             {
               "title": "Cust. Closing",
               "icon": IconConstant.closing,
-              "count": dashboardController.dashboardData.value?.countClosing ?? 0
+              "count":
+                  dashboardController.dashboardData.value?.countClosing ?? 0
             }
           ];
           return DynamicHeightGridView(

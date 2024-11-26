@@ -12,7 +12,8 @@ class ProspectCustomerService {
   final Dio _dio = Dio();
   final url = "${Env.baseUrl}/sales";
 
-  Future<ResponseProspectCustomerModel> getAllProspectCustomer({String? search, required int page}) async {
+  Future<ResponseProspectCustomerModel> getAllProspectCustomer(
+      {String? search, required int page}) async {
     final finalUrl = "$url/prospect";
     final token = await SharedPref.getToken();
     try {
@@ -49,12 +50,8 @@ class ProspectCustomerService {
     final finalUrl = "$url/prospect/$id";
     final token = await SharedPref.getToken();
     try {
-      final response = await _dio.get(
-        finalUrl,
-        options: Options(
-          headers: {"Authorization": "Bearer $token"}
-        )
-      );
+      final response = await _dio.get(finalUrl,
+          options: Options(headers: {"Authorization": "Bearer $token"}));
       final rawResponse = response.data;
       return ResponseFindProspectCustomerModel.fromJson(rawResponse);
     } on DioException catch (e) {
@@ -141,7 +138,8 @@ class ProspectCustomerService {
     }
   }
 
-  Future<ResponseFormProspectCustomerModel> createProspectCustomer(RequestFormProspectCustomerModel model) async {
+  Future<ResponseFormProspectCustomerModel> createProspectCustomer(
+      RequestFormProspectCustomerModel model) async {
     final finalUrl = "$url/prospect";
     final token = await SharedPref.getToken();
     try {

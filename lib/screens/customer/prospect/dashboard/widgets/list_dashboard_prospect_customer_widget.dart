@@ -14,25 +14,34 @@ class ListDashboardProspectCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProspectCustomerController prospectCustomerController = Get.put(ProspectCustomerController());
+    final ProspectCustomerController prospectCustomerController =
+        Get.put(ProspectCustomerController());
     Get.engine.addPostFrameCallback((_) {
       prospectCustomerController.resetDashboardProspectCustomer();
     });
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorConstant.backgroundColor,
-      floatingActionButton: const AddFloatingButtonDashboardProspectCustomerWidget(),
+      floatingActionButton:
+          const AddFloatingButtonDashboardProspectCustomerWidget(),
       body: Column(
         children: [
           Obx(
             () {
-              if (prospectCustomerController.isLoadingListProspectCustomer.value && prospectCustomerController.listProspectCustomer.value.isEmpty) {
+              if (prospectCustomerController
+                      .isLoadingListProspectCustomer.value &&
+                  prospectCustomerController
+                      .listProspectCustomer.value.isEmpty) {
                 return const Expanded(
                   child: Center(
                     child: LoadingAnimationGlobalWidget(),
                   ),
                 );
-              } else if (prospectCustomerController.listDataConfiguration.value == null || prospectCustomerController.listProspectCustomer.value.isEmpty) {
+              } else if (prospectCustomerController
+                          .listDataConfiguration.value ==
+                      null ||
+                  prospectCustomerController
+                      .listProspectCustomer.value.isEmpty) {
                 return Expanded(
                   child: Center(
                     child: EmptyStateGlobalWidget(
@@ -48,11 +57,22 @@ class ListDashboardProspectCustomerWidget extends StatelessWidget {
                       axisDirection: AxisDirection.down,
                       color: ColorConstant.neutralColor700,
                       child: ListView.separated(
-                        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-                        itemCount: prospectCustomerController.listDataConfiguration.value!.to + (prospectCustomerController.isLoadingListProspectCustomer.value ? 1 : 0),
-                        separatorBuilder: (context, index) => SpacingConstant.verticalSpacing16px,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 24, horizontal: 16),
+                        itemCount: prospectCustomerController
+                                .listDataConfiguration.value!.to +
+                            (prospectCustomerController
+                                    .isLoadingListProspectCustomer.value
+                                ? 1
+                                : 0),
+                        separatorBuilder: (context, index) =>
+                            SpacingConstant.verticalSpacing16px,
                         itemBuilder: (context, index) {
-                          if (index == (prospectCustomerController.listDataConfiguration.value!.to) && prospectCustomerController.isLoadingListProspectCustomer.value) {
+                          if (index ==
+                                  (prospectCustomerController
+                                      .listDataConfiguration.value!.to) &&
+                              prospectCustomerController
+                                  .isLoadingListProspectCustomer.value) {
                             return const Padding(
                               padding: EdgeInsets.symmetric(vertical: 20),
                               child: LoadingAnimationGlobalWidget(
@@ -60,9 +80,11 @@ class ListDashboardProspectCustomerWidget extends StatelessWidget {
                               ),
                             );
                           } else {
-                            final customer = prospectCustomerController.listProspectCustomer.value[index];
+                            final customer = prospectCustomerController
+                                .listProspectCustomer.value[index];
                             return ItemCustomerGlobalWidget(
-                              onTap: () => prospectCustomerController.showDetailDialog(customer),
+                              onTap: () => prospectCustomerController
+                                  .showDetailDialog(customer),
                               index: index,
                               name: customer.name,
                               address: customer.installedAddress,

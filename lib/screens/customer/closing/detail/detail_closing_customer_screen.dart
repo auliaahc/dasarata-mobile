@@ -19,7 +19,8 @@ class DetailClosingCustomerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
+    final ClosingCustomerController closingCustomerController =
+        Get.put(ClosingCustomerController());
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       appBar: AppbarGlobalWidget(
@@ -30,7 +31,9 @@ class DetailClosingCustomerScreen extends StatelessWidget {
           color: ColorConstant.neutralColor900,
         ),
         tooltip: "Update Status Phase",
-        onPressedAction: () => closingCustomerController.moveToUpdateStatusPhaseScreen(closingCustomerController.detailClosingCustomer.value!.phaseStatus),
+        onPressedAction: () => closingCustomerController
+            .moveToUpdateStatusPhaseScreen(closingCustomerController
+                .detailClosingCustomer.value!.phaseStatus),
       ),
       body: Obx(
         () {
@@ -38,7 +41,8 @@ class DetailClosingCustomerScreen extends StatelessWidget {
             return const Center(
               child: LoadingAnimationGlobalWidget(),
             );
-          } else if (closingCustomerController.detailClosingCustomer.value == null) {
+          } else if (closingCustomerController.detailClosingCustomer.value ==
+              null) {
             return Expanded(
               child: Center(
                 child: EmptyStateGlobalWidget(

@@ -8,12 +8,18 @@ class SubmitButtonFooterSpliterClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SpliterClosingCustomerController spliterClosingCustomerController = Get.find();
+    final SpliterClosingCustomerController spliterClosingCustomerController =
+        Get.find();
     return Obx(
       () {
-        final bool isDisabled = spliterClosingCustomerController.isLoadingGetClosingCustomerData.value || spliterClosingCustomerController.isLoadingGetSplitersData.value || spliterClosingCustomerController.isLoadingUpdateSpliterData.value || spliterClosingCustomerController.selectedSpliter.value == null;
+        final bool isDisabled = spliterClosingCustomerController
+                .isLoadingGetClosingCustomerData.value ||
+            spliterClosingCustomerController.isLoadingGetSplitersData.value ||
+            spliterClosingCustomerController.isLoadingUpdateSpliterData.value ||
+            spliterClosingCustomerController.selectedSpliter.value == null;
         return ButtonGlobalWidget(
-          isLoading: spliterClosingCustomerController.isLoadingUpdateSpliterData.value,
+          isLoading:
+              spliterClosingCustomerController.isLoadingUpdateSpliterData.value,
           isDisabled: isDisabled,
           label: "Submit",
           onTap: spliterClosingCustomerController.updateSpliterData,

@@ -36,12 +36,10 @@ class AuthenticationService {
     const url = "${Env.baseUrl}/logout";
     final token = await SharedPref.getToken();
     try {
-      final response = await _dio.post(
-        url,
-        options: Options(headers: {
-          "Authorization": "Bearer $token",
-        })
-      );
+      final response = await _dio.post(url,
+          options: Options(headers: {
+            "Authorization": "Bearer $token",
+          }));
       final rawResponse = response.data;
       return ResponseGlobalModel.fromJson(rawResponse);
     } on DioException catch (e) {

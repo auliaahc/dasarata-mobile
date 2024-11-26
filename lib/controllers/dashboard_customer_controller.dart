@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DashboardCustomerController extends GetxController {
-  final ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
-  final ProspectCustomerController prospectCustomerController = Get.put(ProspectCustomerController());
-  final TextEditingController searchCustomerController = TextEditingController();
+  final ClosingCustomerController closingCustomerController =
+      Get.put(ClosingCustomerController());
+  final ProspectCustomerController prospectCustomerController =
+      Get.put(ProspectCustomerController());
+  final TextEditingController searchCustomerController =
+      TextEditingController();
   RxString searchCustomerQuery = RxString("");
   RxInt selectedCustomerTabIndex = RxInt(0);
 

@@ -1,6 +1,7 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:dasarata_mobile/models/dashboard/dashboard_model.dart';
-import 'package:dasarata_mobile/models/profile/response_profile_model.dart' as response_profile_model;
+import 'package:dasarata_mobile/models/profile/response_profile_model.dart'
+    as response_profile_model;
 import 'package:dasarata_mobile/services/dashboard_service.dart';
 import 'package:dasarata_mobile/services/profile_service.dart';
 import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
@@ -12,7 +13,8 @@ class DashboardController extends GetxController {
   RxBool isLoadingGetDashboard = RxBool(false);
   RxBool isLoadingGetUser = RxBool(false);
   Rxn<Data> dashboardData = Rxn<Data>();
-  Rxn<response_profile_model.Data> profileData = Rxn<response_profile_model.Data>();
+  Rxn<response_profile_model.Data> profileData =
+      Rxn<response_profile_model.Data>();
   Rxn<List<GrowthProspect>> prospectStatisticts = Rxn<List<GrowthProspect>>();
   Rxn<List<GrowthClosing>> closingStatisticts = Rxn<List<GrowthClosing>>();
 

@@ -8,11 +8,13 @@ class TypeToggleHeaderRouteClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RouteClosingCustomerController routeClosingCustomerController = Get.find();
+    final RouteClosingCustomerController routeClosingCustomerController =
+        Get.find();
     return Obx(
       () {
         return TypeMapsToggleGlobalWidget(
-          onToggle: (index) => routeClosingCustomerController.changeMapType(index!),
+          onToggle: (index) =>
+              routeClosingCustomerController.changeMapType(index!),
           index: routeClosingCustomerController.selectedMapTypeIndex.value,
         );
       },

@@ -24,7 +24,8 @@ class MapsProspectCustomerWidget extends StatelessWidget {
             return GoogleMap(
               onMapCreated: (GoogleMapController controller) {
                 if (!prospectCustomerController.mapsController.isCompleted) {
-                  prospectCustomerController.mapsController.complete(controller);
+                  prospectCustomerController.mapsController
+                      .complete(controller);
                 }
               },
               initialCameraPosition: CameraPosition(
@@ -35,7 +36,8 @@ class MapsProspectCustomerWidget extends StatelessWidget {
               compassEnabled: false,
               zoomControlsEnabled: false,
               markers: Set<Marker>.from(prospectCustomerController.markers),
-              onTap: (LatLng latLng) => prospectCustomerController.onTapMaps(latLng),
+              onTap: (LatLng latLng) =>
+                  prospectCustomerController.onTapMaps(latLng),
             );
           }
         },

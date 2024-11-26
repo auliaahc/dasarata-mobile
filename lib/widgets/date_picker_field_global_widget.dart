@@ -29,10 +29,12 @@ class DatePickerFieldGlobalWidget extends StatefulWidget {
   });
 
   @override
-  State<DatePickerFieldGlobalWidget> createState() => _DatePickerFieldGlobalWidgetState();
+  State<DatePickerFieldGlobalWidget> createState() =>
+      _DatePickerFieldGlobalWidgetState();
 }
 
-class _DatePickerFieldGlobalWidgetState extends State<DatePickerFieldGlobalWidget> {
+class _DatePickerFieldGlobalWidgetState
+    extends State<DatePickerFieldGlobalWidget> {
   DateTime? selectedDate;
 
   String _formatDateForReturn(DateTime date) {

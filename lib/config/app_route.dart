@@ -41,10 +41,19 @@ class AppRoute {
     ),
     GetPage(name: prospectMaps, page: () => const MapsProspectCustomerScreen()),
     GetPage(name: profile, page: () => const ProfileScreen()),
-    GetPage(name: detailClosingCustomer, page: () => const DetailClosingCustomerScreen()),
-    GetPage(name: surveyClosingCustomer, page: () => const SurveyClosingCustomerScreen()),
-    GetPage(name: spliterClosingCustomer, page: () => const SpliterClosingCustomerScreen()),
-    GetPage(name: routeClosingCustomer, page: () => const RouteClosingCustomerScreen()),
-    GetPage(name: addClosingCustomer, page: () => const AddClosingCustomerScreen()),
+    GetPage(
+        name: detailClosingCustomer,
+        page: () => const DetailClosingCustomerScreen()),
+    GetPage(
+        name: surveyClosingCustomer,
+        page: () => const SurveyClosingCustomerScreen()),
+    GetPage(
+        name: spliterClosingCustomer,
+        page: () => const SpliterClosingCustomerScreen()),
+    GetPage(
+        name: routeClosingCustomer,
+        page: () => const RouteClosingCustomerScreen()),
+    GetPage(
+        name: addClosingCustomer, page: () => const AddClosingCustomerScreen()),
   ];
 }

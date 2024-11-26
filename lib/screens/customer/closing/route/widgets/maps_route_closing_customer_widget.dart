@@ -10,20 +10,24 @@ class MapsRouteClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RouteClosingCustomerController routeClosingCustomerController = Get.find();
+    final RouteClosingCustomerController routeClosingCustomerController =
+        Get.find();
     return Scaffold(
       backgroundColor: ColorConstant.backgroundColor,
       body: Obx(
         () {
-          if (routeClosingCustomerController.spliterLatLng.value == null && routeClosingCustomerController.customerLatLng.value == null) {
+          if (routeClosingCustomerController.spliterLatLng.value == null &&
+              routeClosingCustomerController.customerLatLng.value == null) {
             return const Center(
               child: LoadingAnimationGlobalWidget(),
             );
           } else {
             return GoogleMap(
               onMapCreated: (GoogleMapController controller) {
-                if (!routeClosingCustomerController.mapsController.isCompleted) {
-                  routeClosingCustomerController.mapsController.complete(controller);
+                if (!routeClosingCustomerController
+                    .mapsController.isCompleted) {
+                  routeClosingCustomerController.mapsController
+                      .complete(controller);
                 }
               },
               zoomControlsEnabled: false,
@@ -35,7 +39,8 @@ class MapsRouteClosingCustomerWidget extends StatelessWidget {
               mapType: routeClosingCustomerController.selectedMapType.value,
               markers: Set<Marker>.from(routeClosingCustomerController.markers),
               polylines: routeClosingCustomerController.polylines.value,
-              onTap: (latLng) => routeClosingCustomerController.addRoute(latLng),
+              onTap: (latLng) =>
+                  routeClosingCustomerController.addRoute(latLng),
             );
           }
         },

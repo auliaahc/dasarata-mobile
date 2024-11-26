@@ -12,7 +12,9 @@ class ProgramClosingCustomerModel {
     return ProgramClosingCustomerModel(
       success: json["success"] ?? false,
       message: json["message"] ?? "",
-      data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))) : null,
+      data: json["data"] != null
+          ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x)))
+          : null,
     );
   }
 }

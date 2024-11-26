@@ -28,8 +28,10 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProspectCustomerController prospectCustomerController = Get.put(ProspectCustomerController());
-    final ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
+    final ProspectCustomerController prospectCustomerController =
+        Get.put(ProspectCustomerController());
+    final ClosingCustomerController closingCustomerController =
+        Get.put(ClosingCustomerController());
     return AlertDialog(
       insetPadding: const EdgeInsets.symmetric(horizontal: 16),
       backgroundColor: ColorConstant.whiteColor,
@@ -145,7 +147,8 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
             isLoading: false,
             isDisabled: false,
             label: "Hubungi via Whatsapp",
-            onTap: () => prospectCustomerController.launchWhatsapp(telephoneNumber),
+            onTap: () =>
+                prospectCustomerController.launchWhatsapp(telephoneNumber),
             isOutlined: true,
             icon: Icon(
               LineIcons.whatSApp,
@@ -154,14 +157,13 @@ class DetailDialogDashboardProspectCustomerWidget extends StatelessWidget {
           ),
           SpacingConstant.verticalSpacing12px,
           ButtonGlobalWidget(
-            isLoading: false,
-            isDisabled: false,
-            label: "Closing",
-            onTap: () {
-              Get.toNamed(AppRoute.addClosingCustomer);
-              closingCustomerController.getProspectCustomerData(id);
-            }
-          ),
+              isLoading: false,
+              isDisabled: false,
+              label: "Closing",
+              onTap: () {
+                Get.toNamed(AppRoute.addClosingCustomer);
+                closingCustomerController.getProspectCustomerData(id);
+              }),
         ],
       ),
     );

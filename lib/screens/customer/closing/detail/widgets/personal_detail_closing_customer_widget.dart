@@ -17,7 +17,8 @@ class PersonalDetailClosingCustomerWidget extends StatelessWidget {
         final List<Map<String, dynamic>> personalInformation = [
           {
             "field": "Nama Lengkap",
-            "value": closingCustomerController.detailClosingCustomer.value!.name,
+            "value":
+                closingCustomerController.detailClosingCustomer.value!.name,
           },
           {
             "field": "NIK",
@@ -25,17 +26,23 @@ class PersonalDetailClosingCustomerWidget extends StatelessWidget {
           },
           {
             "field": "Jenis Kelamin",
-            "value": closingCustomerController.detailClosingCustomer.value!.gender == "male" ? "Laki-laki" : "Perempuan",
+            "value":
+                closingCustomerController.detailClosingCustomer.value!.gender ==
+                        "male"
+                    ? "Laki-laki"
+                    : "Perempuan",
           },
           {
             "field": "Nomor Telepon",
-            "value": closingCustomerController.detailClosingCustomer.value!.phoneNumber
+            "value": closingCustomerController
+                .detailClosingCustomer.value!.phoneNumber
           },
         ];
         return AccordionGlobalWidget(
           title: "Personal",
           widgetItems: ListView.separated(
-            separatorBuilder: (context, index) => SpacingConstant.verticalSpacing12px,
+            separatorBuilder: (context, index) =>
+                SpacingConstant.verticalSpacing12px,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: personalInformation.length,

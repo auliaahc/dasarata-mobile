@@ -8,11 +8,13 @@ class TypeToggleHeaderSurveyClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SurveyClosingCustomerController surveyClosingCustomerController = Get.find();
+    final SurveyClosingCustomerController surveyClosingCustomerController =
+        Get.find();
     return Obx(
       () {
         return TypeMapsToggleGlobalWidget(
-          onToggle: (index) => surveyClosingCustomerController.changeMapType(index!),
+          onToggle: (index) =>
+              surveyClosingCustomerController.changeMapType(index!),
           index: surveyClosingCustomerController.selectedMapTypeIndex.value,
         );
       },

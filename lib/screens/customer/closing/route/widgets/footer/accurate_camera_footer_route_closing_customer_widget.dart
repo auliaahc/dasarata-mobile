@@ -10,7 +10,8 @@ class AccurateCameraFooterRouteClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RouteClosingCustomerController routeClosingCustomerController = Get.find();
+    final RouteClosingCustomerController routeClosingCustomerController =
+        Get.find();
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [

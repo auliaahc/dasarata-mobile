@@ -16,9 +16,12 @@ class MainScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: Obx(() {
         switch (mainController.selectedIndex.value) {
-          case 1: return const DashboardCustomerScreen();
-          case 2: return const ProfileScreen();
-          default: return const HomeScreen();
+          case 1:
+            return const DashboardCustomerScreen();
+          case 2:
+            return const ProfileScreen();
+          default:
+            return const HomeScreen();
         }
       }),
       bottomNavigationBar: BottomNavbarGlobalWidget(
