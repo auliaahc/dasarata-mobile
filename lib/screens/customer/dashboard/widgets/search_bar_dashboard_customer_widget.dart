@@ -25,8 +25,7 @@ class SearchBarDashboardCustomerWidget extends StatelessWidget {
             hint: "Search",
             textInputAction: TextInputAction.search,
             keyboardType: TextInputType.text,
-            suffixIcon:
-                dashboardCustomerController.searchCustomerQuery.value.isNotEmpty
+            suffixIcon: dashboardCustomerController.searchCustomerQuery.value.isNotEmpty
                     ? IconButton(
                         onPressed:
                             dashboardCustomerController.onClearSearchCustomer,
@@ -37,17 +36,13 @@ class SearchBarDashboardCustomerWidget extends StatelessWidget {
                       )
                     : null,
             onSubmit: (query) {
-              if (dashboardCustomerController.selectedCustomerTabIndex.value ==
-                  0) {
-                prospectCustomerController.doSearchProspectCustomer(query);
-              } else if (dashboardCustomerController
-                      .selectedCustomerTabIndex.value ==
-                  1) {
+              if (dashboardCustomerController.selectedCustomerTabIndex.value == 0) {
+                prospectCustomerController.searchProspectCustomer(query);
+              } else if (dashboardCustomerController.selectedCustomerTabIndex.value == 1) {
                 closingCustomerController.doSearchClosingCustomer(query);
               }
             },
-            onChanged: (query) =>
-                dashboardCustomerController.searchCustomerQuery.value = query,
+            onChanged: (query) => dashboardCustomerController.searchCustomerQuery.value = query,
           );
         },
       ),

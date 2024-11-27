@@ -44,7 +44,7 @@ class Data {
       id: json["id"] ?? 0,
       nip: json["nip"] ?? "",
       name: json["name"] ?? "",
-      division: json["division"] ?? "",
+      division: json["division"]["name"] ?? "",
       email: json["email"] ?? "",
       phone: json["phone"] ?? "",
       photo: json["photo"] ?? "",

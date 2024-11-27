@@ -1,5 +1,5 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
-import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/maps_prospect_customer_controller.dart';
 import 'package:dasarata_mobile/widgets/text_field_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +10,7 @@ class SearchHeaderMapsProspectCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProspectCustomerController prospectCustomerController = Get.find();
+    final MapsProspectCustomerController mapsProspectCustomerController = Get.find();
     return Container(
       padding: const EdgeInsets.only(
         left: 16,
@@ -26,14 +26,14 @@ class SearchHeaderMapsProspectCustomerWidget extends StatelessWidget {
       ),
       child: Center(
         child: TextFieldGlobalWidget(
-          controller: prospectCustomerController.searchMapsController,
+          controller: mapsProspectCustomerController.searchMapsController,
           maxLines: 1,
           icon: LineIcons.search,
           hint: "Search",
           textInputAction: TextInputAction.search,
           keyboardType: TextInputType.text,
           onSubmit: (query) =>
-              prospectCustomerController.onSubmitSearchMaps(query),
+              mapsProspectCustomerController.onSubmitSearchMaps(query),
         ),
       ),
     );

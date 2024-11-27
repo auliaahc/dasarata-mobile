@@ -1,5 +1,5 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
-import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/add_prospect_customer_controller.dart';
 import 'package:dasarata_mobile/screens/customer/prospect/add/widgets/form_add_prospect_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/prospect/add/widgets/submit_button_add_prospect_customer_widget.dart';
 import 'package:dasarata_mobile/widgets/appbar_global_widget.dart';
@@ -11,10 +11,9 @@ class AddProspectCustomerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProspectCustomerController prospectCustomerController =
-        Get.put(ProspectCustomerController());
+    final AddProspectCustomerController addProspectCustomerController = Get.put(AddProspectCustomerController());
     Get.engine.addPostFrameCallback((_) {
-      prospectCustomerController.fetchAddScreenData();
+      addProspectCustomerController.fetchInitialData();
     });
     return Scaffold(
       resizeToAvoidBottomInset: false,

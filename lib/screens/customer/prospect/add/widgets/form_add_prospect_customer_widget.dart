@@ -1,13 +1,11 @@
-import 'package:dasarata_mobile/constants/spacing_constant.dart';
-import 'package:dasarata_mobile/config/app_route.dart';
-import 'package:dasarata_mobile/utilities/validator_input_utils.dart';
+import 'package:dasarata_mobile/controllers/add_prospect_customer_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
-import 'package:dasarata_mobile/models/customer/prospect/meet_prospect_customer_model.dart'
-    as meet_prospect_customer_model;
-import 'package:dasarata_mobile/models/customer/prospect/category_prospect_customer_model.dart'
-    as category_prospect_customer_model;
+import 'package:dasarata_mobile/config/app_route.dart';
+import 'package:dasarata_mobile/constants/spacing_constant.dart';
+import 'package:dasarata_mobile/models/customer/prospect/category_prospect_customer_model.dart' as category_prospect_customer_model;
+import 'package:dasarata_mobile/models/customer/prospect/meet_prospect_customer_model.dart' as meet_prospect_customer_model;
+import 'package:dasarata_mobile/utilities/validator_input_utils.dart';
 import 'package:dasarata_mobile/widgets/dropdown_field_global_widget.dart';
 import 'package:dasarata_mobile/widgets/text_field_global_widget.dart';
 
@@ -16,7 +14,7 @@ class FormAddProspectCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProspectCustomerController prospectCustomerController = Get.find();
+    final AddProspectCustomerController addProspectCustomerController = Get.find();
     return Obx(
       () {
         final inputFields = [
@@ -26,9 +24,8 @@ class FormAddProspectCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.next,
             "keyboardType": TextInputType.text,
             "labelName": "Nama",
-            "controller": prospectCustomerController.nameController,
-            "onChanged": (String value) =>
-                prospectCustomerController.name.value = value,
+            "controller": addProspectCustomerController.nameController,
+            "onChanged": (String value) => addProspectCustomerController.name.value = value,
           },
           {
             "type": "input",
@@ -37,10 +34,9 @@ class FormAddProspectCustomerWidget extends StatelessWidget {
             "keyboardType": TextInputType.text,
             "labelName": "Alamat",
             "additionalLabel": "Maps",
-            "controller": prospectCustomerController.addressController,
+            "controller": addProspectCustomerController.addressController,
             "additionalAction": () => Get.toNamed(AppRoute.prospectMaps),
-            "onChanged": (String value) =>
-                prospectCustomerController.address.value = value,
+            "onChanged": (String value) => addProspectCustomerController.address.value = value,
           },
           {
             "type": "input",
@@ -48,9 +44,8 @@ class FormAddProspectCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.done,
             "keyboardType": TextInputType.phone,
             "labelName": "Nomor Telepon",
-            "controller": prospectCustomerController.phoneController,
-            "onChanged": (String value) =>
-                prospectCustomerController.phone.value = value,
+            "controller": addProspectCustomerController.phoneController,
+            "onChanged": (String value) => addProspectCustomerController.phone.value = value,
             "maxLines": 1,
             "validator": (String? value) => ValidatorInputUtils(
                   name: "Nomor Telepon",
@@ -62,45 +57,38 @@ class FormAddProspectCustomerWidget extends StatelessWidget {
             "type": "dropdown",
             "hint": "Pilih metode bertemu",
             "labelName": "Metode Bertemu",
-            "items": prospectCustomerController.prospectMeetData.value ?? [],
-            "data": prospectCustomerController.prospectMeetValue.value,
-            "getValue": (dynamic item) =>
-                (item as meet_prospect_customer_model.Datum).id.toString(),
-            "getLabel": (dynamic item) =>
-                (item as meet_prospect_customer_model.Datum).meetCategory,
+            "items": addProspectCustomerController.prospectMeetData.value ?? [],
+            "data": addProspectCustomerController.prospectMeetValue.value,
+            "getValue": (dynamic item) => (item as meet_prospect_customer_model.Datum).id.toString(),
+            "getLabel": (dynamic item) => (item as meet_prospect_customer_model.Datum).meetCategory,
             "onChanged": (String? value) {
-              prospectCustomerController.prospectMeetValue.value = value;
-              prospectCustomerController.validateFormAddProspectCustomer();
+              addProspectCustomerController.prospectMeetValue.value = value;
+              addProspectCustomerController.validateFormAddProspectCustomer();
             }
           },
           {
             "type": "dropdown",
             "hint": "Pilih status awal",
             "labelName": "Status Awal",
-            "items":
-                prospectCustomerController.prospectCategoryData.value ?? [],
-            "data": prospectCustomerController.prospectCategoryValue.value,
-            "getValue": (dynamic item) =>
-                (item as category_prospect_customer_model.Datum).id.toString(),
-            "getLabel": (dynamic item) =>
-                (item as category_prospect_customer_model.Datum).nameCategory,
+            "items": addProspectCustomerController.prospectCategoryData.value ?? [],
+            "data": addProspectCustomerController.prospectCategoryValue.value,
+            "getValue": (dynamic item) => (item as category_prospect_customer_model.Datum).id.toString(),
+            "getLabel": (dynamic item) => (item as category_prospect_customer_model.Datum).nameCategory,
             "onChanged": (String? value) {
-              prospectCustomerController.prospectCategoryValue.value = value;
-              prospectCustomerController.validateFormAddProspectCustomer();
+              addProspectCustomerController.prospectCategoryValue.value = value;
+              addProspectCustomerController.validateFormAddProspectCustomer();
             }
           },
         ];
         return Form(
-          key: prospectCustomerController.addProspectFormKey,
-          onChanged: () =>
-              prospectCustomerController.validateFormAddProspectCustomer(),
+          key: addProspectCustomerController.addProspectFormKey,
+          onChanged: () => addProspectCustomerController.validateFormAddProspectCustomer(),
           child: ListView.separated(
             padding: const EdgeInsets.only(
               top: 32,
               bottom: 96,
             ),
-            separatorBuilder: (context, index) =>
-                SpacingConstant.verticalSpacing16px,
+            separatorBuilder: (context, index) => SpacingConstant.verticalSpacing16px,
             itemCount: inputFields.length,
             itemBuilder: (context, index) {
               final inputField = inputFields[index];
@@ -108,17 +96,14 @@ class FormAddProspectCustomerWidget extends StatelessWidget {
                 return TextFieldGlobalWidget(
                   controller: inputField["controller"] as TextEditingController,
                   hint: inputField["hint"] as String,
-                  textInputAction:
-                      inputField["textInputAction"] as TextInputAction,
+                  textInputAction: inputField["textInputAction"] as TextInputAction,
                   keyboardType: inputField["keyboardType"] as TextInputType,
                   labelName: inputField["labelName"] as String?,
                   additionalLabel: inputField["additionalLabel"] as String?,
-                  additionalAction:
-                      inputField["additionalAction"] as Function()?,
+                  additionalAction: inputField["additionalAction"] as Function()?,
                   onChanged: inputField["onChanged"] as Function(String)?,
                   maxLines: inputField["maxLines"] as int?,
-                  validator:
-                      inputField["validator"] as String? Function(String?)?,
+                  validator: inputField["validator"] as String? Function(String?)?,
                 );
               } else {
                 return DropdownFieldGlobalWidget(
