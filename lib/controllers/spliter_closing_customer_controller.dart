@@ -42,9 +42,8 @@ class SpliterClosingCustomerController extends GetxController {
         ),
       );
       Get.back();
-      closingCustomerController.getClosingCustomerData(
-          closingCustomerController.detailClosingCustomer.value!.id);
-      closingCustomerController.resetDashboardClosingCustomer();
+      // closingCustomerController.getClosingCustomerData(closingCustomerController.detailClosingCustomer.value!.id);
+      // closingCustomerController.resetDashboardClosingCustomer();
       SnackbarUtils.show(
         messageText: response.message,
         type: AnimatedSnackBarType.success,

@@ -13,14 +13,11 @@ class SpliterClosingCustomerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SpliterClosingCustomerController spliterClosingCustomerController =
-        Get.put(SpliterClosingCustomerController());
-    final ClosingCustomerController closingCustomerController =
-        Get.put(ClosingCustomerController());
-    Get.engine.addPostFrameCallback((_) {
-      spliterClosingCustomerController
-          .fetchData(closingCustomerController.detailClosingCustomer.value!.id);
-    });
+    final SpliterClosingCustomerController spliterClosingCustomerController = Get.put(SpliterClosingCustomerController());
+    final ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
+    // Get.engine.addPostFrameCallback((_) {
+    //   spliterClosingCustomerController.fetchData(closingCustomerController.detailClosingCustomer.value!.id);
+    // });
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(statusBarColor: ColorConstant.whiteColor),
       child: Scaffold(

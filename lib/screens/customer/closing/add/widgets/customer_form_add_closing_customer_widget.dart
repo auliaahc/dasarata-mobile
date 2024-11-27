@@ -1,9 +1,7 @@
 import 'package:dasarata_mobile/constants/spacing_constant.dart';
-import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
-import 'package:dasarata_mobile/models/customer/closing/program_closing_customer_model.dart'
-    as program_closing_customer_model;
-import 'package:dasarata_mobile/models/customer/closing/service_package_closing_customer_model.dart'
-    as service_package_closing_customer_model;
+import 'package:dasarata_mobile/controllers/add_closing_customer_controller.dart';
+import 'package:dasarata_mobile/models/customer/closing/program_closing_customer_model.dart' as program_closing_customer_model;
+import 'package:dasarata_mobile/models/customer/closing/service_package_closing_customer_model.dart' as service_package_closing_customer_model;
 import 'package:dasarata_mobile/widgets/dropdown_field_global_widget.dart';
 import 'package:dasarata_mobile/widgets/text_field_global_widget.dart';
 import 'package:dasarata_mobile/widgets/image_picker_field_global_widget.dart';
@@ -15,7 +13,7 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ClosingCustomerController closingCustomerController = Get.find();
+    final AddClosingCustomerController addClosingCustomerController = Get.find();
     return Obx(
       () {
         final customerTypeOptions = ["Homepass", "Bussines"];
@@ -28,7 +26,7 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
             "labelName": "Nama Customer Prospek",
             "enabled": false,
             "maxLines": 1,
-            "controller": closingCustomerController.nameProspectController,
+            "controller": addClosingCustomerController.nameProspectController,
             "onChanged": (String value) {},
           },
           {
@@ -36,19 +34,19 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
             "hint": "Pilih jenis customer",
             "labelName": "Jenis Customer",
             "items": customerTypeOptions,
-            "data": closingCustomerController.customerType.value,
+            "data": addClosingCustomerController.customerType.value,
             "getValue": (dynamic item) => item as String,
             "getLabel": (dynamic item) => item as String,
             "onChanged": (String? value) {
-              closingCustomerController.customerType.value = value;
+              addClosingCustomerController.customerType.value = value;
             },
           },
           {
             "type": "dropdown",
             "hint": "Pilih paket layanan",
             "labelName": "Paket Layanan",
-            "items": closingCustomerController.servicePackagesData.value ?? [],
-            "data": closingCustomerController.servicePackage.value,
+            "items": addClosingCustomerController.servicePackagesData.value ?? [],
+            "data": addClosingCustomerController.servicePackage.value,
             "getValue": (dynamic item) =>
                 (item as service_package_closing_customer_model.Datum)
                     .id
@@ -57,21 +55,21 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
                 (item as service_package_closing_customer_model.Datum)
                     .packageName,
             "onChanged": (String? value) {
-              closingCustomerController.servicePackage.value = value;
+              addClosingCustomerController.servicePackage.value = value;
             },
           },
           {
             "type": "dropdown",
             "hint": "Pilih promo",
             "labelName": "Promo",
-            "items": closingCustomerController.programsData.value ?? [],
-            "data": closingCustomerController.program.value,
+            "items": addClosingCustomerController.programsData.value ?? [],
+            "data": addClosingCustomerController.program.value,
             "getValue": (dynamic item) =>
                 (item as program_closing_customer_model.Datum).id.toString(),
             "getLabel": (dynamic item) =>
                 (item as program_closing_customer_model.Datum).nameProgram,
             "onChanged": (String? value) {
-              closingCustomerController.program.value = value;
+              addClosingCustomerController.program.value = value;
             },
           },
           {
@@ -80,7 +78,7 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.next,
             "keyboardType": TextInputType.text,
             "labelName": "Alamat Terpasang",
-            "controller": closingCustomerController.installedAddressController,
+            "controller": addClosingCustomerController.installedAddressController,
             "onChanged": (String value) {}
           },
           {
@@ -89,7 +87,7 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
           }
         ];
         return Form(
-          key: closingCustomerController.addClosingCustomerFormKeys[0],
+          key: addClosingCustomerController.addClosingCustomerFormKeys[0],
           onChanged: () {},
           child: Padding(
             padding: const EdgeInsets.only(top: 32),
@@ -108,13 +106,10 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
                     final inputField = inputFields[index];
                     if (inputField["type"] == "input") {
                       return TextFieldGlobalWidget(
-                        controller:
-                            inputField["controller"] as TextEditingController,
+                        controller: inputField["controller"] as TextEditingController,
                         hint: inputField["hint"] as String,
-                        textInputAction:
-                            inputField["textInputAction"] as TextInputAction,
-                        keyboardType:
-                            inputField["keyboardType"] as TextInputType,
+                        textInputAction: inputField["textInputAction"] as TextInputAction,
+                        keyboardType: inputField["keyboardType"] as TextInputType,
                         labelName: inputField["labelName"] as String?,
                         onChanged: inputField["onChanged"] as Function(String)?,
                         maxLines: inputField["maxLines"] as int?,

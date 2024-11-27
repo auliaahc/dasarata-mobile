@@ -1,7 +1,7 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/constants/spacing_constant.dart';
 import 'package:dasarata_mobile/constants/text_style_constant.dart';
-import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/detail_closing_customer_controller.dart';
 import 'package:dasarata_mobile/widgets/accordion_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,12 +11,11 @@ class AddressDetailClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ClosingCustomerController closingCustomerController = Get.find();
+    final DetailClosingCustomerController detailClosingCustomerController = Get.find();
     final TextStyle fieldTextStyle = TextStyleConstant.semiboldCaption.copyWith(
       color: ColorConstant.neutralColor600,
     );
-    final TextStyle valueTextStyle =
-        TextStyleConstant.regularParagraph.copyWith(
+    final TextStyle valueTextStyle =TextStyleConstant.regularParagraph.copyWith(
       color: ColorConstant.neutralColor800,
     );
     return Obx(
@@ -32,8 +31,7 @@ class AddressDetailClosingCustomerWidget extends StatelessWidget {
               ),
               SpacingConstant.verticalSpacing2px,
               Text(
-                closingCustomerController
-                    .detailClosingCustomer.value!.installedAddress,
+                detailClosingCustomerController.detailClosingCustomer.value!.installedAddress,
                 style: valueTextStyle,
               ),
               SpacingConstant.verticalSpacing12px,
@@ -43,8 +41,7 @@ class AddressDetailClosingCustomerWidget extends StatelessWidget {
               ),
               SpacingConstant.verticalSpacing2px,
               Text(
-                closingCustomerController
-                    .detailClosingCustomer.value!.domicileAddress,
+                detailClosingCustomerController.detailClosingCustomer.value!.domicileAddress,
                 style: valueTextStyle,
               ),
               SpacingConstant.verticalSpacing12px,
@@ -62,8 +59,7 @@ class AddressDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          closingCustomerController
-                              .detailClosingCustomer.value!.provinces.name,
+                          detailClosingCustomerController.detailClosingCustomer.value!.provinces.name,
                           style: valueTextStyle,
                         ),
                       ],
@@ -80,8 +76,7 @@ class AddressDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          closingCustomerController
-                              .detailClosingCustomer.value!.regency.name,
+                          detailClosingCustomerController.detailClosingCustomer.value!.regency.name,
                           style: valueTextStyle,
                         ),
                       ],
@@ -104,8 +99,7 @@ class AddressDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          closingCustomerController
-                              .detailClosingCustomer.value!.district.name,
+                          detailClosingCustomerController.detailClosingCustomer.value!.district.name,
                           style: valueTextStyle,
                         ),
                       ],
@@ -122,9 +116,9 @@ class AddressDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                            closingCustomerController
-                                .detailClosingCustomer.value!.village.name,
-                            style: valueTextStyle),
+                          detailClosingCustomerController.detailClosingCustomer.value!.village.name,
+                          style: valueTextStyle,
+                        ),
                       ],
                     ),
                   ),
@@ -145,8 +139,7 @@ class AddressDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          closingCustomerController
-                              .detailClosingCustomer.value!.rt,
+                          detailClosingCustomerController.detailClosingCustomer.value!.rt,
                           style: valueTextStyle,
                         ),
                       ],
@@ -163,8 +156,7 @@ class AddressDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          closingCustomerController
-                              .detailClosingCustomer.value!.rw,
+                          detailClosingCustomerController.detailClosingCustomer.value!.rw,
                           style: valueTextStyle,
                         ),
                       ],

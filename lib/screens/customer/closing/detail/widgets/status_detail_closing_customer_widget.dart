@@ -1,4 +1,4 @@
-import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/detail_closing_customer_controller.dart';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,14 +10,12 @@ class StatusDetailClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ClosingCustomerController closingCustomerController = Get.find();
+    final DetailClosingCustomerController detailClosingCustomerController = Get.find();
     return Obx(
       () {
-        final String closingStatusPhase =
-            closingCustomerController.detailClosingCustomer.value!.phaseStatus;
+        final String closingStatusPhase = detailClosingCustomerController.detailClosingCustomer.value!.phaseStatus;
         int activeStepIndex;
-        if (closingStatusPhase == "Teknis" ||
-            closingStatusPhase == "Personal") {
+        if (closingStatusPhase == "Teknis" || closingStatusPhase == "Personal") {
           activeStepIndex = 0;
         } else if (closingStatusPhase == "Survei") {
           activeStepIndex = 1;
