@@ -1,5 +1,6 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
-import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/add_prospect_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/maps_prospect_customer_controller.dart';
 import 'package:dasarata_mobile/screens/customer/prospect/maps/widgets/footer/footer_maps_prospect_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/prospect/maps/widgets/header/header_maps_prospect_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/prospect/maps/widgets/maps_prospect_customer_widget.dart';
@@ -12,10 +13,11 @@ class MapsProspectCustomerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProspectCustomerController prospectCustomerController = Get.find();
+    final MapsProspectCustomerController mapsProspectCustomerController = Get.put(MapsProspectCustomerController());
+    final AddProspectCustomerController addProspectCustomerController = Get.put(AddProspectCustomerController());
     Get.engine.addPostFrameCallback((_) {
-      prospectCustomerController.getSpliterData();
-      prospectCustomerController.checkAddressForSearchController();
+      mapsProspectCustomerController.getSpliterData();
+      mapsProspectCustomerController.checkAddressForSearchController(addProspectCustomerController.address.value);
     });
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(

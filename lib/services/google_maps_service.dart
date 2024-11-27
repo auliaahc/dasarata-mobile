@@ -8,8 +8,10 @@ import "package:geolocator/geolocator.dart";
 class GoogleMapsService {
   final Dio _dio = Dio();
 
-  Future<List<Placemark>> getPlacemarks(
-      double latitude, double longitude) async {
+  Future<List<Placemark>> getPlacemarks({
+    required double latitude,
+    required double longitude,
+  }) async {
     const url = "${Env.baseUrlGoogleMaps}/geocode/json";
     try {
       final response = await _dio.get(
@@ -36,15 +38,10 @@ class GoogleMapsService {
           }
 
           String? name = item["formatted_address"];
-          String? street =
-              getValueAddressComponent(addressComponents, "route") ??
-                  getValueAddressComponent(addressComponents, "plus_code");
-          String? country =
-              getValueAddressComponent(addressComponents, "country");
-          String? postalCode =
-              getValueAddressComponent(addressComponents, "postal_code");
-          String? administrativeArea = getValueAddressComponent(
-              addressComponents, "administrative_area_level_1");
+          String? street = getValueAddressComponent(addressComponents, "route") ?? getValueAddressComponent(addressComponents, "plus_code");
+          String? country = getValueAddressComponent(addressComponents, "country");
+          String? postalCode = getValueAddressComponent(addressComponents, "postal_code");
+          String? administrativeArea = getValueAddressComponent(addressComponents, "administrative_area_level_1");
           String? subAdministrativeArea = getValueAddressComponent(
               addressComponents, "administrative_area_level_2");
           String? locality = getValueAddressComponent(
