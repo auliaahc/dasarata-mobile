@@ -7,6 +7,7 @@ import 'package:dasarata_mobile/widgets/text_field_global_widget.dart';
 import 'package:dasarata_mobile/widgets/image_picker_field_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
   const CustomerFormAddClosingCustomerWidget({super.key});
@@ -27,7 +28,6 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
             "enabled": false,
             "maxLines": 1,
             "controller": addClosingCustomerController.nameProspectController,
-            "onChanged": (String value) {},
           },
           {
             "type": "dropdown",
@@ -47,13 +47,8 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
             "labelName": "Paket Layanan",
             "items": addClosingCustomerController.servicePackagesData.value ?? [],
             "data": addClosingCustomerController.servicePackage.value,
-            "getValue": (dynamic item) =>
-                (item as service_package_closing_customer_model.Datum)
-                    .id
-                    .toString(),
-            "getLabel": (dynamic item) =>
-                (item as service_package_closing_customer_model.Datum)
-                    .packageName,
+            "getValue": (dynamic item) => (item as service_package_closing_customer_model.Datum).id.toString(),
+            "getLabel": (dynamic item) => (item as service_package_closing_customer_model.Datum).packageName,
             "onChanged": (String? value) {
               addClosingCustomerController.servicePackage.value = value;
             },
@@ -64,10 +59,8 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
             "labelName": "Promo",
             "items": addClosingCustomerController.programsData.value ?? [],
             "data": addClosingCustomerController.program.value,
-            "getValue": (dynamic item) =>
-                (item as program_closing_customer_model.Datum).id.toString(),
-            "getLabel": (dynamic item) =>
-                (item as program_closing_customer_model.Datum).nameProgram,
+            "getValue": (dynamic item) => (item as program_closing_customer_model.Datum).id.toString(),
+            "getLabel": (dynamic item) => (item as program_closing_customer_model.Datum).nameProgram,
             "onChanged": (String? value) {
               addClosingCustomerController.program.value = value;
             },
@@ -79,11 +72,13 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
             "keyboardType": TextInputType.text,
             "labelName": "Alamat Terpasang",
             "controller": addClosingCustomerController.installedAddressController,
-            "onChanged": (String value) {}
           },
           {
             "type": "image",
             "labelName": "Foto Rumah",
+            "onFileSelected": (XFile? file) {
+              addClosingCustomerController.homePhoto.value = file;
+            }
           }
         ];
         return Form(
@@ -99,8 +94,7 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
                 ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (context, index) =>
-                      SpacingConstant.verticalSpacing16px,
+                  separatorBuilder: (context, index) => SpacingConstant.verticalSpacing16px,
                   itemCount: inputFields.length,
                   itemBuilder: (context, index) {
                     final inputField = inputFields[index];
@@ -113,14 +107,14 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
                         labelName: inputField["labelName"] as String?,
                         onChanged: inputField["onChanged"] as Function(String)?,
                         maxLines: inputField["maxLines"] as int?,
-                        validator: inputField["validator"] as String? Function(
-                            String?)?,
+                        validator: inputField["validator"] as String? Function(String?)?,
                         enabled: inputField["enabled"] as bool?,
                       );
                     } else if (inputField["type"] == "image") {
                       return ImagePickerFieldGlobalField(
                         hint: "Pilih gambar",
                         labelName: inputField["labelName"] as String?,
+                        onFileSelected: inputField["onFileSelected"] as Function(XFile?)?,
                       );
                     } else {
                       return DropdownFieldGlobalWidget(
@@ -128,10 +122,8 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
                         labelName: inputField["labelName"] as String,
                         items: inputField["items"] as List<dynamic>,
                         value: inputField["data"] as String?,
-                        getValue:
-                            inputField["getValue"] as String Function(dynamic),
-                        getLabel:
-                            inputField["getLabel"] as String Function(dynamic),
+                        getValue: inputField["getValue"] as String Function(dynamic),
+                        getLabel: inputField["getLabel"] as String Function(dynamic),
                         onChanged: inputField["onChanged"] as Function(String?),
                       );
                     }

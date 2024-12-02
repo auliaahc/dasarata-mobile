@@ -31,7 +31,7 @@ class DetailClosingCustomerScreen extends StatelessWidget {
         title: "Detail Customer Closing",
         implyLeading: true,
         action: Icon(
-          LineIcons.mapMarker,
+          LineIcons.map,
           color: ColorConstant.neutralColor900,
         ),
         tooltip: "Update Status Phase",

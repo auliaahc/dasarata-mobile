@@ -29,14 +29,14 @@ class MapsProspectCustomerController extends GetxController {
     if (address != null) {
       searchMapsController.text = address;
       searchMaps.value = searchMapsController.text;
-      onSubmitSearchMaps(searchMaps.value!);
+      submitSearchMaps(searchMaps.value!);
     } else {
       searchMapsController.clear();
       getCurrentPosition();
     }
   }
 
-  Future<void> onSubmitSearchMaps(String query) async {
+  Future<void> submitSearchMaps(String query) async {
     searchMaps.value = query;
     if (searchMaps.value != null) {
       final input = searchMaps.value!.trim();

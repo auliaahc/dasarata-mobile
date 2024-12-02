@@ -8,19 +8,22 @@ import 'package:dasarata_mobile/models/customer/closing/regency_closing_customer
     as regency_closing_customer_model;
 import 'package:dasarata_mobile/models/customer/closing/village_closing_customer_model.dart'
     as village_closing_customer_model;
+import 'package:dasarata_mobile/utilities/validator_input_utils.dart';
 import 'package:dasarata_mobile/widgets/date_picker_field_global_widget.dart';
 import 'package:dasarata_mobile/widgets/dropdown_field_global_widget.dart';
 import 'package:dasarata_mobile/widgets/image_picker_field_global_widget.dart';
 import 'package:dasarata_mobile/widgets/text_field_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class KtpFormAddClosingCustomerWidget extends StatelessWidget {
   const KtpFormAddClosingCustomerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final AddClosingCustomerController addClosingCustomerController = Get.find();
+    final AddClosingCustomerController addClosingCustomerController =
+        Get.find();
     return Obx(
       () {
         final genderOptions = [
@@ -42,7 +45,12 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "labelName": "NIK",
             "controller": addClosingCustomerController.nikController,
             "maxLines": 1,
-            "onChanged": (value) {},
+            "validator": (String value) => ValidatorInputUtils(
+                  name: "NIK",
+                  value: value,
+                  validationType: ValidationType.fixedCharacterLength,
+                  fixedCharacterLength: 16,
+                ).validate()
           },
           {
             "type": "input",
@@ -51,7 +59,6 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "keyboardType": TextInputType.text,
             "labelName": "Nama Lengkap",
             "controller": addClosingCustomerController.fullNameController,
-            "onChanged": (value) {},
           },
           {
             "type": "dropdown",
@@ -67,8 +74,9 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
           },
           {
             "type": "date",
-            "controller": TextEditingController(),
+            "controller": addClosingCustomerController.birthDateController,
             "labelName": "Tanggal Lahir",
+            "onChanged": (value) => addClosingCustomerController.birthDate.value = value,
           },
           {
             "type": "input",
@@ -77,7 +85,6 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "keyboardType": TextInputType.text,
             "labelName": "Alamat Lengkap",
             "controller": addClosingCustomerController.fullAddressController,
-            "onChanged": (value) {}
           },
           {
             "type": "dropdown",
@@ -143,7 +150,6 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "labelName": "RT",
             "controller": addClosingCustomerController.rtController,
             "maxLines": 1,
-            "onChanged": (value) {}
           },
           {
             "type": "input",
@@ -153,11 +159,13 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "labelName": "RW",
             "controller": addClosingCustomerController.rwController,
             "maxLines": 1,
-            "onChanged": (value) {}
           },
           {
             "type": "image",
             "labelName": "Foto KTP",
+            "onFileSelected": (XFile? file) {
+              addClosingCustomerController.ktpPhoto.value = file;
+            },
           }
         ];
         return Form(
@@ -189,6 +197,8 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
                 return ImagePickerFieldGlobalField(
                   hint: "Pilih gambar",
                   labelName: inputField["labelName"] as String?,
+                  onFileSelected:
+                      inputField["onFileSelected"] as Function(XFile?)?,
                 );
               } else if (inputField["type"] == "dropdown") {
                 return DropdownFieldGlobalWidget(
@@ -204,6 +214,7 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
                 return DatePickerFieldGlobalWidget(
                   labelName: inputField["labelName"] as String?,
                   controller: inputField["controller"] as TextEditingController,
+                  onChanged: inputField["onChanged"] as Function(String?)?,
                 );
               }
             },

@@ -1,4 +1,3 @@
-import 'package:dasarata_mobile/controllers/detail_closing_customer_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';

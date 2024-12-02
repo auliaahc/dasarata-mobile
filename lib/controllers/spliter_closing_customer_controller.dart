@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/detail_closing_customer_controller.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_spliter_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_find_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/spliter_closing_customer_model.dart';
@@ -16,6 +17,7 @@ class SpliterClosingCustomerController extends GetxController {
   ClosingCustomerController closingCustomerController =
       Get.put(ClosingCustomerController());
   GoogleMapsService googleMapsService = GoogleMapsService();
+  DetailClosingCustomerController detailClosingCustomerController = Get.put(DetailClosingCustomerController()); 
   ClosingCustomerService closingCustomerService = ClosingCustomerService();
   Completer<GoogleMapController> mapsController =
       Completer<GoogleMapController>();
@@ -42,8 +44,8 @@ class SpliterClosingCustomerController extends GetxController {
         ),
       );
       Get.back();
-      // closingCustomerController.getClosingCustomerData(closingCustomerController.detailClosingCustomer.value!.id);
-      // closingCustomerController.resetDashboardClosingCustomer();
+      detailClosingCustomerController.getClosingCustomerData(detailClosingCustomerController.detailClosingCustomer.value!.id);
+      closingCustomerController.resetDashboardClosingCustomer();
       SnackbarUtils.show(
         messageText: response.message,
         type: AnimatedSnackBarType.success,

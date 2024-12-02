@@ -53,10 +53,6 @@ class BottomNavbarGlobalWidget extends StatelessWidget {
             icon: LineIcons.users,
             text: 'Customer',
           ),
-          // GButton(
-          //   icon: LineIcons.map,
-          //   text: 'Maps',
-          // ),
           GButton(
             icon: LineIcons.user,
             text: 'Profile',

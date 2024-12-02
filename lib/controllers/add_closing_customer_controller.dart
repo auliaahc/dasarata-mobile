@@ -1,23 +1,19 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:dasarata_mobile/models/customer/closing/request_add_closing_customer_model.dart';
+import 'package:dasarata_mobile/models/response_global_model.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:dasarata_mobile/models/customer/closing/district_closing_customer_model.dart' as district_closing_customer_model;
+import 'package:dasarata_mobile/models/customer/closing/program_closing_customer_model.dart' as program_closing_customer_model;
+import 'package:dasarata_mobile/models/customer/closing/province_closing_customer_model.dart' as province_closing_customer_model;
+import 'package:dasarata_mobile/models/customer/closing/regency_closing_customer_model.dart' as regency_closing_customer_model;
+import 'package:dasarata_mobile/models/customer/closing/service_package_closing_customer_model.dart' as service_package_closing_customer_model;
+import 'package:dasarata_mobile/models/customer/closing/village_closing_customer_model.dart' as village_closing_customer_model;
+import 'package:dasarata_mobile/models/customer/prospect/response_find_prospect_customer_model.dart' as find_prospect_customer_model;
 import 'package:dasarata_mobile/services/closing_customer_service.dart';
 import 'package:dasarata_mobile/services/prospect_customer_service.dart';
 import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
-import 'package:flutter/material.dart';
-import 'package:dasarata_mobile/models/customer/closing/district_closing_customer_model.dart'
-    as district_closing_customer_model;
-import 'package:dasarata_mobile/models/customer/closing/program_closing_customer_model.dart'
-    as program_closing_customer_model;
-import 'package:dasarata_mobile/models/customer/closing/province_closing_customer_model.dart'
-    as province_closing_customer_model;
-import 'package:dasarata_mobile/models/customer/closing/regency_closing_customer_model.dart'
-    as regency_closing_customer_model;
-import 'package:dasarata_mobile/models/customer/closing/service_package_closing_customer_model.dart'
-    as service_package_closing_customer_model;
-import 'package:dasarata_mobile/models/customer/closing/village_closing_customer_model.dart'
-    as village_closing_customer_model;
-import 'package:dasarata_mobile/models/customer/prospect/response_find_prospect_customer_model.dart'
-    as find_prospect_customer_model;
-import 'package:get/get.dart';
 
 class AddClosingCustomerController extends GetxController {
   ClosingCustomerService closingCustomerService = ClosingCustomerService();
@@ -27,6 +23,7 @@ class AddClosingCustomerController extends GetxController {
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
   ];
+  RxBool isLoadingProspectCustomerData = RxBool(false);
   Rxn<List<service_package_closing_customer_model.Datum>> servicePackagesData = Rxn<List<service_package_closing_customer_model.Datum>>();
   Rxn<List<program_closing_customer_model.Datum>> programsData = Rxn<List<program_closing_customer_model.Datum>>();
   Rxn<find_prospect_customer_model.Data> prospectCustomerData = Rxn<find_prospect_customer_model.Data>();
@@ -50,20 +47,66 @@ class AddClosingCustomerController extends GetxController {
   RxnString regency = RxnString();
   RxnString district = RxnString();
   RxnString village = RxnString();
+  Rxn<XFile> homePhoto = Rxn<XFile>();
+  Rxn<XFile> ktpPhoto = Rxn<XFile>();
+  TextEditingController birthDateController = TextEditingController();
 
-  void fetchAddClosingCustomerData() {
+  Future<void> submitAddClosingCustomer() async {
+    final data = RequestAddClosingCustomerModel(
+      nik: nikController.text,
+      fullName: fullNameController.text,
+      domicileAddress: installedAddressController.text,
+      dateOfBirth: birthDate.value!,
+      gender: gender.value!,
+      provincesId: int.parse(province.value!),
+      regencyId: int.parse(regency.value!),
+      districtId: int.parse(district.value!),
+      villageId: int.parse(village.value!),
+      rt: int.parse(rtController.text),
+      rw: int.parse(rwController.text),
+      customerCategory: customerType.value!,
+      servicePackageId: int.parse(servicePackage.value!),
+      installedAddress: installedAddressController.text,
+      photoHome: homePhoto.value!,
+      photoKtp: ktpPhoto.value!,
+    );
+    try {
+      final response = await closingCustomerService.putClosingCustomer(
+        model: data,
+        prospectCustomerId: prospectCustomerData.value!.id,
+      );
+      if (response.success) {
+        print(response);
+        SnackbarUtils.show(
+          messageText: "Berhasil menambahkan customer closing",
+          type: AnimatedSnackBarType.success,
+        );
+      }
+      Get.back();
+    } catch (e) {
+      if (e is ResponseGlobalModel) {
+        SnackbarUtils.show(
+          messageText: e.message,
+          type: AnimatedSnackBarType.error,
+        );
+      }
+    }
+  }
+
+  void fetchInitialData(int customerId) {
+    getProspectCustomerData(customerId);
     getServicePackagesData();
     getProgramsData();
     getProvincesData();
   }
 
-  Future<void> getProspectCustomerData(int id) async {
+  Future<void> getProspectCustomerData(int customerId) async {
+    isLoadingProspectCustomerData.value = true;
     try {
-      final response = await prospectCustomerService.getProspectCustomer(id);
+      final response = await prospectCustomerService.getProspectCustomer(customerId);
       prospectCustomerData.value = response.data;
       nameProspectController.text = prospectCustomerData.value!.name;
-      installedAddressController.text =
-          prospectCustomerData.value!.installedAddress;
+      installedAddressController.text = prospectCustomerData.value!.installedAddress;
     } catch (e) {
       if (e is find_prospect_customer_model.ResponseFindProspectCustomerModel) {
         SnackbarUtils.show(
@@ -71,6 +114,8 @@ class AddClosingCustomerController extends GetxController {
           type: AnimatedSnackBarType.error,
         );
       }
+    } finally {
+      isLoadingProspectCustomerData.value = false;
     }
   }
 

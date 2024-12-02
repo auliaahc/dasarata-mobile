@@ -14,8 +14,7 @@ class ListDashboardProspectCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProspectCustomerController prospectCustomerController =
-        Get.put(ProspectCustomerController());
+    final ProspectCustomerController prospectCustomerController = Get.put(ProspectCustomerController());
     Get.engine.addPostFrameCallback((_) {
       prospectCustomerController.resetDashboardProspectCustomer();
     });

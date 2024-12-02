@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:dasarata_mobile/config/app_route.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:dasarata_mobile/models/customer/prospect/response_prospect_customer_model.dart';
@@ -14,6 +15,12 @@ class ProspectCustomerController extends GetxController {
   RxInt currentPageData = RxInt(1);
   Rxn<Data> listDataConfiguration = Rxn<Data>();
   RxBool isLoadingListProspectCustomer = RxBool(false);
+  RxnInt selectedCustomerId = RxnInt();
+
+  void goToAddClosing(int customerId) {
+    selectedCustomerId.value = customerId;
+    Get.toNamed(AppRoute.addClosingCustomer);
+  }
 
   void resetDashboardProspectCustomer() {
     searchProspectCustomerQuery.value = null;

@@ -1,6 +1,7 @@
 enum ValidationType {
   email,
   phone,
+  fixedCharacterLength,
 }
 
 class ValidatorInputUtils {
@@ -8,12 +9,14 @@ class ValidatorInputUtils {
   final String? value;
   final bool isRequired;
   final ValidationType? validationType;
+  final int? fixedCharacterLength;
 
   ValidatorInputUtils({
     required this.name,
     required this.value,
     this.isRequired = true,
     this.validationType,
+    this.fixedCharacterLength,
   });
 
   String? validate() {
@@ -32,6 +35,12 @@ class ValidatorInputUtils {
     if (validationType == ValidationType.phone) {
       if (value!.length < 10 || value!.length > 15) {
         return "$name harus terdiri dari 10 hingga 15 digit";
+      }
+    }
+
+    if (validationType == ValidationType.fixedCharacterLength) {
+      if (value!.length != fixedCharacterLength) {
+        return "$name harus terdiri dari $fixedCharacterLength digit";
       }
     }
 
