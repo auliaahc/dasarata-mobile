@@ -19,8 +19,7 @@ class RouteClosingCustomerController extends GetxController {
   ClosingCustomerService closingCustomerService = ClosingCustomerService();
   DetailClosingCustomerController detailClosingCustomerController = Get.put(DetailClosingCustomerController());
   FlutterMapMath flutterMapMath = FlutterMapMath();
-  Completer<GoogleMapController> mapsController =
-      Completer<GoogleMapController>();
+  Completer<GoogleMapController> mapsController = Completer<GoogleMapController>();
   RxBool isLoadingGetClosingCustomerData = RxBool(false);
   Rxn<Data> closingCustomerDetail = Rxn<Data>();
   Rxn<LatLng> customerLatLng = Rxn<LatLng>();
@@ -33,8 +32,7 @@ class RouteClosingCustomerController extends GetxController {
   RxDouble distance = RxDouble(0);
   RxList<double> listDistance = RxList<double>();
   RxBool isLoadingUpdateRouteData = RxBool(false);
-  ClosingCustomerController closingCustomerController =
-      Get.put(ClosingCustomerController());
+  ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
 
   Future<void> updateRouteData() async {
     isLoadingUpdateRouteData.value = true;

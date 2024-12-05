@@ -76,7 +76,6 @@ class AddClosingCustomerController extends GetxController {
         prospectCustomerId: prospectCustomerData.value!.id,
       );
       if (response.success) {
-        print(response);
         SnackbarUtils.show(
           messageText: "Berhasil menambahkan customer closing",
           type: AnimatedSnackBarType.success,

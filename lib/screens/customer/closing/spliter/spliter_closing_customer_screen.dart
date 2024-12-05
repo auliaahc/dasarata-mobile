@@ -1,5 +1,5 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
-import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/detail_closing_customer_controller.dart';
 import 'package:dasarata_mobile/controllers/spliter_closing_customer_controller.dart';
 import 'package:dasarata_mobile/screens/customer/closing/spliter/widgets/footer/footer_spliter_closing_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/closing/spliter/widgets/header/header_spliter_closing_customer_widget.dart';
@@ -13,11 +13,11 @@ class SpliterClosingCustomerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DetailClosingCustomerController detailClosingCustomerController = Get.put(DetailClosingCustomerController());
     final SpliterClosingCustomerController spliterClosingCustomerController = Get.put(SpliterClosingCustomerController());
-    final ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
-    // Get.engine.addPostFrameCallback((_) {
-    //   spliterClosingCustomerController.fetchData(closingCustomerController.detailClosingCustomer.value!.id);
-    // });
+    Get.engine.addPostFrameCallback((_) {
+      spliterClosingCustomerController.fetchData(detailClosingCustomerController.detailClosingCustomer.value!.id);
+    });
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(statusBarColor: ColorConstant.whiteColor),
       child: Scaffold(

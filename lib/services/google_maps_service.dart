@@ -71,8 +71,7 @@ class GoogleMapsService {
     }
   }
 
-  Future<Map<String, dynamic>> getPlacemarkFromAddressPlusCode(
-      String data) async {
+  Future<Map<String, dynamic>> getPlacemarkFromAddressPlusCode(String data) async {
     const url = "${Env.baseUrlGoogleMaps}/geocode/json";
     try {
       final response = await _dio.get(

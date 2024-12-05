@@ -143,11 +143,9 @@ class SurveyClosingCustomerController extends GetxController {
   Future<void> getClosingCustomer(int closingId) async {
     isLoadingGetClosingCustomer.value = true;
     try {
-      final response =
-          await closingCustomerService.getClosingCustomer(closingId);
+      final response = await closingCustomerService.getClosingCustomer(closingId);
       closingCustomerData.value = response.data;
-      if (closingCustomerData.value!.longitude != 0 &&
-          closingCustomerData.value!.latitude != 0) {
+      if (closingCustomerData.value!.longitude != 0 && closingCustomerData.value!.latitude != 0) {
         selectedLatLng.value = LatLng(
           closingCustomerData.value!.latitude,
           closingCustomerData.value!.longitude,

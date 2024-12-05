@@ -1,6 +1,5 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:dasarata_mobile/config/app_route.dart';
-import 'package:dasarata_mobile/models/customer/closing/response_find_closing_customer_model.dart' as response_find_closing_customer_model;
 import 'package:get/get.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_closing_customer_model.dart';
 import 'package:dasarata_mobile/services/closing_customer_service.dart';
