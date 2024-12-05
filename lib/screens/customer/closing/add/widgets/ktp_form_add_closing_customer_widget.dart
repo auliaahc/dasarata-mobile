@@ -1,5 +1,5 @@
 import 'package:dasarata_mobile/constants/spacing_constant.dart';
-import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/add_closing_customer_controller.dart';
 import 'package:dasarata_mobile/models/customer/closing/district_closing_customer_model.dart'
     as district_closing_customer_model;
 import 'package:dasarata_mobile/models/customer/closing/province_closing_customer_model.dart'
@@ -8,19 +8,22 @@ import 'package:dasarata_mobile/models/customer/closing/regency_closing_customer
     as regency_closing_customer_model;
 import 'package:dasarata_mobile/models/customer/closing/village_closing_customer_model.dart'
     as village_closing_customer_model;
+import 'package:dasarata_mobile/utilities/validator_input_utils.dart';
 import 'package:dasarata_mobile/widgets/date_picker_field_global_widget.dart';
 import 'package:dasarata_mobile/widgets/dropdown_field_global_widget.dart';
 import 'package:dasarata_mobile/widgets/image_picker_field_global_widget.dart';
 import 'package:dasarata_mobile/widgets/text_field_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class KtpFormAddClosingCustomerWidget extends StatelessWidget {
   const KtpFormAddClosingCustomerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ClosingCustomerController closingCustomerController = Get.find();
+    final AddClosingCustomerController addClosingCustomerController =
+        Get.find();
     return Obx(
       () {
         final genderOptions = [
@@ -40,9 +43,14 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.next,
             "keyboardType": TextInputType.number,
             "labelName": "NIK",
-            "controller": closingCustomerController.nikController,
+            "controller": addClosingCustomerController.nikController,
             "maxLines": 1,
-            "onChanged": (value) {},
+            "validator": (String value) => ValidatorInputUtils(
+                  name: "NIK",
+                  value: value,
+                  validationType: ValidationType.fixedCharacterLength,
+                  fixedCharacterLength: 16,
+                ).validate()
           },
           {
             "type": "input",
@@ -50,25 +58,25 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.next,
             "keyboardType": TextInputType.text,
             "labelName": "Nama Lengkap",
-            "controller": closingCustomerController.fullNameController,
-            "onChanged": (value) {},
+            "controller": addClosingCustomerController.fullNameController,
           },
           {
             "type": "dropdown",
             "hint": "Pilih jenis kelamin",
             "labelName": "Jenis Kelamin",
             "items": genderOptions,
-            "data": closingCustomerController.gender.value,
+            "data": addClosingCustomerController.gender.value,
             "getValue": (dynamic item) => item["value"] as String,
             "getLabel": (dynamic item) => item["label"] as String,
             "onChanged": (value) {
-              closingCustomerController.gender.value = value;
+              addClosingCustomerController.gender.value = value;
             },
           },
           {
             "type": "date",
-            "controller": TextEditingController(),
+            "controller": addClosingCustomerController.birthDateController,
             "labelName": "Tanggal Lahir",
+            "onChanged": (value) => addClosingCustomerController.birthDate.value = value,
           },
           {
             "type": "input",
@@ -76,63 +84,62 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.next,
             "keyboardType": TextInputType.text,
             "labelName": "Alamat Lengkap",
-            "controller": closingCustomerController.fullAddressController,
-            "onChanged": (value) {}
+            "controller": addClosingCustomerController.fullAddressController,
           },
           {
             "type": "dropdown",
             "hint": "Pilih provinsi",
             "labelName": "Provinsi",
-            "items": closingCustomerController.provincesData.value ?? [],
-            "data": closingCustomerController.province.value,
+            "items": addClosingCustomerController.provincesData.value ?? [],
+            "data": addClosingCustomerController.province.value,
             "getValue": (dynamic item) =>
                 (item as province_closing_customer_model.Datum).id.toString(),
             "getLabel": (dynamic item) =>
                 (item as province_closing_customer_model.Datum).name,
             "onChanged": (value) {
-              closingCustomerController.getRegenciesData(value!);
+              addClosingCustomerController.getRegenciesData(value!);
             },
           },
           {
             "type": "dropdown",
             "hint": "Pilih kota",
             "labelName": "Kota",
-            "items": closingCustomerController.regenciesData.value ?? [],
-            "data": closingCustomerController.regency.value,
+            "items": addClosingCustomerController.regenciesData.value ?? [],
+            "data": addClosingCustomerController.regency.value,
             "getValue": (dynamic item) =>
                 (item as regency_closing_customer_model.Datum).id.toString(),
             "getLabel": (dynamic item) =>
                 (item as regency_closing_customer_model.Datum).name,
             "onChanged": (value) {
-              closingCustomerController.getDistrictsData(value!);
+              addClosingCustomerController.getDistrictsData(value!);
             },
           },
           {
             "type": "dropdown",
             "hint": "Pilih kecamatan",
             "labelName": "Kecamatan",
-            "items": closingCustomerController.districtsData.value ?? [],
-            "data": closingCustomerController.district.value,
+            "items": addClosingCustomerController.districtsData.value ?? [],
+            "data": addClosingCustomerController.district.value,
             "getValue": (dynamic item) =>
                 (item as district_closing_customer_model.Datum).id.toString(),
             "getLabel": (dynamic item) =>
                 (item as district_closing_customer_model.Datum).name,
             "onChanged": (value) {
-              closingCustomerController.getVillagesData(value!);
+              addClosingCustomerController.getVillagesData(value!);
             },
           },
           {
             "type": "dropdown",
             "hint": "Pilih kelurahan",
             "labelName": "Kelurahan",
-            "items": closingCustomerController.villagesData.value ?? [],
-            "data": closingCustomerController.village.value,
+            "items": addClosingCustomerController.villagesData.value ?? [],
+            "data": addClosingCustomerController.village.value,
             "getValue": (dynamic item) =>
                 (item as village_closing_customer_model.Datum).id.toString(),
             "getLabel": (dynamic item) =>
                 (item as village_closing_customer_model.Datum).name,
             "onChanged": (value) {
-              closingCustomerController.village.value = value;
+              addClosingCustomerController.village.value = value;
             },
           },
           {
@@ -141,9 +148,8 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.next,
             "keyboardType": TextInputType.text,
             "labelName": "RT",
-            "controller": closingCustomerController.rtController,
+            "controller": addClosingCustomerController.rtController,
             "maxLines": 1,
-            "onChanged": (value) {}
           },
           {
             "type": "input",
@@ -151,17 +157,19 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.next,
             "keyboardType": TextInputType.text,
             "labelName": "RW",
-            "controller": closingCustomerController.rwController,
+            "controller": addClosingCustomerController.rwController,
             "maxLines": 1,
-            "onChanged": (value) {}
           },
           {
             "type": "image",
             "labelName": "Foto KTP",
+            "onFileSelected": (XFile? file) {
+              addClosingCustomerController.ktpPhoto.value = file;
+            },
           }
         ];
         return Form(
-          key: closingCustomerController.addClosingCustomerFormKeys[1],
+          key: addClosingCustomerController.addClosingCustomerFormKeys[1],
           onChanged: () {},
           child: ListView.separated(
             shrinkWrap: true,
@@ -189,6 +197,8 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
                 return ImagePickerFieldGlobalField(
                   hint: "Pilih gambar",
                   labelName: inputField["labelName"] as String?,
+                  onFileSelected:
+                      inputField["onFileSelected"] as Function(XFile?)?,
                 );
               } else if (inputField["type"] == "dropdown") {
                 return DropdownFieldGlobalWidget(
@@ -204,6 +214,7 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
                 return DatePickerFieldGlobalWidget(
                   labelName: inputField["labelName"] as String?,
                   controller: inputField["controller"] as TextEditingController,
+                  onChanged: inputField["onChanged"] as Function(String?)?,
                 );
               }
             },

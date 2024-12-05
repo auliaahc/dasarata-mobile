@@ -29,12 +29,10 @@ class DatePickerFieldGlobalWidget extends StatefulWidget {
   });
 
   @override
-  State<DatePickerFieldGlobalWidget> createState() =>
-      _DatePickerFieldGlobalWidgetState();
+  State<DatePickerFieldGlobalWidget> createState() => _DatePickerFieldGlobalWidgetState();
 }
 
-class _DatePickerFieldGlobalWidgetState
-    extends State<DatePickerFieldGlobalWidget> {
+class _DatePickerFieldGlobalWidgetState extends State<DatePickerFieldGlobalWidget> {
   DateTime? selectedDate;
 
   String _formatDateForReturn(DateTime date) {
@@ -50,8 +48,7 @@ class _DatePickerFieldGlobalWidgetState
   Future<void> _selectDate(BuildContext context) async {
     final DateTime currentDate = DateTime.now();
     final DateTime firstDate = DateTime(1900);
-    final DateTime lastDate =
-        currentDate; // Rentang tahun sampai tahun sekarang
+    final DateTime lastDate = currentDate;
 
     final DateTime? pickedDate = await showDatePicker(
       confirmText: "Pilih",

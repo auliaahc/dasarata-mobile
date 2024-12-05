@@ -1,5 +1,5 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
-import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/detail_closing_customer_controller.dart';
 import 'package:dasarata_mobile/controllers/route_closing_customer_controller.dart';
 import 'package:dasarata_mobile/screens/customer/closing/route/widgets/footer/footer_route_closing_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/closing/route/widgets/header/header_route_closing_customer_widget.dart';
@@ -13,13 +13,10 @@ class RouteClosingCustomerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RouteClosingCustomerController routeClosingCustomerController =
-        Get.put(RouteClosingCustomerController());
-    final ClosingCustomerController closingCustomerController =
-        Get.put(ClosingCustomerController());
+    final DetailClosingCustomerController detailClosingCustomerController = Get.put(DetailClosingCustomerController());
+    final RouteClosingCustomerController routeClosingCustomerController = Get.put(RouteClosingCustomerController());
     Get.engine.addPostFrameCallback((_) {
-      routeClosingCustomerController.getClosingCustomerData(
-          closingCustomerController.detailClosingCustomer.value!.id);
+      routeClosingCustomerController.getClosingCustomerData(detailClosingCustomerController.detailClosingCustomer.value!.id);
     });
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(statusBarColor: ColorConstant.whiteColor),

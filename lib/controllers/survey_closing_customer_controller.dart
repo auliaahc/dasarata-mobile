@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/detail_closing_customer_controller.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_survey_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_find_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/response_global_model.dart';
@@ -12,11 +13,10 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SurveyClosingCustomerController extends GetxController {
-  ClosingCustomerController closingCustomerController =
-      Get.put(ClosingCustomerController());
+  ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
   ClosingCustomerService closingCustomerService = ClosingCustomerService();
-  Completer<GoogleMapController> mapsController =
-      Completer<GoogleMapController>();
+  DetailClosingCustomerController detailClosingCustomerController = Get.put(DetailClosingCustomerController());
+  Completer<GoogleMapController> mapsController = Completer<GoogleMapController>();
   Rx<MapType> selectedMapType = Rx<MapType>(MapType.normal);
   Rxn<LatLng> selectedLatLng = Rxn<LatLng>();
   RxSet<Marker> selectedPoint = RxSet<Marker>();
@@ -38,8 +38,7 @@ class SurveyClosingCustomerController extends GetxController {
         ),
       );
       Get.back();
-      closingCustomerController.getClosingCustomerData(
-          closingCustomerController.detailClosingCustomer.value!.id);
+      detailClosingCustomerController.getClosingCustomerData(detailClosingCustomerController.detailClosingCustomer.value!.id);
       closingCustomerController.resetDashboardClosingCustomer();
       SnackbarUtils.show(
         messageText: response.message,
@@ -144,11 +143,9 @@ class SurveyClosingCustomerController extends GetxController {
   Future<void> getClosingCustomer(int closingId) async {
     isLoadingGetClosingCustomer.value = true;
     try {
-      final response =
-          await closingCustomerService.getClosingCustomer(closingId);
+      final response = await closingCustomerService.getClosingCustomer(closingId);
       closingCustomerData.value = response.data;
-      if (closingCustomerData.value!.longitude != 0 &&
-          closingCustomerData.value!.latitude != 0) {
+      if (closingCustomerData.value!.longitude != 0 && closingCustomerData.value!.latitude != 0) {
         selectedLatLng.value = LatLng(
           closingCustomerData.value!.latitude,
           closingCustomerData.value!.longitude,

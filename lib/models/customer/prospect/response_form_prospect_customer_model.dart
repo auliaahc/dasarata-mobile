@@ -8,12 +8,12 @@ class ResponseFormProspectCustomerModel {
     this.message,
   });
 
-  factory ResponseFormProspectCustomerModel.fromJson(
-      Map<String, dynamic> json) {
+  factory ResponseFormProspectCustomerModel.fromJson(Map<String, dynamic> json) {
     return ResponseFormProspectCustomerModel(
-        success: json["success"] ?? false,
-        errors: errorsFromJson(json["errors"]),
-        message: "");
+      success: json["success"] ?? false,
+      errors: errorsFromJson(json["errors"]),
+      message: "",
+    );
   }
 
   static List<String> errorsFromJson(Map<String, dynamic>? errorsJson) {

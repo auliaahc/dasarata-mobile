@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/detail_closing_customer_controller.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_route_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_find_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/response_global_model.dart';
@@ -16,9 +17,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class RouteClosingCustomerController extends GetxController {
   GoogleMapsService googleMapsService = GoogleMapsService();
   ClosingCustomerService closingCustomerService = ClosingCustomerService();
+  DetailClosingCustomerController detailClosingCustomerController = Get.put(DetailClosingCustomerController());
   FlutterMapMath flutterMapMath = FlutterMapMath();
-  Completer<GoogleMapController> mapsController =
-      Completer<GoogleMapController>();
+  Completer<GoogleMapController> mapsController = Completer<GoogleMapController>();
   RxBool isLoadingGetClosingCustomerData = RxBool(false);
   Rxn<Data> closingCustomerDetail = Rxn<Data>();
   Rxn<LatLng> customerLatLng = Rxn<LatLng>();
@@ -31,8 +32,7 @@ class RouteClosingCustomerController extends GetxController {
   RxDouble distance = RxDouble(0);
   RxList<double> listDistance = RxList<double>();
   RxBool isLoadingUpdateRouteData = RxBool(false);
-  ClosingCustomerController closingCustomerController =
-      Get.put(ClosingCustomerController());
+  ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
 
   Future<void> updateRouteData() async {
     isLoadingUpdateRouteData.value = true;
@@ -58,8 +58,7 @@ class RouteClosingCustomerController extends GetxController {
         ),
       );
       Get.back();
-      closingCustomerController.getClosingCustomerData(
-          closingCustomerController.detailClosingCustomer.value!.id);
+      detailClosingCustomerController.getClosingCustomerData(detailClosingCustomerController.detailClosingCustomer.value!.id);
       closingCustomerController.resetDashboardClosingCustomer();
       SnackbarUtils.show(
         messageText: response.message,

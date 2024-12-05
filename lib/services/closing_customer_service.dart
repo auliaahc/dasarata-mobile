@@ -1,8 +1,10 @@
+import 'package:dasarata_mobile/constants/logger_constant.dart';
 import 'package:dasarata_mobile/env/env.dart';
 import 'package:dasarata_mobile/models/customer/closing/district_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/program_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/province_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/regency_closing_customer_model.dart';
+import 'package:dasarata_mobile/models/customer/closing/request_add_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_route_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_spliter_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_survey_closing_customer_model.dart';
@@ -312,6 +314,57 @@ class ClosingCustomerService {
           throw VillageClosingCustomerModel.fromJson(errorResponse);
         } else {
           throw VillageClosingCustomerModel(
+            success: false,
+            message: "Tidak terhubung ke internet",
+          );
+        }
+      }
+    }
+  }
+
+  Future<ResponseGlobalModel> putClosingCustomer({
+    required RequestAddClosingCustomerModel model,
+    required int prospectCustomerId,
+  }) async {
+    final finalUrl = "$url/$prospectCustomerId/store-closing";
+    final token = await SharedPref.getToken();
+    try {
+      final formData = FormData.fromMap({
+        ...model.toJson(),
+        "photo_home_url": await MultipartFile.fromFile(
+          model.photoHome.path,
+          filename: model.photoHome.path.split("/").last,
+        ),
+        "photo_ktp_url": await MultipartFile.fromFile(
+          model.photoKtp.path,
+          filename: model.photoKtp.path.split("/").last,
+        ),
+      });
+      final response = await _dio.put(
+        finalUrl,
+        data: formData,
+        options: Options(
+          headers: {"Authorization": "Bearer $token"},
+          contentType: "multipart/form-data",
+          followRedirects: false,
+        )
+      );
+      final rawResponse = response.data;
+      LoggerConstant.error(rawResponse.toString());
+      return ResponseGlobalModel.fromJson(rawResponse);
+    } on DioException catch (e) {
+      LoggerConstant.error(e.toString());
+      if (e.response?.statusCode == 500) {
+        throw ResponseGlobalModel(
+          success: false,
+          message: "Sesi berakhir",
+        );
+      } else {
+        final errorResponse = e.response?.data;
+        if (errorResponse != null) {
+          throw ResponseGlobalModel.fromJson(errorResponse);
+        } else {
+          throw ResponseGlobalModel(
             success: false,
             message: "Tidak terhubung ke internet",
           );

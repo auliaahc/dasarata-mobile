@@ -1,5 +1,5 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
-import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/detail_closing_customer_controller.dart';
 import 'package:dasarata_mobile/controllers/survey_closing_customer_controller.dart';
 import 'package:dasarata_mobile/screens/customer/closing/survey/widgets/footer/footer_survey_closing_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/closing/survey/widgets/header/header_survey_closing_customer_widget.dart';
@@ -13,13 +13,10 @@ class SurveyClosingCustomerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ClosingCustomerController closingCustomerController =
-        Get.put(ClosingCustomerController());
-    final SurveyClosingCustomerController surveyClosingCustomerController =
-        Get.put(SurveyClosingCustomerController());
+    final SurveyClosingCustomerController surveyClosingCustomerController = Get.put(SurveyClosingCustomerController());
+    final DetailClosingCustomerController detailClosingCustomerController = Get.put(DetailClosingCustomerController());
     Get.engine.addPostFrameCallback((_) {
-      surveyClosingCustomerController
-          .fetchData(closingCustomerController.detailClosingCustomer.value!.id);
+      surveyClosingCustomerController.fetchData(detailClosingCustomerController.detailClosingCustomer.value!.id);
     });
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(statusBarColor: ColorConstant.whiteColor),

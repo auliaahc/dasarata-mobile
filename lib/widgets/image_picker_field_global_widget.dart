@@ -19,12 +19,10 @@ class ImagePickerFieldGlobalField extends StatefulWidget {
   });
 
   @override
-  State<ImagePickerFieldGlobalField> createState() =>
-      _ImagePickerFieldGlobalFieldState();
+  State<ImagePickerFieldGlobalField> createState() => _ImagePickerFieldGlobalFieldState();
 }
 
-class _ImagePickerFieldGlobalFieldState
-    extends State<ImagePickerFieldGlobalField> {
+class _ImagePickerFieldGlobalFieldState extends State<ImagePickerFieldGlobalField> {
   XFile? selectedImage;
 
   @override

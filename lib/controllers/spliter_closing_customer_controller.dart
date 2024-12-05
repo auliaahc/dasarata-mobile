@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/detail_closing_customer_controller.dart';
 import 'package:dasarata_mobile/models/customer/closing/request_spliter_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/response_find_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/spliter_closing_customer_model.dart';
@@ -13,19 +14,17 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SpliterClosingCustomerController extends GetxController {
-  ClosingCustomerController closingCustomerController =
-      Get.put(ClosingCustomerController());
+  ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
   GoogleMapsService googleMapsService = GoogleMapsService();
+  DetailClosingCustomerController detailClosingCustomerController = Get.put(DetailClosingCustomerController()); 
   ClosingCustomerService closingCustomerService = ClosingCustomerService();
-  Completer<GoogleMapController> mapsController =
-      Completer<GoogleMapController>();
+  Completer<GoogleMapController> mapsController = Completer<GoogleMapController>();
   RxInt selectedMapTypeIndex = RxInt(0);
   Rx<MapType> selectedMapType = Rx<MapType>(MapType.normal);
   Rxn<Data> closingCustomerDetail = Rxn<Data>();
   RxSet<Marker> markers = RxSet<Marker>();
   Rxn<List<Datum>> spliters = Rxn<List<Datum>>();
-  Rxn<SpliterClosingCustomerModel> selectedSpliter =
-      Rxn<SpliterClosingCustomerModel>();
+  Rxn<SpliterClosingCustomerModel> selectedSpliter = Rxn<SpliterClosingCustomerModel>();
   Rxn<LatLng> customerLatLng = Rxn<LatLng>();
   RxBool isLoadingUpdateSpliterData = RxBool(false);
   RxBool isLoadingGetClosingCustomerData = RxBool(false);
@@ -42,8 +41,7 @@ class SpliterClosingCustomerController extends GetxController {
         ),
       );
       Get.back();
-      closingCustomerController.getClosingCustomerData(
-          closingCustomerController.detailClosingCustomer.value!.id);
+      detailClosingCustomerController.getClosingCustomerData(detailClosingCustomerController.detailClosingCustomer.value!.id);
       closingCustomerController.resetDashboardClosingCustomer();
       SnackbarUtils.show(
         messageText: response.message,
@@ -87,8 +85,7 @@ class SpliterClosingCustomerController extends GetxController {
   Future<void> getClosingCustomerData(int closingId) async {
     isLoadingGetClosingCustomerData.value = true;
     try {
-      final response =
-          await closingCustomerService.getClosingCustomer(closingId);
+      final response = await closingCustomerService.getClosingCustomer(closingId);
       closingCustomerDetail.value = response.data;
       customerLatLng.value = LatLng(
         closingCustomerDetail.value!.latitude,

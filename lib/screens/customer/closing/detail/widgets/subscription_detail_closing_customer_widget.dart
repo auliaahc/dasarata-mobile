@@ -1,7 +1,7 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/constants/spacing_constant.dart';
 import 'package:dasarata_mobile/constants/text_style_constant.dart';
-import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/detail_closing_customer_controller.dart';
 import 'package:dasarata_mobile/widgets/accordion_global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,12 +11,11 @@ class SubscriptionDetailClosingCustomerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ClosingCustomerController closingCustomerController = Get.find();
+    final DetailClosingCustomerController detailClosingCustomerController = Get.find();
     final TextStyle fieldTextStyle = TextStyleConstant.semiboldCaption.copyWith(
       color: ColorConstant.neutralColor600,
     );
-    final TextStyle valueTextStyle =
-        TextStyleConstant.regularParagraph.copyWith(
+    final TextStyle valueTextStyle = TextStyleConstant.regularParagraph.copyWith(
       color: ColorConstant.neutralColor800,
     );
     return Obx(
@@ -32,9 +31,7 @@ class SubscriptionDetailClosingCustomerWidget extends StatelessWidget {
               ),
               SpacingConstant.verticalSpacing2px,
               Text(
-                closingCustomerController
-                        .detailClosingCustomer.value!.customerCategory ??
-                    "-",
+                detailClosingCustomerController.detailClosingCustomer.value!.customerCategory ?? "-",
                 style: valueTextStyle,
               ),
               SpacingConstant.verticalSpacing12px,
@@ -52,7 +49,7 @@ class SubscriptionDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          closingCustomerController
+                          detailClosingCustomerController
                               .detailClosingCustomer.value!.package.namePackage,
                           style: valueTextStyle,
                         ),
@@ -70,8 +67,7 @@ class SubscriptionDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          closingCustomerController
-                              .detailClosingCustomer.value!.program.nameProgram,
+                          detailClosingCustomerController.detailClosingCustomer.value!.program.nameProgram,
                           style: valueTextStyle,
                         ),
                       ],

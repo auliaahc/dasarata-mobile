@@ -39,7 +39,7 @@ class SearchBarDashboardCustomerWidget extends StatelessWidget {
               if (dashboardCustomerController.selectedCustomerTabIndex.value == 0) {
                 prospectCustomerController.searchProspectCustomer(query);
               } else if (dashboardCustomerController.selectedCustomerTabIndex.value == 1) {
-                closingCustomerController.doSearchClosingCustomer(query);
+                closingCustomerController.searchClosingCustomer(query);
               }
             },
             onChanged: (query) => dashboardCustomerController.searchCustomerQuery.value = query,

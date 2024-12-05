@@ -85,7 +85,7 @@ class AddProspectCustomerController extends GetxController {
     }
   }
 
-  Future<void> onSubmitFormAddProspectCustomer() async {
+  Future<void> submitFormAddProspectCustomer() async {
     if (addProspectFormKey.currentState!.validate()) {
       isLoadingAddProspectCustomer.value = true;
       prospectCustomerData.value = RequestFormProspectCustomerModel(

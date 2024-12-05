@@ -1,6 +1,7 @@
 import 'package:dasarata_mobile/constants/color_constant.dart';
 import 'package:dasarata_mobile/constants/spacing_constant.dart';
 import 'package:dasarata_mobile/controllers/closing_customer_controller.dart';
+import 'package:dasarata_mobile/controllers/detail_closing_customer_controller.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/address_detail_closing_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/documentation_detail_closing_customer_widget.dart';
 import 'package:dasarata_mobile/screens/customer/closing/detail/widgets/personal_detail_closing_customer_widget.dart';
@@ -19,35 +20,33 @@ class DetailClosingCustomerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ClosingCustomerController closingCustomerController =
-        Get.put(ClosingCustomerController());
+    final DetailClosingCustomerController detailClosingCustomerController = Get.put(DetailClosingCustomerController());
+    final ClosingCustomerController closingCustomerController = Get.put(ClosingCustomerController());
+    Get.engine.addPostFrameCallback((_) {
+      detailClosingCustomerController.getClosingCustomerData(closingCustomerController.selectedCustomerId.value!);
+    });
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       appBar: AppbarGlobalWidget(
         title: "Detail Customer Closing",
         implyLeading: true,
         action: Icon(
-          LineIcons.mapMarker,
+          LineIcons.map,
           color: ColorConstant.neutralColor900,
         ),
         tooltip: "Update Status Phase",
-        onPressedAction: () => closingCustomerController
-            .moveToUpdateStatusPhaseScreen(closingCustomerController
-                .detailClosingCustomer.value!.phaseStatus),
+        onPressedAction: () => detailClosingCustomerController.moveToUpdateStatusPhaseScreen(detailClosingCustomerController.detailClosingCustomer.value!.phaseStatus),
       ),
       body: Obx(
         () {
-          if (closingCustomerController.isLoadingGetClosingCustomer.value) {
+          if (detailClosingCustomerController.isLoadingGetClosingCustomer.value) {
             return const Center(
               child: LoadingAnimationGlobalWidget(),
             );
-          } else if (closingCustomerController.detailClosingCustomer.value ==
-              null) {
-            return Expanded(
-              child: Center(
-                child: EmptyStateGlobalWidget(
-                  additionalSpacing: SpacingConstant.verticalSpacing80px,
-                ),
+          } else if (detailClosingCustomerController.detailClosingCustomer.value == null) {
+            return Center(
+              child: EmptyStateGlobalWidget(
+                additionalSpacing: SpacingConstant.verticalSpacing80px,
               ),
             );
           } else {

@@ -44,8 +44,7 @@ class AppbarGlobalWidget extends StatelessWidget
       backgroundColor: ColorConstant.whiteColor,
       centerTitle: true,
       title: Text(title),
-      titleTextStyle:
-          TextStyleConstant.semiboldTitle.copyWith(fontFamily: "Poppins"),
+      titleTextStyle: TextStyleConstant.semiboldTitle.copyWith(fontFamily: "Poppins"),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(50),

@@ -20,7 +20,7 @@ class SubmitButtonAddProspectCustomerWidget extends StatelessWidget {
             isLoading: addProspectCustomerController.isLoadingAddProspectCustomer.value,
             isDisabled: isDisabled,
             label: "Submit",
-            onTap: addProspectCustomerController.onSubmitFormAddProspectCustomer,
+            onTap: addProspectCustomerController.submitFormAddProspectCustomer,
           );
         },
       ),
