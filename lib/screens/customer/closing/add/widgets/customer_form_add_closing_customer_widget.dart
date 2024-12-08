@@ -27,7 +27,7 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
             "labelName": "Nama Customer Prospek",
             "enabled": false,
             "maxLines": 1,
-            "controller": addClosingCustomerController.nameProspectController,
+            "controller": addClosingCustomerController.nameProspect,
           },
           {
             "type": "dropdown",
@@ -71,7 +71,7 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.next,
             "keyboardType": TextInputType.text,
             "labelName": "Alamat Terpasang",
-            "controller": addClosingCustomerController.installedAddressController,
+            "controller": addClosingCustomerController.installedAddress,
           },
           {
             "type": "image",

@@ -20,8 +20,7 @@ class NextButtonFooterMapsProspectCustomerWidget extends StatelessWidget {
           isDisabled: isDisabled,
           label: "Selanjutnya",
           onTap: () {
-            addProspectCustomerController.address.value = mapsProspectCustomerController.currentAddress.value;
-            addProspectCustomerController.addressController.text = mapsProspectCustomerController.currentAddress.value!;
+            addProspectCustomerController.address.text = mapsProspectCustomerController.currentAddress.value!;
             Get.back();
           },
         );

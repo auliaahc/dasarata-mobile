@@ -17,15 +17,11 @@ class AddProspectCustomerController extends GetxController {
   Rxn<List<category_prospect_customer_model.Datum>> prospectCategoryData = Rxn<List<category_prospect_customer_model.Datum>>();
   Rxn<List<meet_prospect_customer_model.Datum>> prospectMeetData = Rxn<List<meet_prospect_customer_model.Datum>>();
   final GlobalKey<FormState> addProspectFormKey = GlobalKey<FormState>();
-  Rxn<RequestFormProspectCustomerModel> prospectCustomerData = Rxn<RequestFormProspectCustomerModel>();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  RxnString name = RxnString();
-  RxnString address = RxnString();
-  RxnString phone = RxnString();
-  RxnString prospectMeetValue = RxnString();
-  RxnString prospectCategoryValue = RxnString();
+  TextEditingController name = TextEditingController();
+  TextEditingController address = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  RxnString prospectMeet = RxnString();
+  RxnString prospectCategory = RxnString();
   RxBool isFormAddProspectCustomerValid = RxBool(false);
   RxBool isLoadingProspectCategory = RxBool(false);
   RxBool isLoadingProspectMeet = RxBool(false);
@@ -88,16 +84,16 @@ class AddProspectCustomerController extends GetxController {
   Future<void> submitFormAddProspectCustomer() async {
     if (addProspectFormKey.currentState!.validate()) {
       isLoadingAddProspectCustomer.value = true;
-      prospectCustomerData.value = RequestFormProspectCustomerModel(
+      RequestFormProspectCustomerModel prospectCustomerData = RequestFormProspectCustomerModel(
         nipSalesId: salesNip.value!,
-        prospectCategoryId: int.parse(prospectCategoryValue.value!),
-        prospectMeetId: int.parse(prospectMeetValue.value!),
-        name: name.value!,
-        phoneNumber: phone.value!,
-        installedAddress: address.value!,
+        prospectCategoryId: int.parse(prospectCategory.value!),
+        prospectMeetId: int.parse(prospectMeet.value!),
+        name: name.text,
+        phoneNumber: phone.text,
+        installedAddress: address.text,
       );
       try {
-        final response = await prospectCustomerService.createProspectCustomer(prospectCustomerData.value!);
+        final response = await prospectCustomerService.createProspectCustomer(prospectCustomerData);
         if (response.success) {
           SnackbarUtils.show(
             messageText: "Data customer prospek berhasil ditambahkan!",
@@ -129,10 +125,10 @@ class AddProspectCustomerController extends GetxController {
   }
 
   void validateFormAddProspectCustomer() {
-    isFormAddProspectCustomerValid.value = nameController.text.isNotEmpty &&
-        addressController.text.isNotEmpty &&
-        phoneController.text.isNotEmpty &&
-        prospectMeetValue.value != null &&
-        prospectCategoryValue.value != null;
+    isFormAddProspectCustomerValid.value = name.text.isNotEmpty &&
+        address.text.isNotEmpty &&
+        phone.text.isNotEmpty &&
+        prospectMeet.value != null &&
+        prospectCategory.value != null;
   }
 }

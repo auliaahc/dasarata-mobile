@@ -24,8 +24,7 @@ class FormAddProspectCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.next,
             "keyboardType": TextInputType.text,
             "labelName": "Nama",
-            "controller": addProspectCustomerController.nameController,
-            "onChanged": (String value) => addProspectCustomerController.name.value = value,
+            "controller": addProspectCustomerController.name,
           },
           {
             "type": "input",
@@ -34,9 +33,8 @@ class FormAddProspectCustomerWidget extends StatelessWidget {
             "keyboardType": TextInputType.text,
             "labelName": "Alamat",
             "additionalLabel": "Maps",
-            "controller": addProspectCustomerController.addressController,
+            "controller": addProspectCustomerController.address,
             "additionalAction": () => Get.toNamed(AppRoute.prospectMaps),
-            "onChanged": (String value) => addProspectCustomerController.address.value = value,
           },
           {
             "type": "input",
@@ -44,8 +42,7 @@ class FormAddProspectCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.done,
             "keyboardType": TextInputType.phone,
             "labelName": "Nomor Telepon",
-            "controller": addProspectCustomerController.phoneController,
-            "onChanged": (String value) => addProspectCustomerController.phone.value = value,
+            "controller": addProspectCustomerController.phone,
             "maxLines": 1,
             "validator": (String? value) => ValidatorInputUtils(
                   name: "Nomor Telepon",
@@ -58,11 +55,11 @@ class FormAddProspectCustomerWidget extends StatelessWidget {
             "hint": "Pilih metode bertemu",
             "labelName": "Metode Bertemu",
             "items": addProspectCustomerController.prospectMeetData.value ?? [],
-            "data": addProspectCustomerController.prospectMeetValue.value,
+            "data": addProspectCustomerController.prospectMeet.value,
             "getValue": (dynamic item) => (item as meet_prospect_customer_model.Datum).id.toString(),
             "getLabel": (dynamic item) => (item as meet_prospect_customer_model.Datum).meetCategory,
             "onChanged": (String? value) {
-              addProspectCustomerController.prospectMeetValue.value = value;
+              addProspectCustomerController.prospectMeet.value = value;
               addProspectCustomerController.validateFormAddProspectCustomer();
             }
           },
@@ -71,11 +68,11 @@ class FormAddProspectCustomerWidget extends StatelessWidget {
             "hint": "Pilih status awal",
             "labelName": "Status Awal",
             "items": addProspectCustomerController.prospectCategoryData.value ?? [],
-            "data": addProspectCustomerController.prospectCategoryValue.value,
+            "data": addProspectCustomerController.prospectCategory.value,
             "getValue": (dynamic item) => (item as category_prospect_customer_model.Datum).id.toString(),
             "getLabel": (dynamic item) => (item as category_prospect_customer_model.Datum).nameCategory,
             "onChanged": (String? value) {
-              addProspectCustomerController.prospectCategoryValue.value = value;
+              addProspectCustomerController.prospectCategory.value = value;
               addProspectCustomerController.validateFormAddProspectCustomer();
             }
           },

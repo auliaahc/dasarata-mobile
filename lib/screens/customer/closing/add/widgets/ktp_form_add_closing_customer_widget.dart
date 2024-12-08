@@ -43,7 +43,7 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.next,
             "keyboardType": TextInputType.number,
             "labelName": "NIK",
-            "controller": addClosingCustomerController.nikController,
+            "controller": addClosingCustomerController.nik,
             "maxLines": 1,
             "validator": (String value) => ValidatorInputUtils(
                   name: "NIK",
@@ -58,7 +58,7 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.next,
             "keyboardType": TextInputType.text,
             "labelName": "Nama Lengkap",
-            "controller": addClosingCustomerController.fullNameController,
+            "controller": addClosingCustomerController.fullName,
           },
           {
             "type": "dropdown",
@@ -74,7 +74,7 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
           },
           {
             "type": "date",
-            "controller": addClosingCustomerController.birthDateController,
+            "controller": addClosingCustomerController.birthDate,
             "labelName": "Tanggal Lahir",
             "onChanged": (value) => addClosingCustomerController.birthDate.value = value,
           },
@@ -84,7 +84,7 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.next,
             "keyboardType": TextInputType.text,
             "labelName": "Alamat Lengkap",
-            "controller": addClosingCustomerController.fullAddressController,
+            "controller": addClosingCustomerController.fullAddress,
           },
           {
             "type": "dropdown",
@@ -148,7 +148,7 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.next,
             "keyboardType": TextInputType.text,
             "labelName": "RT",
-            "controller": addClosingCustomerController.rtController,
+            "controller": addClosingCustomerController.rt,
             "maxLines": 1,
           },
           {
@@ -157,7 +157,7 @@ class KtpFormAddClosingCustomerWidget extends StatelessWidget {
             "textInputAction": TextInputAction.next,
             "keyboardType": TextInputType.text,
             "labelName": "RW",
-            "controller": addClosingCustomerController.rwController,
+            "controller": addClosingCustomerController.rw,
             "maxLines": 1,
           },
           {

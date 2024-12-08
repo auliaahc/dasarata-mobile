@@ -1,6 +1,4 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
-import 'package:dasarata_mobile/models/customer/closing/request_add_closing_customer_model.dart';
-import 'package:dasarata_mobile/models/response_global_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,9 +6,11 @@ import 'package:dasarata_mobile/models/customer/closing/district_closing_custome
 import 'package:dasarata_mobile/models/customer/closing/program_closing_customer_model.dart' as program_closing_customer_model;
 import 'package:dasarata_mobile/models/customer/closing/province_closing_customer_model.dart' as province_closing_customer_model;
 import 'package:dasarata_mobile/models/customer/closing/regency_closing_customer_model.dart' as regency_closing_customer_model;
+import 'package:dasarata_mobile/models/customer/closing/request_add_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/service_package_closing_customer_model.dart' as service_package_closing_customer_model;
 import 'package:dasarata_mobile/models/customer/closing/village_closing_customer_model.dart' as village_closing_customer_model;
 import 'package:dasarata_mobile/models/customer/prospect/response_find_prospect_customer_model.dart' as find_prospect_customer_model;
+import 'package:dasarata_mobile/models/response_global_model.dart';
 import 'package:dasarata_mobile/services/closing_customer_service.dart';
 import 'package:dasarata_mobile/services/prospect_customer_service.dart';
 import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
@@ -31,14 +31,14 @@ class AddClosingCustomerController extends GetxController {
   RxnString gender = RxnString();
   RxnString servicePackage = RxnString();
   RxnString program = RxnString();
-  TextEditingController nameProspectController = TextEditingController();
-  TextEditingController installedAddressController = TextEditingController();
-  TextEditingController nikController = TextEditingController();
-  TextEditingController fullNameController = TextEditingController();
+  TextEditingController nameProspect = TextEditingController();
+  TextEditingController installedAddress = TextEditingController();
+  TextEditingController nik = TextEditingController();
+  TextEditingController fullName = TextEditingController();
   RxnString birthDate = RxnString();
-  TextEditingController fullAddressController = TextEditingController();
-  TextEditingController rtController = TextEditingController();
-  TextEditingController rwController = TextEditingController();
+  TextEditingController fullAddress = TextEditingController();
+  TextEditingController rt = TextEditingController();
+  TextEditingController rw = TextEditingController();
   Rxn<List<province_closing_customer_model.Datum>> provincesData = Rxn<List<province_closing_customer_model.Datum>>();
   Rxn<List<regency_closing_customer_model.Datum>> regenciesData = Rxn<List<regency_closing_customer_model.Datum>>();
   Rxn<List<district_closing_customer_model.Datum>> districtsData = Rxn<List<district_closing_customer_model.Datum>>();
@@ -53,20 +53,20 @@ class AddClosingCustomerController extends GetxController {
 
   Future<void> submitAddClosingCustomer() async {
     final data = RequestAddClosingCustomerModel(
-      nik: nikController.text,
-      fullName: fullNameController.text,
-      domicileAddress: installedAddressController.text,
+      nik: nik.text,
+      fullName: fullName.text,
+      domicileAddress: installedAddress.text,
       dateOfBirth: birthDate.value!,
       gender: gender.value!,
       provincesId: int.parse(province.value!),
       regencyId: int.parse(regency.value!),
       districtId: int.parse(district.value!),
       villageId: int.parse(village.value!),
-      rt: int.parse(rtController.text),
-      rw: int.parse(rwController.text),
+      rt: int.parse(rt.text),
+      rw: int.parse(rw.text),
       customerCategory: customerType.value!,
       servicePackageId: int.parse(servicePackage.value!),
-      installedAddress: installedAddressController.text,
+      installedAddress: installedAddress.text,
       photoHome: homePhoto.value!,
       photoKtp: ktpPhoto.value!,
     );
@@ -104,8 +104,8 @@ class AddClosingCustomerController extends GetxController {
     try {
       final response = await prospectCustomerService.getProspectCustomer(customerId);
       prospectCustomerData.value = response.data;
-      nameProspectController.text = prospectCustomerData.value!.name;
-      installedAddressController.text = prospectCustomerData.value!.installedAddress;
+      nameProspect.text = prospectCustomerData.value!.name;
+      installedAddress.text = prospectCustomerData.value!.installedAddress;
     } catch (e) {
       if (e is find_prospect_customer_model.ResponseFindProspectCustomerModel) {
         SnackbarUtils.show(

@@ -109,8 +109,7 @@ class SurveyClosingCustomerController extends GetxController {
       );
       updateMarker(selectedLatLng.value!);
       moveCamera(selectedLatLng.value!);
-      latLngController.text =
-          "${selectedLatLng.value!.latitude}, ${selectedLatLng.value!.longitude}";
+      latLngController.text = "${selectedLatLng.value!.latitude}, ${selectedLatLng.value!.longitude}";
     } catch (e) {
       SnackbarUtils.show(
         messageText: e.toString(),
