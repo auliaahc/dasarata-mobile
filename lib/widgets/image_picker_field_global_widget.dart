@@ -66,8 +66,11 @@ class _ImagePickerFieldGlobalFieldState extends State<ImagePickerFieldGlobalFiel
                 LineIcons.camera,
                 color: ColorConstant.primaryColor,
               ),
-              title: const Text(
+              title: Text(
                 "Ambil dari Kamera",
+                style: TextStyleConstant.regularParagraph.copyWith(
+                  color: ColorConstant.neutralColor900,
+                ),
               ),
               onTap: () async {
                 Navigator.pop(context);
@@ -80,8 +83,11 @@ class _ImagePickerFieldGlobalFieldState extends State<ImagePickerFieldGlobalFiel
                 LineIcons.photoVideo,
                 color: ColorConstant.primaryColor,
               ),
-              title: const Text(
+              title: Text(
                 "Pilih dari Galeri",
+                style: TextStyleConstant.regularParagraph.copyWith(
+                  color: ColorConstant.neutralColor900,
+                ),
               ),
               onTap: () async {
                 Navigator.pop(context);

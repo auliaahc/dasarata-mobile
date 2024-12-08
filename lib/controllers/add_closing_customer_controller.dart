@@ -1,4 +1,5 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -25,6 +26,7 @@ import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
 class AddClosingCustomerController extends GetxController {
   ClosingCustomerService closingCustomerService = ClosingCustomerService();
   ProspectCustomerService prospectCustomerService = ProspectCustomerService();
+  final ProspectCustomerController prospectCustomerController = Get.put(ProspectCustomerController());
   RxInt selectedStepperIndex = RxInt(0);
   final addClosingCustomerFormKeys = [
     GlobalKey<FormState>(),
@@ -64,7 +66,6 @@ class AddClosingCustomerController extends GetxController {
     isFormAddClosingCustomerValid.value = nameProspect.text.isNotEmpty &&
         customerType.value != null &&
         servicePackage.value != null &&
-        program.value != null &&
         installedAddress.text.isNotEmpty &&
         homePhoto.value != null &&
         nik.text.isNotEmpty &&
@@ -85,6 +86,7 @@ class AddClosingCustomerController extends GetxController {
     if (addClosingCustomerFormKeys[1].currentState!.validate()) {
       isLoadingAddClosingCustomer.value = true;
       final data = RequestAddClosingCustomerModel(
+        programId: int.tryParse(program.value ?? ""),
         nik: nik.text,
         fullName: fullName.text,
         domicileAddress: installedAddress.text,
@@ -107,12 +109,11 @@ class AddClosingCustomerController extends GetxController {
           model: data,
           prospectCustomerId: prospectCustomerData.value!.id,
         );
-        if (response.success) {
-          SnackbarUtils.show(
-            messageText: "Berhasil menambahkan customer closing",
-            type: AnimatedSnackBarType.success,
-          );
-        }
+        SnackbarUtils.show(
+          messageText: response.message,
+          type: AnimatedSnackBarType.success,
+        );
+        prospectCustomerController.resetDashboardProspectCustomer();
         Get.back();
       } catch (e) {
         if (e is ResponseGlobalModel) {
@@ -124,6 +125,11 @@ class AddClosingCustomerController extends GetxController {
       } finally {
         isLoadingAddClosingCustomer.value = false;
       }
+    } else {
+      SnackbarUtils.show(
+        messageText: "Terdapat kesalahan, silakan periksa kembali formulir",
+        type: AnimatedSnackBarType.error,
+      );
     }
   }
 

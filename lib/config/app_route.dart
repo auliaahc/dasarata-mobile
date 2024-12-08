@@ -54,6 +54,11 @@ class AppRoute {
         name: routeClosingCustomer,
         page: () => const RouteClosingCustomerScreen()),
     GetPage(
-        name: addClosingCustomer, page: () => const AddClosingCustomerScreen()),
+      name: addClosingCustomer,
+      page: () => const AddClosingCustomerScreen(),
+      transition: Transition.downToUp,
+      transitionDuration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    ),
   ];
 }
