@@ -13,10 +13,9 @@ class NextButtonFooterMapsProspectCustomerWidget extends StatelessWidget {
     final AddProspectCustomerController addProspectCustomerController = Get.find();
     return Obx(
       () {
-        bool isLoading = mapsProspectCustomerController.isLoadingGetAddress.value || mapsProspectCustomerController.currentLatLng.value == null;
-        bool isDisabled = mapsProspectCustomerController.isLoadingGetAddress.value || mapsProspectCustomerController.currentLatLng.value == null;
+        bool isDisabled = mapsProspectCustomerController.currentAddress.value == null || mapsProspectCustomerController.currentLatLng.value == null;
         return ButtonGlobalWidget(
-          isLoading: isLoading,
+          isLoading: false,
           isDisabled: isDisabled,
           label: "Selanjutnya",
           onTap: () {

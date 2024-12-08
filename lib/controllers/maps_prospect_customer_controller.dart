@@ -25,11 +25,13 @@ class MapsProspectCustomerController extends GetxController {
   TextEditingController searchMapsController = TextEditingController();
   RxnString searchMaps = RxnString();
 
-  void checkAddressForSearchController(String? address) {
+  void checkAddressForSearchController(String? address) async {
     if (address != null && address != "") {
+      getCurrentPosition();
       searchMapsController.text = address;
       searchMaps.value = searchMapsController.text;
-      submitSearchMaps(searchMaps.value!);
+
+      await submitSearchMaps(searchMaps.value!);
     } else {
       searchMapsController.clear();
       getCurrentPosition();

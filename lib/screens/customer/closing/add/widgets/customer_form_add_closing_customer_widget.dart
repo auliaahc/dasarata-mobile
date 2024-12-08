@@ -28,6 +28,7 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
             "enabled": false,
             "maxLines": 1,
             "controller": addClosingCustomerController.nameProspect,
+            "onChanged": (_) => addClosingCustomerController.validateFormAddClosingCustomer()
           },
           {
             "type": "dropdown",
@@ -39,6 +40,7 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
             "getLabel": (dynamic item) => item as String,
             "onChanged": (String? value) {
               addClosingCustomerController.customerType.value = value;
+              addClosingCustomerController.validateFormAddClosingCustomer();
             },
           },
           {
@@ -51,6 +53,7 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
             "getLabel": (dynamic item) => (item as service_package_closing_customer_model.Datum).packageName,
             "onChanged": (String? value) {
               addClosingCustomerController.servicePackage.value = value;
+              addClosingCustomerController.validateFormAddClosingCustomer();
             },
           },
           {
@@ -63,6 +66,7 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
             "getLabel": (dynamic item) => (item as program_closing_customer_model.Datum).nameProgram,
             "onChanged": (String? value) {
               addClosingCustomerController.program.value = value;
+              addClosingCustomerController.validateFormAddClosingCustomer();
             },
           },
           {
@@ -72,25 +76,25 @@ class CustomerFormAddClosingCustomerWidget extends StatelessWidget {
             "keyboardType": TextInputType.text,
             "labelName": "Alamat Terpasang",
             "controller": addClosingCustomerController.installedAddress,
+            "onChanged": (_) => addClosingCustomerController.validateFormAddClosingCustomer()
           },
           {
             "type": "image",
             "labelName": "Foto Rumah",
             "onFileSelected": (XFile? file) {
               addClosingCustomerController.homePhoto.value = file;
+              addClosingCustomerController.validateFormAddClosingCustomer();
             }
           }
         ];
         return Form(
           key: addClosingCustomerController.addClosingCustomerFormKeys[0],
-          onChanged: () {},
+          onChanged: () => addClosingCustomerController.validateFormAddClosingCustomer(),
           child: Padding(
-            padding: const EdgeInsets.only(top: 32),
+            padding: const EdgeInsets.only(top: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // const Text("Data Customer"),
-                // SpacingConstant.verticalSpacing12px,
                 ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

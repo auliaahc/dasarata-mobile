@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
-import 'package:dasarata_mobile/config/app_route.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:dasarata_mobile/config/app_route.dart';
 import 'package:dasarata_mobile/models/customer/prospect/response_prospect_customer_model.dart';
 import 'package:dasarata_mobile/screens/customer/prospect/dashboard/widgets/detail_dialog_dashboard_prospect_customer_widget.dart';
 import 'package:dasarata_mobile/services/prospect_customer_service.dart';

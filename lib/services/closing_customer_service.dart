@@ -1,4 +1,3 @@
-import 'package:dasarata_mobile/constants/logger_constant.dart';
 import 'package:dasarata_mobile/env/env.dart';
 import 'package:dasarata_mobile/models/customer/closing/district_closing_customer_model.dart';
 import 'package:dasarata_mobile/models/customer/closing/program_closing_customer_model.dart';
@@ -322,7 +321,7 @@ class ClosingCustomerService {
     }
   }
 
-  Future<ResponseGlobalModel> putClosingCustomer({
+  Future<ResponseGlobalModel> createClosingCustomer({
     required RequestAddClosingCustomerModel model,
     required int prospectCustomerId,
   }) async {
@@ -340,7 +339,7 @@ class ClosingCustomerService {
           filename: model.photoKtp.path.split("/").last,
         ),
       });
-      final response = await _dio.put(
+      final response = await _dio.post(
         finalUrl,
         data: formData,
         options: Options(
@@ -350,10 +349,8 @@ class ClosingCustomerService {
         )
       );
       final rawResponse = response.data;
-      LoggerConstant.error(rawResponse.toString());
       return ResponseGlobalModel.fromJson(rawResponse);
     } on DioException catch (e) {
-      LoggerConstant.error(e.toString());
       if (e.response?.statusCode == 500) {
         throw ResponseGlobalModel(
           success: false,

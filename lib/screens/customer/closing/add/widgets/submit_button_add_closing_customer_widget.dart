@@ -13,11 +13,16 @@ class SubmitButtonAddClosingCustomerWidget extends StatelessWidget {
       left: 0,
       right: 0,
       bottom: 32,
-      child: ButtonGlobalWidget(
-        isLoading: false,
-        isDisabled: false,
-        label: "Submit",
-        onTap: addClosingCustomerController.submitAddClosingCustomer,
+      child: Obx(
+        () {
+          final isDisabled = !addClosingCustomerController.isFormAddClosingCustomerValid.value || addClosingCustomerController.isLoadingAddClosingCustomer.value;
+          return ButtonGlobalWidget(
+            isLoading: addClosingCustomerController.isLoadingAddClosingCustomer.value,
+            isDisabled: isDisabled,
+            label: "Submit",
+            onTap: addClosingCustomerController.submitAddClosingCustomer,
+          );
+        },
       ),
     );
   }

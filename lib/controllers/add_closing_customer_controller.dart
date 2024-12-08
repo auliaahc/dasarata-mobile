@@ -2,14 +2,21 @@ import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:dasarata_mobile/models/customer/closing/district_closing_customer_model.dart' as district_closing_customer_model;
-import 'package:dasarata_mobile/models/customer/closing/program_closing_customer_model.dart' as program_closing_customer_model;
-import 'package:dasarata_mobile/models/customer/closing/province_closing_customer_model.dart' as province_closing_customer_model;
-import 'package:dasarata_mobile/models/customer/closing/regency_closing_customer_model.dart' as regency_closing_customer_model;
+import 'package:dasarata_mobile/models/customer/closing/district_closing_customer_model.dart'
+    as district_closing_customer_model;
+import 'package:dasarata_mobile/models/customer/closing/program_closing_customer_model.dart'
+    as program_closing_customer_model;
+import 'package:dasarata_mobile/models/customer/closing/province_closing_customer_model.dart'
+    as province_closing_customer_model;
+import 'package:dasarata_mobile/models/customer/closing/regency_closing_customer_model.dart'
+    as regency_closing_customer_model;
 import 'package:dasarata_mobile/models/customer/closing/request_add_closing_customer_model.dart';
-import 'package:dasarata_mobile/models/customer/closing/service_package_closing_customer_model.dart' as service_package_closing_customer_model;
-import 'package:dasarata_mobile/models/customer/closing/village_closing_customer_model.dart' as village_closing_customer_model;
-import 'package:dasarata_mobile/models/customer/prospect/response_find_prospect_customer_model.dart' as find_prospect_customer_model;
+import 'package:dasarata_mobile/models/customer/closing/service_package_closing_customer_model.dart'
+    as service_package_closing_customer_model;
+import 'package:dasarata_mobile/models/customer/closing/village_closing_customer_model.dart'
+    as village_closing_customer_model;
+import 'package:dasarata_mobile/models/customer/prospect/response_find_prospect_customer_model.dart'
+    as find_prospect_customer_model;
 import 'package:dasarata_mobile/models/response_global_model.dart';
 import 'package:dasarata_mobile/services/closing_customer_service.dart';
 import 'package:dasarata_mobile/services/prospect_customer_service.dart';
@@ -50,44 +57,72 @@ class AddClosingCustomerController extends GetxController {
   Rxn<XFile> homePhoto = Rxn<XFile>();
   Rxn<XFile> ktpPhoto = Rxn<XFile>();
   TextEditingController birthDateController = TextEditingController();
+  RxBool isFormAddClosingCustomerValid = RxBool(false);
+  RxBool isLoadingAddClosingCustomer = RxBool(false);
+
+  void validateFormAddClosingCustomer() {
+    isFormAddClosingCustomerValid.value = nameProspect.text.isNotEmpty &&
+        customerType.value != null &&
+        servicePackage.value != null &&
+        program.value != null &&
+        installedAddress.text.isNotEmpty &&
+        homePhoto.value != null &&
+        nik.text.isNotEmpty &&
+        fullName.text.isNotEmpty &&
+        gender.value != null &&
+        birthDate.value != null &&
+        fullAddress.text.isNotEmpty &&
+        province.value != null &&
+        regency.value != null &&
+        district.value != null &&
+        village.value != null &&
+        rt.text.isNotEmpty &&
+        rw.text.isNotEmpty &&
+        ktpPhoto.value != null;
+  }
 
   Future<void> submitAddClosingCustomer() async {
-    final data = RequestAddClosingCustomerModel(
-      nik: nik.text,
-      fullName: fullName.text,
-      domicileAddress: installedAddress.text,
-      dateOfBirth: birthDate.value!,
-      gender: gender.value!,
-      provincesId: int.parse(province.value!),
-      regencyId: int.parse(regency.value!),
-      districtId: int.parse(district.value!),
-      villageId: int.parse(village.value!),
-      rt: int.parse(rt.text),
-      rw: int.parse(rw.text),
-      customerCategory: customerType.value!,
-      servicePackageId: int.parse(servicePackage.value!),
-      installedAddress: installedAddress.text,
-      photoHome: homePhoto.value!,
-      photoKtp: ktpPhoto.value!,
-    );
-    try {
-      final response = await closingCustomerService.putClosingCustomer(
-        model: data,
-        prospectCustomerId: prospectCustomerData.value!.id,
+    if (addClosingCustomerFormKeys[1].currentState!.validate()) {
+      isLoadingAddClosingCustomer.value = true;
+      final data = RequestAddClosingCustomerModel(
+        nik: nik.text,
+        fullName: fullName.text,
+        domicileAddress: installedAddress.text,
+        dateOfBirth: birthDate.value!,
+        gender: gender.value!,
+        provincesId: int.parse(province.value!),
+        regencyId: int.parse(regency.value!),
+        districtId: int.parse(district.value!),
+        villageId: int.parse(village.value!),
+        rt: int.parse(rt.text),
+        rw: int.parse(rw.text),
+        customerCategory: customerType.value!,
+        servicePackageId: int.parse(servicePackage.value!),
+        installedAddress: installedAddress.text,
+        photoHome: homePhoto.value!,
+        photoKtp: ktpPhoto.value!,
       );
-      if (response.success) {
-        SnackbarUtils.show(
-          messageText: "Berhasil menambahkan customer closing",
-          type: AnimatedSnackBarType.success,
+      try {
+        final response = await closingCustomerService.createClosingCustomer(
+          model: data,
+          prospectCustomerId: prospectCustomerData.value!.id,
         );
-      }
-      Get.back();
-    } catch (e) {
-      if (e is ResponseGlobalModel) {
-        SnackbarUtils.show(
-          messageText: e.message,
-          type: AnimatedSnackBarType.error,
-        );
+        if (response.success) {
+          SnackbarUtils.show(
+            messageText: "Berhasil menambahkan customer closing",
+            type: AnimatedSnackBarType.success,
+          );
+        }
+        Get.back();
+      } catch (e) {
+        if (e is ResponseGlobalModel) {
+          SnackbarUtils.show(
+            messageText: e.message,
+            type: AnimatedSnackBarType.error,
+          );
+        }
+      } finally {
+        isLoadingAddClosingCustomer.value = false;
       }
     }
   }
@@ -102,7 +137,8 @@ class AddClosingCustomerController extends GetxController {
   Future<void> getProspectCustomerData(int customerId) async {
     isLoadingProspectCustomerData.value = true;
     try {
-      final response = await prospectCustomerService.getProspectCustomer(customerId);
+      final response =
+          await prospectCustomerService.getProspectCustomer(customerId);
       prospectCustomerData.value = response.data;
       nameProspect.text = prospectCustomerData.value!.name;
       installedAddress.text = prospectCustomerData.value!.installedAddress;

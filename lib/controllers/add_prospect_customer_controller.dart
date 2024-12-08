@@ -1,4 +1,5 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
 import 'package:dasarata_mobile/models/customer/prospect/response_form_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/profile/response_profile_model.dart';
 import 'package:dasarata_mobile/services/profile_service.dart';
@@ -11,6 +12,7 @@ import 'package:dasarata_mobile/models/customer/prospect/meet_prospect_customer_
 import 'package:dasarata_mobile/models/customer/prospect/request_form_prospect_customer_model.dart';
 
 class AddProspectCustomerController extends GetxController {
+  final ProspectCustomerController prospectCustomerController = Get.put(ProspectCustomerController());
   ProfileService profileService = ProfileService();
   RxnString salesNip = RxnString();
   ProspectCustomerService prospectCustomerService = ProspectCustomerService();
@@ -84,6 +86,9 @@ class AddProspectCustomerController extends GetxController {
   Future<void> submitFormAddProspectCustomer() async {
     if (addProspectFormKey.currentState!.validate()) {
       isLoadingAddProspectCustomer.value = true;
+      if (phone.text.startsWith("0")) {
+        phone.text = phone.text.replaceFirst("0", "62");
+      }
       RequestFormProspectCustomerModel prospectCustomerData = RequestFormProspectCustomerModel(
         nipSalesId: salesNip.value!,
         prospectCategoryId: int.parse(prospectCategory.value!),
@@ -100,8 +105,8 @@ class AddProspectCustomerController extends GetxController {
             type: AnimatedSnackBarType.success,
           );
         }
+        prospectCustomerController.resetDashboardProspectCustomer();
         Get.back();
-        Get.delete<AddProspectCustomerController>();
       } catch (e) {
         if (e is ResponseFormProspectCustomerModel) {
           if (e.errors != null) {
