@@ -26,7 +26,7 @@ class MapsProspectCustomerController extends GetxController {
   RxnString searchMaps = RxnString();
 
   void checkAddressForSearchController(String? address) {
-    if (address != null) {
+    if (address != null && address != "") {
       searchMapsController.text = address;
       searchMaps.value = searchMapsController.text;
       submitSearchMaps(searchMaps.value!);

@@ -17,7 +17,7 @@ class MapsProspectCustomerScreen extends StatelessWidget {
     final AddProspectCustomerController addProspectCustomerController = Get.put(AddProspectCustomerController());
     Get.engine.addPostFrameCallback((_) {
       mapsProspectCustomerController.getSpliterData();
-      mapsProspectCustomerController.checkAddressForSearchController(addProspectCustomerController.address.value);
+      mapsProspectCustomerController.checkAddressForSearchController(addProspectCustomerController.address.text);
     });
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
