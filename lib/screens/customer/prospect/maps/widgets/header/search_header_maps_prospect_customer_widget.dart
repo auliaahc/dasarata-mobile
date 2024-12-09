@@ -32,8 +32,7 @@ class SearchHeaderMapsProspectCustomerWidget extends StatelessWidget {
           hint: "Search",
           textInputAction: TextInputAction.search,
           keyboardType: TextInputType.text,
-          onSubmit: (query) =>
-              mapsProspectCustomerController.submitSearchMaps(query),
+          onSubmit: (query) => mapsProspectCustomerController.submitSearchMaps(query),
         ),
       ),
     );

@@ -16,7 +16,6 @@ class LoginController extends GetxController {
   RxBool isLoadingLogin = RxBool(false);
   RxnString email = RxnString();
   RxnString password = RxnString();
-  Rxn<ResponseLoginModel> loginData = Rxn<ResponseLoginModel>();
 
   void resetFormFields() {
     isObscurePassword.value = true;
@@ -43,9 +42,8 @@ class LoginController extends GetxController {
             password: password.value!,
           ),
         );
-        loginData.value = response;
         SnackbarUtils.show(
-          messageText: loginData.value!.message,
+          messageText: response.message,
           type: AnimatedSnackBarType.success,
         );
         await Get.offNamed(AppRoute.home);

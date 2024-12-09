@@ -51,10 +51,10 @@ class RequestAddClosingCustomerModel {
       "village_id": villageId,
       "rt": rt,
       "rw": rw,
-      "customer_category": customerCategory,
+      "custmer_category": customerCategory,
       "service_package_id": servicePackageId,
-      "program_id": programId,
       "installed_address": installedAddress,
+      if (programId != null) "program_id": programId,
     };
   }
 }

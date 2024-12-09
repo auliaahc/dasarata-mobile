@@ -1,4 +1,5 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
 import 'package:dasarata_mobile/models/customer/prospect/response_form_prospect_customer_model.dart';
 import 'package:dasarata_mobile/models/profile/response_profile_model.dart';
 import 'package:dasarata_mobile/services/profile_service.dart';
@@ -11,21 +12,18 @@ import 'package:dasarata_mobile/models/customer/prospect/meet_prospect_customer_
 import 'package:dasarata_mobile/models/customer/prospect/request_form_prospect_customer_model.dart';
 
 class AddProspectCustomerController extends GetxController {
+  final ProspectCustomerController prospectCustomerController = Get.put(ProspectCustomerController());
   ProfileService profileService = ProfileService();
   RxnString salesNip = RxnString();
   ProspectCustomerService prospectCustomerService = ProspectCustomerService();
   Rxn<List<category_prospect_customer_model.Datum>> prospectCategoryData = Rxn<List<category_prospect_customer_model.Datum>>();
   Rxn<List<meet_prospect_customer_model.Datum>> prospectMeetData = Rxn<List<meet_prospect_customer_model.Datum>>();
   final GlobalKey<FormState> addProspectFormKey = GlobalKey<FormState>();
-  Rxn<RequestFormProspectCustomerModel> prospectCustomerData = Rxn<RequestFormProspectCustomerModel>();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  RxnString name = RxnString();
-  RxnString address = RxnString();
-  RxnString phone = RxnString();
-  RxnString prospectMeetValue = RxnString();
-  RxnString prospectCategoryValue = RxnString();
+  TextEditingController name = TextEditingController();
+  TextEditingController address = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  RxnString prospectMeet = RxnString();
+  RxnString prospectCategory = RxnString();
   RxBool isFormAddProspectCustomerValid = RxBool(false);
   RxBool isLoadingProspectCategory = RxBool(false);
   RxBool isLoadingProspectMeet = RxBool(false);
@@ -88,24 +86,27 @@ class AddProspectCustomerController extends GetxController {
   Future<void> submitFormAddProspectCustomer() async {
     if (addProspectFormKey.currentState!.validate()) {
       isLoadingAddProspectCustomer.value = true;
-      prospectCustomerData.value = RequestFormProspectCustomerModel(
+      if (phone.text.startsWith("0")) {
+        phone.text = phone.text.replaceFirst("0", "62");
+      }
+      RequestFormProspectCustomerModel prospectCustomerData = RequestFormProspectCustomerModel(
         nipSalesId: salesNip.value!,
-        prospectCategoryId: int.parse(prospectCategoryValue.value!),
-        prospectMeetId: int.parse(prospectMeetValue.value!),
-        name: name.value!,
-        phoneNumber: phone.value!,
-        installedAddress: address.value!,
+        prospectCategoryId: int.parse(prospectCategory.value!),
+        prospectMeetId: int.parse(prospectMeet.value!),
+        name: name.text,
+        phoneNumber: phone.text,
+        installedAddress: address.text,
       );
       try {
-        final response = await prospectCustomerService.createProspectCustomer(prospectCustomerData.value!);
+        final response = await prospectCustomerService.createProspectCustomer(prospectCustomerData);
         if (response.success) {
           SnackbarUtils.show(
             messageText: "Data customer prospek berhasil ditambahkan!",
             type: AnimatedSnackBarType.success,
           );
         }
+        prospectCustomerController.resetDashboardProspectCustomer();
         Get.back();
-        Get.delete<AddProspectCustomerController>();
       } catch (e) {
         if (e is ResponseFormProspectCustomerModel) {
           if (e.errors != null) {
@@ -129,10 +130,10 @@ class AddProspectCustomerController extends GetxController {
   }
 
   void validateFormAddProspectCustomer() {
-    isFormAddProspectCustomerValid.value = nameController.text.isNotEmpty &&
-        addressController.text.isNotEmpty &&
-        phoneController.text.isNotEmpty &&
-        prospectMeetValue.value != null &&
-        prospectCategoryValue.value != null;
+    isFormAddProspectCustomerValid.value = name.text.isNotEmpty &&
+        address.text.isNotEmpty &&
+        phone.text.isNotEmpty &&
+        prospectMeet.value != null &&
+        prospectCategory.value != null;
   }
 }

@@ -23,13 +23,14 @@ class CurrentLocationFloatingButtonMapsProspectCustomerWidget extends StatelessW
               return FloatingActionButton(
                 backgroundColor: ColorConstant.whiteColor,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32)),
+                  borderRadius: BorderRadius.circular(32),
+                ),
                 onPressed: mapsProspectCustomerController.getCurrentPosition,
-                child: mapsProspectCustomerController.isLoadingCurrentLocation.value ==
-                        true
+                child: mapsProspectCustomerController.isLoadingCurrentLocation.value == true
                     ? const LoadingAnimationGlobalWidget(size: 28)
                     : Center(
-                        child: SvgPicture.asset(IconConstant.currentLocation)),
+                        child: SvgPicture.asset(IconConstant.currentLocation),
+                      ),
               );
             },
           ),

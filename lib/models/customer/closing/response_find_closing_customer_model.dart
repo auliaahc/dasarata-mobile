@@ -142,7 +142,7 @@ class Program {
   factory Program.fromJson(Map<String, dynamic> json) {
     return Program(
       programId: json["program_id"] ?? 0,
-      nameProgram: json["name_program"] ?? "",
+      nameProgram: json["name_program"] ?? "-",
     );
   }
 }
@@ -158,7 +158,7 @@ class Coverage {
   factory Coverage.fromJson(Map<String, dynamic> json) {
     return Coverage(
       coverageAreaId: json["coverage_area_id"] ?? 0,
-      nameCoverage: json["name_coverage"] ?? "",
+      nameCoverage: json["name_coverage"] ?? "-",
     );
   }
 }
@@ -178,8 +178,8 @@ class Spliter {
   factory Spliter.fromJson(Map<String, dynamic> json) {
     return Spliter(
       spliterId: json["spliter_id"] ?? 0,
-      spliterName: json["spliter_name"] ?? "",
-      latitude: json["lantitude"] ?? 0,
+      spliterName: json["spliter_name"] ?? "-",
+      latitude: json["latitude"] ?? 0,
       longitude: json["longitude"] ?? 0,
     );
   }
