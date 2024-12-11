@@ -83,12 +83,12 @@ class RouteClosingCustomerController extends GetxController {
           await closingCustomerService.getClosingCustomer(closingId);
       closingCustomerDetail.value = response.data;
       customerLatLng.value = LatLng(
-        closingCustomerDetail.value!.latitude,
-        closingCustomerDetail.value!.longitude,
+        closingCustomerDetail.value!.latitude!,
+        closingCustomerDetail.value!.longitude!,
       );
       spliterLatLng.value = LatLng(
-        closingCustomerDetail.value!.spliter.latitude,
-        closingCustomerDetail.value!.spliter.longitude,
+        closingCustomerDetail.value!.spliter!.latitude,
+        closingCustomerDetail.value!.spliter!.longitude,
       );
       updateCustomerAndSpliterMarkers();
       moveCameraToBounds();
