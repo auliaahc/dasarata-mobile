@@ -31,7 +31,7 @@ cp .env.example .env
 4. This project uses `envied` package to manage environment variables. Generate the `env.g.dart` file by running:
 
 ```shell
-   dart run build_runner build
+dart run build_runner build
 ```
 
 5. Navigate to directory `\dasarata_mobile\android\app\src\main\res\values` and you will find `api-keys.example.xml` file. Make a copy of this file and rename it to `api-keys.xml`. Then, update the string name to `GoogleMapsKey` and add your Google Maps Key. The updated file should look like this:
