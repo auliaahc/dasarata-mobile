@@ -115,6 +115,7 @@ class AddClosingCustomerController extends GetxController {
         );
         prospectCustomerController.resetDashboardProspectCustomer();
         Get.back();
+        Get.back();
       } catch (e) {
         if (e is ResponseGlobalModel) {
           SnackbarUtils.show(
