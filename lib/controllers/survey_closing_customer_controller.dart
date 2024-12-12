@@ -146,8 +146,8 @@ class SurveyClosingCustomerController extends GetxController {
       closingCustomerData.value = response.data;
       if (closingCustomerData.value!.longitude != 0 && closingCustomerData.value!.latitude != 0) {
         selectedLatLng.value = LatLng(
-          closingCustomerData.value!.latitude,
-          closingCustomerData.value!.longitude,
+          closingCustomerData.value!.latitude!,
+          closingCustomerData.value!.longitude!,
         );
         latLngController.text =
             "${selectedLatLng.value!.latitude}, ${selectedLatLng.value!.longitude}";

@@ -88,8 +88,8 @@ class SpliterClosingCustomerController extends GetxController {
       final response = await closingCustomerService.getClosingCustomer(closingId);
       closingCustomerDetail.value = response.data;
       customerLatLng.value = LatLng(
-        closingCustomerDetail.value!.latitude,
-        closingCustomerDetail.value!.longitude,
+        closingCustomerDetail.value!.latitude!,
+        closingCustomerDetail.value!.longitude!,
       );
       updateCustomerMarker();
       moveCamera(customerLatLng.value!);

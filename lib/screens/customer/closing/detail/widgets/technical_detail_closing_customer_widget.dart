@@ -39,12 +39,7 @@ class TechnicalDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          detailClosingCustomerController.detailClosingCustomer.value!
-                                      .coverage.nameCoverage ==
-                                  ""
-                              ? "-"
-                              : detailClosingCustomerController.detailClosingCustomer
-                                  .value!.coverage.nameCoverage,
+                          detailClosingCustomerController.detailClosingCustomer.value?.coverage?.nameCoverage ?? "-",
                           style: valueTextStyle,
                         ),
                       ],
@@ -61,9 +56,7 @@ class TechnicalDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          detailClosingCustomerController.detailClosingCustomer.value!.spliter.spliterName == ""
-                              ? "-"
-                              : detailClosingCustomerController.detailClosingCustomer.value!.spliter.spliterName,
+                          detailClosingCustomerController.detailClosingCustomer.value?.spliter?.spliterName ?? "-",
                           style: valueTextStyle,
                         ),
                       ],
@@ -86,13 +79,7 @@ class TechnicalDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          detailClosingCustomerController
-                                      .detailClosingCustomer.value!.latitude ==
-                                  0
-                              ? "-"
-                              : detailClosingCustomerController
-                                  .detailClosingCustomer.value!.latitude
-                                  .toString(),
+                          detailClosingCustomerController.detailClosingCustomer.value?.latitude?.toString() ?? "-",
                           style: valueTextStyle,
                         ),
                       ],
@@ -109,13 +96,7 @@ class TechnicalDetailClosingCustomerWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing2px,
                         Text(
-                          detailClosingCustomerController
-                                      .detailClosingCustomer.value!.longitude ==
-                                  0
-                              ? "-"
-                              : detailClosingCustomerController
-                                  .detailClosingCustomer.value!.longitude
-                                  .toString(),
+                          detailClosingCustomerController.detailClosingCustomer.value?.longitude?.toString() ?? "-",
                           style: valueTextStyle,
                         ),
                       ],
