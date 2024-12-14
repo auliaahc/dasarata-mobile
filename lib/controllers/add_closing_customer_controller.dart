@@ -89,7 +89,8 @@ class AddClosingCustomerController extends GetxController {
         programId: int.tryParse(program.value ?? ""),
         nik: nik.text,
         fullName: fullName.text,
-        domicileAddress: installedAddress.text,
+        domicileAddress: fullAddress.text,
+        installedAddress: installedAddress.text,
         dateOfBirth: birthDate.value!,
         gender: gender.value!,
         provincesId: int.parse(province.value!),
@@ -100,7 +101,6 @@ class AddClosingCustomerController extends GetxController {
         rw: int.parse(rw.text),
         customerCategory: customerType.value!,
         servicePackageId: int.parse(servicePackage.value!),
-        installedAddress: installedAddress.text,
         photoHome: homePhoto.value!,
         photoKtp: ktpPhoto.value!,
       );
@@ -114,6 +114,7 @@ class AddClosingCustomerController extends GetxController {
           type: AnimatedSnackBarType.success,
         );
         prospectCustomerController.resetDashboardProspectCustomer();
+        Get.back();
         Get.back();
       } catch (e) {
         if (e is ResponseGlobalModel) {
@@ -266,3 +267,4 @@ class AddClosingCustomerController extends GetxController {
     }
   }
 }
+
