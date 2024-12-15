@@ -19,7 +19,7 @@ class BottomNavbarGlobalWidget extends StatelessWidget {
         color: ColorConstant.whiteColor,
         boxShadow: [
           BoxShadow(
-            color: ColorConstant.blackColor.withOpacity(0.1),
+            color: ColorConstant.blackColor.withValues(alpha: 0.1),
             blurRadius: 15,
             spreadRadius: 5,
           ),
