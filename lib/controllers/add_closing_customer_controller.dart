@@ -1,4 +1,6 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:dasarata_mobile/config/app_route.dart';
+import 'package:dasarata_mobile/controllers/main_controller.dart';
 import 'package:dasarata_mobile/controllers/prospect_customer_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,6 +28,7 @@ import 'package:dasarata_mobile/utilities/snackbar_utils.dart';
 class AddClosingCustomerController extends GetxController {
   ClosingCustomerService closingCustomerService = ClosingCustomerService();
   ProspectCustomerService prospectCustomerService = ProspectCustomerService();
+  final MainController mainController = Get.find();
   final ProspectCustomerController prospectCustomerController = Get.put(ProspectCustomerController());
   RxInt selectedStepperIndex = RxInt(0);
   final addClosingCustomerFormKeys = [
@@ -114,8 +117,8 @@ class AddClosingCustomerController extends GetxController {
           type: AnimatedSnackBarType.success,
         );
         prospectCustomerController.resetDashboardProspectCustomer();
-        Get.back();
-        Get.back();
+        mainController.selectedIndex.value = 1;
+        Get.offAllNamed(AppRoute.home);
       } catch (e) {
         if (e is ResponseGlobalModel) {
           SnackbarUtils.show(
