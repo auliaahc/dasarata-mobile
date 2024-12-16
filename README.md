@@ -4,8 +4,8 @@
 
 ## Requirement
 
-- Flutter SDK 3.24.3 or higher
-- Dart SDK 3.x.x (>=3.5.3 <4.0.0)
+- Flutter SDK 3.27.0 or higher
+- Dart SDK 3.x.x (>=3.6.0 <4.0.0)
 
 ## Setup
 
