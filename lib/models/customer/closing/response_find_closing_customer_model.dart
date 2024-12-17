@@ -97,7 +97,7 @@ class Data {
       rw: json["rw"] ?? "",
       photoKtpUrl: json["photo_ktp_url"] ?? "",
       phoneNumber: json["phone_number"] ?? "",
-      customerCategory: json["custmer_category"], // Sudah null-safe
+      customerCategory: json["custmer_category"],
       package:
           json["package"] != null && json["package"] is Map<String, dynamic>
               ? Package.fromJson(json["package"])
@@ -109,11 +109,11 @@ class Data {
       coverage:
           json["coverage"] != null && json["coverage"] is Map<String, dynamic>
               ? Coverage.fromJson(json["coverage"])
-              : null, // Coverage bisa null
+              : null,
       spliter:
           json["spliter"] != null && json["spliter"] is Map<String, dynamic>
               ? Spliter.fromJson(json["spliter"])
-              : null, // Spliter bisa null
+              : null,
       installedAddress: json["installed_address"] ?? "",
       latitude: json["latitude"] != null
           ? (json["latitude"] as num).toDouble()
@@ -208,7 +208,7 @@ class Spliter {
     return Spliter(
       spliterId: json["spliter_id"] ?? 0,
       spliterName: json["spliter_name"] ?? "-",
-      latitude: json["latitude"] ?? 0,
+      latitude: json["lantitude"] ?? 0,
       longitude: json["longitude"] ?? 0,
     );
   }
