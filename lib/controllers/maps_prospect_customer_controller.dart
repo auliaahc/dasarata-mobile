@@ -42,15 +42,23 @@ class MapsProspectCustomerController extends GetxController {
     searchMaps.value = query;
     if (searchMaps.value != null) {
       final input = searchMaps.value!.trim();
-      final latLngDetector = RegExp(r"^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$");
+      final latLngDetector = RegExp(r"^-?\d+([.,]\d+)?\s*,\s*-?\d+([.,]\d+)?$");
       if (latLngDetector.hasMatch(input)) {
-        final parts = input.split(',');
-        final latitude = double.parse(parts[0].trim());
-        final longitude = double.parse(parts[1].trim());
-        currentLatLng.value = LatLng(latitude, longitude);
-        await moveCamera(currentLatLng.value!);
-        updateCurrentLocationMarker();
-        await getAddress(currentLatLng.value!);
+        final sanitizedInput = input.replaceAllMapped(RegExp(r"(-?\d+),(\d+)"), (match) => "${match.group(1)}.${match.group(2)}");
+        final parts = sanitizedInput.split(',');
+        if (parts.length == 2) {
+          final latitude = double.parse(parts[0].trim());
+          final longitude = double.parse(parts[1].trim());
+          currentLatLng.value = LatLng(latitude, longitude);
+          await moveCamera(currentLatLng.value!);
+          updateCurrentLocationMarker();
+          await getAddress(currentLatLng.value!);
+        } else {
+          SnackbarUtils.show(
+            messageText: "Invalid input format",
+            type: AnimatedSnackBarType.error,
+          );
+        }
       } else {
         await getAddressLatLngFromAddressPlusCode();
       }
