@@ -5,12 +5,6 @@ import 'package:get/get.dart';
 class MainController extends GetxController {
   RxInt selectedIndex = RxInt(0);
 
-  @override
-  void onReady() {
-    super.onReady();
-    checkToken();
-  }
-
   void onTabChange(int index) {
     selectedIndex.value = index;
   }
