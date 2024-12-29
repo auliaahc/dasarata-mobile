@@ -59,7 +59,8 @@ class ListChartHomeWidget extends StatelessWidget {
   }
 
   Widget _buildStatictics(String title, List<dynamic> data) {
-    final sortedData = data
+    final lastFourData = data.length > 4 ? data.sublist(data.length - 4) : data;
+    final sortedData = lastFourData
         .map(
           (e) => {
             "month_name": e.monthName,
